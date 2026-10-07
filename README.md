@@ -10,7 +10,8 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-This is a **repository preparation based on the corrected 0.2.5 sources**.
+**Public BETA 0.2.5 — testing in progress.** Players and server administrators
+are welcome to try the mod and report their feedback.
 The game UI is currently mainly French with some bilingual dialogs. Automatic
 language detection and `qh:lang` are **planned, not implemented in this version**.
 The Windows startup fix was checked locally; this package does not certify a new
@@ -78,4 +79,4 @@ See [the roadmap](docs/LOCALIZATION_FR_EN.md) before advertising language suppor
 Project: Frank ( Dgt Kipad QC ) / Le Spot Studio. This is an independent community project,
 not an official Eleon release. Use on your own Empyrion server, including multiplayer, is permitted.
 Frank ( Dgt Kipad QC ) retains distribution of versions and updates; redistribution requires
-his prior written permission. See `LICENSE.md` and `THIRD_PARTY_NOTICES.md`. The repository has not been published by this package.
+his prior written permission. See `LICENSE.md` and `THIRD_PARTY_NOTICES.md`.
