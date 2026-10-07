@@ -8,12 +8,12 @@ Votre flotte vous accompagne : stockez jusqu'à **10 vaisseaux** dans votre
 hangar personnel, marquez un point de sortie et récupérez un vaisseau pour
 votre prochaine aventure.
 
-## État de ce paquet
+## État actuel
 
-Préparation du dépôt à partir des sources corrigées **0.2.5**. Les dialogues
-sont encore principalement en français, avec quelques textes bilingues.
+**BETA publique 0.2.5 — en cours de test.** Joueurs et administrateurs de
+serveurs sont invités à essayer le mod et à partager leurs retours.
+Les dialogues sont encore principalement en français, avec quelques textes bilingues.
 La détection automatique de langue et `qh:lang` sont **à développer**.
-Ce paquet ne constitue pas une nouvelle version multilingue à installer.
 
 ## Utilisation
 
