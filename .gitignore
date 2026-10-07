@@ -1,0 +1,24 @@
+# Private runtime data and build output
+dist/
+artifacts/
+bin/
+obj/
+Saves/
+Archives/
+*.log
+*.dll
+*.exe
+*.pdb
+*.zip
+*.dat
+*.area
+*.epb
+Configuration.xml
+settings.yaml
+dedicated.yaml
+.env
+.env.*
+*.key
+*.pem
+__pycache__/
+.vs/

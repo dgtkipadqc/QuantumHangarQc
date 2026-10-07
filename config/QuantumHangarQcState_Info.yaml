@@ -1,0 +1,5 @@
+Name: QuantumHangarQcState
+Description: Etat des vaisseaux, liste cliquable et retrait cible du GPS Quantum Hangar Qc.
+Author: Le Spot Studio
+Version: 0.2.5
+ModTargets: PfServer

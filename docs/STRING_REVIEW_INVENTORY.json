@@ -1,0 +1,2885 @@
+{
+  "status": "review inventory only; includes non-user-facing strings",
+  "items": [
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 12,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 14,
+      "literal": "\"<color=#66DFFF>Clique un vaisseau pour le sortir / Click a ship to retrieve it</color>\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 15,
+      "literal": "\"/10 places occupees / occupied\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 17,
+      "literal": "\"Libre / Empty\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 18,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 18,
+      "literal": "\"<link=\\\"\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 18,
+      "literal": "\"\\\"><color=#66DFFF><u>\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 18,
+      "literal": "\"</u></color></link>\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/HangarUi.cs",
+      "line": 22,
+      "literal": "\"\\nqh:mark avant la sortie / before retrieval.\\nConfirmation obligatoire / Confirmation required.\\nAutre methode / Alternative: qh:load:NUMERO\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/LiveState.cs",
+      "line": 17,
+      "literal": "\".tmp\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/Markers.cs",
+      "line": 21,
+      "literal": "\"QH - Sortie \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/Markers.cs",
+      "line": 25,
+      "literal": "\"QH_SORTIE_\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 16,
+      "literal": "\".NETFramework,Version=v4.7.2\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 17,
+      "literal": "\"Quantum Hangar Qc — BETA\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 18,
+      "literal": "\"Copyright 2026 Le Spot Studio\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 40,
+      "literal": "\".tmp\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 70,
+      "literal": "\"Identite du hangar invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 73,
+      "literal": "\"Players\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 76,
+      "literal": "\"ID archive invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 85,
+      "literal": "\"Manifest.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 87,
+      "literal": "\"Manifest non compatible; conserver le dossier pour analyse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 99,
+      "literal": "\"Plus de 15 anciennes archives pour ce compte : migration manuelle requise; aucune archive modifiee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 100,
+      "literal": "\"Archive dupliquee; restitution bloquee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 103,
+      "literal": "\"Numeros de places incoherents\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 112,
+      "literal": "\"Choisis une place de 1 a 10\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 114,
+      "literal": "\"Hangar plein : 10 places maximum\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 115,
+      "literal": "\"Ce vaisseau possede deja une transaction dans ton hangar\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 116,
+      "literal": "\"Place \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 116,
+      "literal": "\" occupee : aucun remplacement autorise\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 119,
+      "literal": "\"RESERVED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 119,
+      "literal": "\"Transaction reservee avant export. Ne pas restituer tant que le depot n est pas confirme.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 122,
+      "literal": "\"Manifest.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 124,
+      "literal": "\"Choisis une place de 1 a 15\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 126,
+      "literal": "\"Place \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 126,
+      "literal": "\" libre\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 130,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 130,
+      "literal": "\"EXPORTED_UNVERIFIED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 130,
+      "literal": "\"Export incomplet : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 135,
+      "literal": "\"Export.dat\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 135,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 135,
+      "literal": "\"Archive native incomplete\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 137,
+      "literal": "\"Chemin archive invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 140,
+      "literal": "\"Archive absente ou modifiee : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 145,
+      "literal": "\"QUARANTINE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 146,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 146,
+      "literal": "\"REMOVING\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 155,
+      "literal": "\"Shared/backup.epb\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 156,
+      "literal": "\"Shared/backup.epb\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 164,
+      "literal": "\"QUARANTINE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 171,
+      "literal": "\"RESTORED_QUARANTINE_RETIRED archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 171,
+      "literal": "\" slot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 172,
+      "literal": "\" spawnedId=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 172,
+      "literal": "\" storedArchive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 172,
+      "literal": "\" storedSlot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 173,
+      "literal": "\" recovery=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 173,
+      "literal": "\"Retired\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 175,
+      "literal": "\"RESTORED_QUARANTINE_RETAINED archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 175,
+      "literal": "\" reason=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 182,
+      "literal": "\"Retired\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 212,
+      "literal": "\"Sauvegarde introuvable : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 213,
+      "literal": "\"Mods\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 213,
+      "literal": "\"QuantumHangarQc\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 214,
+      "literal": "\"Instance.lock\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 215,
+      "literal": "\"Archives\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 216,
+      "literal": "\"START 0.2.5 BETA PERSONAL 10 SLOTS; store/destroy/restore enabled; save=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 222,
+      "literal": "\"Configuration.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 226,
+      "literal": "\"AtlantisPlayerCommands\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 226,
+      "literal": "\"Configuration.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 229,
+      "literal": "\"/Configuration/SaveGameName\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 232,
+      "literal": "\"SaveGameName invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 234,
+      "literal": "\"Saves\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 234,
+      "literal": "\"Games\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 235,
+      "literal": "\"DISABLED \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 246,
+      "literal": "\"API SEND seq=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 246,
+      "literal": "\" command=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 247,
+      "literal": "\"Requete refusee : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 265,
+      "literal": "\"STOP\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 273,
+      "literal": "\"qh:invalid\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 296,
+      "literal": "\"API IGNORED seq=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 296,
+      "literal": "\" command=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 296,
+      "literal": "\" received=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 296,
+      "literal": "\" type=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 296,
+      "literal": "\"null\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 302,
+      "literal": "\"API RECEIVE seq=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 302,
+      "literal": "\" command=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 302,
+      "literal": "\" received=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 305,
+      "literal": "\"API \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 305,
+      "literal": "\"erreur\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 311,
+      "literal": "\"Module arrete\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 315,
+      "literal": "\"Trop de requetes GPS en attente\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 319,
+      "literal": "\"Limite de requetes atteinte : redemarrer le module\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 324,
+      "literal": "\"Delai depasse : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 324,
+      "literal": "\" (seq=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 324,
+      "literal": "\"). Aucune relance automatique.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 331,
+      "literal": "\"Identite joueur invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 353,
+      "literal": "\"Secteur joueur absent pour rafraichir les structures\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 356,
+      "literal": "\"STRUCTURES_REFRESHED count=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 361,
+      "literal": "\"Liste des structures absente\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 362,
+      "literal": "\"STRUCTURES count=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 367,
+      "literal": "\"Structure absente ou ambigue : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 378,
+      "literal": "\"LiveState\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 379,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 379,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 383,
+      "literal": "\"Module arrete pendant lecture de l etat\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 387,
+      "literal": "\"Reponse QH_STATE incorrecte ou perimee; aucun depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 388,
+      "literal": "\"QH_STATE : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 389,
+      "literal": "\"Etat QH_STATE incomplet\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 394,
+      "literal": "\"Etat en direct indisponible. Installer aussi QuantumHangarQcState dans Content/Mods/ et redemarrer les PlayfieldServer. Aucun depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 396,
+      "literal": "\"STATE_CLEANUP \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\"RANGE_REQUEST phase=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" ship=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" listSector=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" playerSector=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" listPos=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 402,
+      "literal": "\" playerInfoPos=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 404,
+      "literal": "\"Position directe du vaisseau absente; aucun depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 406,
+      "literal": "\"Position directe du vaisseau invalide ou ID incorrect; aucun depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 410,
+      "literal": "\"Etat QH_STATE devenu trop ancien pendant la lecture joueur; relance le depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 411,
+      "literal": "\"Secteur change pendant la lecture QH_STATE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 412,
+      "literal": "\"Session changee pendant le controle de distance\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 413,
+      "literal": "\"Position joueur invalide; aucun depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\"STATE_RESULT phase=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" ship=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" cachedPower=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" livePower=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" cachedPilot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" livePilot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" dockedTo=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" docked=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" occupants=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" ready=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" owner=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" observer=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" playersSeen=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" requesterSeen=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 414,
+      "literal": "\" identitySource=Request_Player_Info\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 418,
+      "literal": "\"INFO\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 419,
+      "literal": "\"Vaisseau non pret sur le playfield; aucun depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 420,
+      "literal": "\"Vaisseau encore arrime a l entite \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 420,
+      "literal": "\" selon le playfield\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 421,
+      "literal": "\"Joueurs encore dans le vaisseau selon le playfield : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\"RANGE_RESULT phase=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" ship=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" playerSector=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" shipSector=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" playerPos=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" shipPos=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" listPos=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" cacheDeltaM=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" distanceM=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 426,
+      "literal": "\" maxM=250\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 430,
+      "literal": "\"Utilise un vaisseau en Prive, appartenant a ton personnage\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 434,
+      "literal": "\"Vaisseaux CV, SV ou HV uniquement\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 436,
+      "literal": "\"Secteurs differents : toi = \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 436,
+      "literal": "\" ; vaisseau \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 436,
+      "literal": "\". Le depot exige le meme secteur\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 438,
+      "literal": "\"Vaisseau \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 438,
+      "literal": "\" m de son centre selon l API (maximum 250 m). qh:info:\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 438,
+      "literal": "\" pour les positions\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 439,
+      "literal": "\"Alimentation encore ALLUMEE selon le playfield pour \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 439,
+      "literal": "\". Eteins le vaisseau puis relance\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 440,
+      "literal": "\"Cockpit encore occupe selon le playfield : pilote ID \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 440,
+      "literal": "\". Quitte le cockpit puis relance\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 442,
+      "literal": "\"Detache les vaisseaux arrimes avant l operation\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 446,
+      "literal": "\"Quantum Hangar Qc — BETA 0.2.5\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 446,
+      "literal": "\"Annuler\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 456,
+      "literal": "\"HangarUI\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 456,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 456,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 456,
+      "literal": "\".opened.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 463,
+      "literal": "\"Reponse de selection non correspondante\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 465,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 465,
+      "literal": "\"Vaisseau selectionne absent de la liste disponible\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 468,
+      "literal": "\"Composant de liste cliquable sans reponse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 478,
+      "literal": "\"^qh(?::(?<verb>help|status|list|mark|store|load|info))?(?:(?: +|:)(?<a>[0-9]+))?(?:(?: +|:)(?<b>[0-9]+))?$\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 480,
+      "literal": "\"verb\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 484,
+      "literal": "\"store\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 484,
+      "literal": "\"load\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 484,
+      "literal": "\"info\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 485,
+      "literal": "\"store\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 488,
+      "literal": "\"ID ou emplacement invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 490,
+      "literal": "\"QUARANTINE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 491,
+      "literal": "\"COPYING\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 491,
+      "literal": "\"ARCHIVED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 495,
+      "literal": "\"because it is being used by another process\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 495,
+      "literal": "\".area\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 500,
+      "literal": "\"ERROR player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 500,
+      "literal": "\"Operation non terminee : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 508,
+      "literal": "\"COMMAND player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 508,
+      "literal": "\" command=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 509,
+      "literal": "\"qh:help\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 509,
+      "literal": "\"qh:status\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 510,
+      "literal": "\"Ton hangar virtuel : 10 places personnelles.\\n\\nqh:store:ID_VAISSEAU (premiere place libre)\\nqh:store:ID_VAISSEAU:PLACE\\nqh:info:ID (distance et secteur)\\nqh:list (cliquer un vaisseau pour sortir)\\nqh:mark (repere GPS de sortie, valable 5 min)\\nqh:load:PLACE\\n\\nPlaces de 1 a 10. Accessible a tous les joueurs.\\nVaisseaux prives appartenant a ton personnage.\\nEteins le vaisseau, quitte le cockpit et detache les vaisseaux arrimes.\\nSortie : qh:mark, puis eloigne-toi de 50 a 1000 m et utilise qh:load:PLACE.\\nRepere GPS temporaire. Pas d apercu F2.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 510,
+      "literal": "\"Fermer\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 512,
+      "literal": "\"qh:store\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 512,
+      "literal": "\"qh:list\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 512,
+      "literal": "\"qh:load\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 512,
+      "literal": "\"qh:mark\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 512,
+      "literal": "\"qh:info\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 512,
+      "literal": "\"Syntaxe : qh:store:ID:PLACE / qh:load:PLACE / qh:list / qh:mark\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 515,
+      "literal": "\"Choisis une place de 1 a 10\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 516,
+      "literal": "\"qh:load\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 516,
+      "literal": "\"Numero de place invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 517,
+      "literal": "\"qh:info\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 518,
+      "literal": "\"INFO\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"Vaisseau \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\nSecteur joueur : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\nSecteur vaisseau : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\nPosition joueur : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\nPosition vaisseau (API directe) : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"Distance au centre : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\" m / maximum 250 m\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"Secteurs differents : distance non comparable\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\nPropriete : groupe \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\" (ton personnage : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\")\\nAlimentation : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"allumee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"eteinte\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\nPilote actuel (playfield) : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"\\n\\nDiagnostic uniquement; aucun export ni retrait.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 519,
+      "literal": "\"Fermer\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 521,
+      "literal": "\"qh:store\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 523,
+      "literal": "\"Une operation sur ton hangar ou ce vaisseau est deja ouverte\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 529,
+      "literal": "\"qh:mark\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 530,
+      "literal": "\"QH_SORTIE_\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 534,
+      "literal": "\"GPS_UNAVAILABLE \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 536,
+      "literal": "\"Session ou secteur change : refaire qh:mark\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 538,
+      "literal": "\"Point de sortie enregistre pour 5 minutes. \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 538,
+      "literal": "\"Repere GPS envoye. \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 538,
+      "literal": "\"GPS indisponible; la sortie reste utilisable. \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 538,
+      "literal": "\"Eloigne-toi de 50 a 1000 m, puis qh:load:PLACE (1 a 10).\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 540,
+      "literal": "\"qh:list\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 546,
+      "literal": "\"UI_FALLBACK \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 547,
+      "literal": "\"Libre\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 548,
+      "literal": "\"Ton hangar — \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 548,
+      "literal": "\"/10 places occupees\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 548,
+      "literal": "\"\\n\\nListe cliquable indisponible. Sortie : qh:load:NUMERO\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 548,
+      "literal": "\"Fermer\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 552,
+      "literal": "\"Session changee pendant la selection\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 554,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 554,
+      "literal": "\"Archive modifiee depuis l ouverture de la liste\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 555,
+      "literal": "\"qh:load\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 556,
+      "literal": "\"UI_LOAD_SELECTED player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 556,
+      "literal": "\" slot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 556,
+      "literal": "\" archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 559,
+      "literal": "\"qh:store\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 560,
+      "literal": "\"Choisis une place de 1 a 10\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 561,
+      "literal": "\"PREVIEW\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 562,
+      "literal": "\"Session changee pendant la preparation\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 570,
+      "literal": "\"Ancien depot incomplet mais structure modifiee : conserver l archive pour analyse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 574,
+      "literal": "\"Hangar plein : 10 places maximum\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 575,
+      "literal": "\"Ce vaisseau possede deja une transaction dans ton hangar\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 576,
+      "literal": "\"Place \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 576,
+      "literal": "\" occupee : choisis une place libre\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 578,
+      "literal": "\"Reprendre la copie echouee : l ancienne tentative sera conservee.\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 578,
+      "literal": "\"Stocker \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 578,
+      "literal": "\") ?\\nTon hangar : place \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 578,
+      "literal": "\" sur 10\\n\\nLe vaisseau et ses fichiers de sauvegarde seront archives, puis le vaisseau sera retire du monde.\\nFerme les acces logistiques et arrete les scripts qui modifient ses coffres.\\nPersonne ne doit rester dans le vaisseau.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 578,
+      "literal": "\"Confirmer le depot\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 578,
+      "literal": "\"CANCEL store player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 579,
+      "literal": "\"Session changee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 580,
+      "literal": "\"CONFIRM\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 581,
+      "literal": "\"Secteur change pendant la confirmation; relance le depot dans le secteur actuel\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 585,
+      "literal": "\"La tentative precedente a change\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 587,
+      "literal": "\"INCOMPLETE_COPY_RETIRED archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 587,
+      "literal": "\" entity=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 587,
+      "literal": "\"; original present; no replay or spawn\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 591,
+      "literal": "\"Export.dat\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 592,
+      "literal": "\"EXPORT_REQUEST archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 592,
+      "literal": "\" entity=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 592,
+      "literal": "\" forceUnload=false\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 597,
+      "literal": "\"Arret pendant export\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 601,
+      "literal": "\"Export.dat absent, vide ou toujours en cours d'ecriture sur le chemin serveur\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 602,
+      "literal": "\"COPYING\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 604,
+      "literal": "\"ARCHIVED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 604,
+      "literal": "\"EXPORTED_UNVERIFIED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 604,
+      "literal": "\"Archive native copiee. Coffres et coherence du moteur non encore valides.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 607,
+      "literal": "\"Session changee avant retrait\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 608,
+      "literal": "\"BEFORE_REMOVE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 609,
+      "literal": "\"Secteur change pendant l export; aucun retrait\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 613,
+      "literal": "\"REMOVING\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 613,
+      "literal": "\"REMOVING\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 613,
+      "literal": "\"Demande de retrait imminente; aucun rejeu automatique.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 614,
+      "literal": "\"DESTROY_REQUEST archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 614,
+      "literal": "\" entity=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 617,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 617,
+      "literal": "\"Absence de l original confirmee par la liste globale. Coffres a verifier apres restitution.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 618,
+      "literal": "\"STORED archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 618,
+      "literal": "\" slot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 618,
+      "literal": "\" files=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 619,
+      "literal": "\"Vaisseau stocke, place \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 619,
+      "literal": "\". Pour sortir : qh:mark, eloigne-toi de 50 m, puis qh:load:\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 620,
+      "literal": "\"QUARANTINE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 624,
+      "literal": "\"Archive selectionnee modifiee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 625,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 625,
+      "literal": "\"Restitution bloquee : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 625,
+      "literal": "\". Conserver le journal et les archives.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 626,
+      "literal": "\"Choisis d abord une zone libre avec qh:mark\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 630,
+      "literal": "\"Restituer \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 630,
+      "literal": "\" — place \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 630,
+      "literal": "\" ?\\nSecteur : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 630,
+      "literal": "\"\\nPosition : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 630,
+      "literal": "\"\\n\\nLe vaisseau apparaitra au point marque, orientation sauvegardee.\\nVerifie que la zone est assez grande et libre, loin du sol et des obstacles.\\nPas d apercu fantome F2. Coffres a comparer apres apparition.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 630,
+      "literal": "\"Confirmer la sortie\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 631,
+      "literal": "\"Session changee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 634,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 634,
+      "literal": "\"L archive a change\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 635,
+      "literal": "\"Original encore present dans le monde : restitution refusee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 638,
+      "literal": "\"Nouvel ID invalide ou deja utilise\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 640,
+      "literal": "\"RESTORING\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 640,
+      "literal": "\"ID et destination reserves. Ne jamais relancer automatiquement une apparition.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 642,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 643,
+      "literal": "\"Dossier destination deja present : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 645,
+      "literal": "\"SPAWN_REQUEST archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 645,
+      "literal": "\" newId=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 645,
+      "literal": "\" playfield=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 649,
+      "literal": "\"Export.dat\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 656,
+      "literal": "\"Structure restituee differente : conserver l archive pour analyse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 657,
+      "literal": "\"RESTORED_CARGO_UNVERIFIED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 657,
+      "literal": "\"Entite, proprietaire, blocs et appareils verifies. Coffres NON verifies par le module; comparaison manuelle requise.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 659,
+      "literal": "\"RESTORED archive=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 659,
+      "literal": "\" newId=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 659,
+      "literal": "\" CARGO_UNVERIFIED; archived recovery retained\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 660,
+      "literal": "\"Vaisseau restitue, ID \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 660,
+      "literal": "\". Compare maintenant TOUS les coffres, reservoirs et appareils avec le depart. Archive de recuperation conservee.\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 661,
+      "literal": "\"QUARANTINE\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 668,
+      "literal": "\"Presence/absence non confirmee pour \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 668,
+      "literal": "\"; transaction en quarantaine\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 672,
+      "literal": "\"Liste joueurs indisponible\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 675,
+      "literal": "\"Eloigner tous les joueurs a \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 675,
+      "literal": "\" m du centre du vaisseau/point avant l operation (y compris toi)\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 679,
+      "literal": "\"Point GPS invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 684,
+      "literal": "\"remoteex cl=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 684,
+      "literal": "\" 'marker add name=QH_Sortie_\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 684,
+      "literal": "\" pos=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 684,
+      "literal": "\" W expire=300'\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 691,
+      "literal": "\"MapMarkers\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 692,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 692,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 699,
+      "literal": "\"Reponse GPS non correspondante\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 700,
+      "literal": "\"Pont GPS indisponible\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 705,
+      "literal": "\"Pont GPS sans reponse : verifier QuantumHangarQcState 0.2.5\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 714,
+      "literal": "\"Session ou secteur du GPS change\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 720,
+      "literal": "\"Session ou secteur du GPS change\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 722,
+      "literal": "\"GPS_COMMAND \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 724,
+      "literal": "\"GPS_SENT_ONCE player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 724,
+      "literal": "\" name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 724,
+      "literal": "\" position=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 733,
+      "literal": "\"GPS_REMOVE_REQUEST_ACCEPTED name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 733,
+      "literal": "\" delaySeconds=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 733,
+      "literal": "\" (voir QH_GPS REMOVE_SENT dans le journal playfield)\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 734,
+      "literal": "\"GPS_REMOVE_ERROR name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 734,
+      "literal": "\" reason=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 734,
+      "literal": "\"; expiration serveur de secours conservee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 751,
+      "literal": "\"Point expire ou session/secteur change : refaire qh:mark\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 752,
+      "literal": "\"Reste entre 50 et 1000 m du point de sortie\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 754,
+      "literal": "\"Une structure est a moins de 100 m du point : choisir un autre point\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 758,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 760,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 761,
+      "literal": "\"Liste Shared modifiee avant retrait\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 762,
+      "literal": "\"Shared modifie avant retrait; depot refuse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 767,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 768,
+      "literal": "\"Arret pendant restauration\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 771,
+      "literal": "\"Copie de restauration differente\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 775,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 776,
+      "literal": "\"Dossier Shared du vaisseau absent\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 778,
+      "literal": "\"Dossier Shared vide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 779,
+      "literal": "\"Export.dat\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 780,
+      "literal": "\"Export trop volumineux (>512 Mio)\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 782,
+      "literal": "\"Module arrete pendant copie\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 783,
+      "literal": "\"Shared\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 786,
+      "literal": "\"Module arrete pendant copie\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 791,
+      "literal": "\"Fichier source modifie pendant copie : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 792,
+      "literal": "\"SHARED_COPIED file=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 792,
+      "literal": "\" bytes=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 792,
+      "literal": "\" attempt=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 795,
+      "literal": "\"SHARED_COPY_RETRY file=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 795,
+      "literal": "\" attempt=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 795,
+      "literal": "\" error=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 796,
+      "literal": "\"Copie Shared indisponible apres 3 essais : \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 796,
+      "literal": "\". Le vaisseau n a pas ete retire. \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 802,
+      "literal": "\"Manifest.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 805,
+      "literal": "\"Lien filesystem refuse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 806,
+      "literal": "\"Lien filesystem refuse\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 806,
+      "literal": "\"Trop de fichiers dans cette archive\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 814,
+      "literal": "\"NOTICE \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 816,
+      "literal": "\" [QuantumHangarQc] \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "line": 818,
+      "literal": "\"QuantumHangarQc.log\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 17,
+      "literal": "\"Assembly-CSharp\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 18,
+      "literal": "\"6f096e23-09d8-4159-b44a-baeca78318ee\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 19,
+      "literal": "\"GPS: Assembly-CSharp non valide pour cet adaptateur (build 5150 requis), MVID=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 25,
+      "literal": "\"Assembly-CSharp.ToolbarEditor\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 25,
+      "literal": "\"FormatBitmap\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 25,
+      "literal": "\"BuildNode\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 25,
+      "literal": "\"Assembly-CSharp.ControlToken\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 25,
+      "literal": "\"GPS: signatures natives inattendues\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 29,
+      "literal": "\"Destinataire GPS invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 31,
+      "literal": "\"Connexion native du joueur indisponible\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 34,
+      "literal": "\"Identifiant GPS nul\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 52,
+      "literal": "\"QH_GPS REMOVE_SENT player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 52,
+      "literal": "\" name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 52,
+      "literal": "\" mapId=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 52,
+      "literal": "\" (affichage client non acquitte)\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 60,
+      "literal": "\"*.request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 61,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 61,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 63,
+      "literal": "\"*.request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 66,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 68,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 72,
+      "literal": "\".lease.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 74,
+      "literal": "\"Joueur/Steam absent du playfield GPS\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 75,
+      "literal": "\"Duree ou identifiant GPS invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 78,
+      "literal": "\"*.lease.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 85,
+      "literal": "\"QH_GPS ARMED player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 85,
+      "literal": "\" name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 85,
+      "literal": "\" mapId=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 85,
+      "literal": "\" deadline=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 88,
+      "literal": "\"Identite du repere GPS differente\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 89,
+      "literal": "\"Delai GPS invalide\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 96,
+      "literal": "\"QH_GPS REMOVE_SCHEDULED player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 96,
+      "literal": "\" name=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 96,
+      "literal": "\" due=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 100,
+      "literal": "\"QH_GPS ERROR \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 103,
+      "literal": "\"*.lease.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 106,
+      "literal": "\".lease.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/GpsBridge.cs",
+      "line": 114,
+      "literal": "\"QH_GPS REMOVE_ERROR \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 12,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 14,
+      "literal": "\"<color=#66DFFF>Clique un vaisseau pour le sortir / Click a ship to retrieve it</color>\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 15,
+      "literal": "\"/10 places occupees / occupied\\n\\n\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 17,
+      "literal": "\"Libre / Empty\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 18,
+      "literal": "\"STORED\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 18,
+      "literal": "\"<link=\\\"\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 18,
+      "literal": "\"\\\"><color=#66DFFF><u>\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 18,
+      "literal": "\"</u></color></link>\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/HangarUi.cs",
+      "line": 22,
+      "literal": "\"\\nqh:mark avant la sortie / before retrieval.\\nConfirmation obligatoire / Confirmation required.\\nAutre methode / Alternative: qh:load:NUMERO\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/LiveState.cs",
+      "line": 17,
+      "literal": "\".tmp\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/Markers.cs",
+      "line": 21,
+      "literal": "\"QH - Sortie \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/Markers.cs",
+      "line": 25,
+      "literal": "\"QH_SORTIE_\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 9,
+      "literal": "\"Quantum Hangar Qc - Live State\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 15,
+      "literal": "\"QH_STATE: PfServer requis\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 15,
+      "literal": "\"QH_STATE START 0.2.5; observation + retrait GPS cible\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 17,
+      "literal": "\"QH_STATE PLAYFIELD \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 22,
+      "literal": "\"Mods\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 22,
+      "literal": "\"QuantumHangarQc\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 22,
+      "literal": "\"LiveState\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 23,
+      "literal": "\"MapMarkers\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 24,
+      "literal": "\"HangarUI\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 25,
+      "literal": "\"*.request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 26,
+      "literal": "\"QH_STATE requete illisible: \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 27,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 29,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\"QH_STATE SNAPSHOT token=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" ship=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" powered=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" pilot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" dockedTo=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" occupants=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" playersSeen=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" requesterSeen=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 33,
+      "literal": "\" error=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 35,
+      "literal": "\"QH_STATE ERROR \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 40,
+      "literal": "\"Secteur du capteur incorrect\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/StateMod.cs",
+      "line": 48,
+      "literal": "\"Vaisseau absent du playfield charge\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 13,
+      "literal": "\"*.request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 15,
+      "literal": "\".request.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 18,
+      "literal": "\".reply.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 22,
+      "literal": "\"Joueur absent ou session changee / Player absent or session changed\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 23,
+      "literal": "\"Liste invalide / Invalid list\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 27,
+      "literal": "\"Quantum Hangar Qc — BETA 0.2.5\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 27,
+      "literal": "\"Fermer / Close\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 28,
+      "literal": "\"Dialogue indisponible / Dialog unavailable\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 29,
+      "literal": "\".opened.xml\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 29,
+      "literal": "\"QH_UI OPEN player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 29,
+      "literal": "\" token=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 38,
+      "literal": "\"QH_UI SELECT player=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 38,
+      "literal": "\" slot=\"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    },
+    {
+      "file": "src/QuantumHangarQcState/UiBridge.cs",
+      "line": 39,
+      "literal": "\"QH_UI CALLBACK_ERROR \"",
+      "review": "Classify as player text / diagnostic / protocol before extraction"
+    }
+  ]
+}

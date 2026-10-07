@@ -1,0 +1,159 @@
+{
+  "inspected_on": "2026-10-07",
+  "conclusion": "No per-player language member in inspected interfaces; automatic detection not implemented.",
+  "assemblies": [
+    {
+      "name": "Mif.dll",
+      "sha256": "0a2cc0e535923807d32f5c1831e14b1b04659b51d8be9f470d0e2e796ca51e08",
+      "interfaces": {
+        "ModGameAPI": {
+          "fields": [],
+          "methods": [
+            "Console_Write",
+            "Game_GetTickTime",
+            "Game_Request"
+          ]
+        },
+        "PlayerInfo": {
+          "fields": [
+            "clientId",
+            "entityId",
+            "steamId",
+            "steamOwnerId",
+            "playerName",
+            "playfield",
+            "startPlayfield",
+            "pos",
+            "rot",
+            "origin",
+            "factionGroup",
+            "factionId",
+            "factionRole",
+            "health",
+            "healthMax",
+            "oxygen",
+            "oxygenMax",
+            "stamina",
+            "staminaMax",
+            "food",
+            "foodMax",
+            "radiation",
+            "radiationMax",
+            "bodyTemp",
+            "bodyTempMax",
+            "kills",
+            "died",
+            "credits",
+            "toolbar",
+            "bag",
+            "exp",
+            "upgrade",
+            "bpRemainingTime",
+            "bpResourcesInFactory",
+            "bpInFactory",
+            "producedPrefabs",
+            "ping",
+            "permission"
+          ],
+          "methods": [
+            ".ctor"
+          ]
+        }
+      }
+    },
+    {
+      "name": "ModApi.dll",
+      "sha256": "eb26f35ca50baaa9e2c54bd9a319a30d7742e82d789af4abca816da9b48e0f38",
+      "interfaces": {
+        "IPlayer": {
+          "fields": [],
+          "methods": [
+            "get_SteamId",
+            "get_StartPlayfield",
+            "get_Origin",
+            "get_FactionData",
+            "get_FactionRole",
+            "get_Health",
+            "get_HealthMax",
+            "get_Oxygen",
+            "get_OxygenMax",
+            "get_Stamina",
+            "get_StaminaMax",
+            "get_Food",
+            "get_FoodMax",
+            "get_Radiation",
+            "get_RadiationMax",
+            "get_BodyTemp",
+            "get_BodyTempMax",
+            "get_Kills",
+            "get_Died",
+            "get_Credits",
+            "get_ExperiencePoints",
+            "get_UpgradePoints",
+            "get_Ping",
+            "get_CurrentStructure",
+            "get_DrivingEntity",
+            "get_IsPilot",
+            "get_HomeBaseId",
+            "get_SteamOwnerId",
+            "get_Permission",
+            "get_Toolbar",
+            "get_Bag",
+            "Teleport",
+            "Teleport"
+          ]
+        },
+        "IApplication": {
+          "fields": [],
+          "methods": [
+            "get_State",
+            "get_Mode",
+            "GetPathFor",
+            "get_LocalPlayer",
+            "GetAllPlayfields",
+            "GetPfServerInfos",
+            "get_GameTicks",
+            "GetPlayerEntityIds",
+            "GetPlayerDataFor",
+            "SendChatMessage",
+            "ShowDialogBox",
+            "GetStructure",
+            "GetStructures",
+            "GetBlockAndItemMapping",
+            "add_OnPlayfieldLoaded",
+            "remove_OnPlayfieldLoaded",
+            "add_OnPlayfieldUnloading",
+            "remove_OnPlayfieldUnloading",
+            "add_Update",
+            "remove_Update",
+            "add_FixedUpdate",
+            "remove_FixedUpdate",
+            "add_GameEntered",
+            "remove_GameEntered",
+            "add_ChatMessageSent",
+            "remove_ChatMessageSent"
+          ]
+        },
+        "IModApi": {
+          "fields": [],
+          "methods": [
+            "get_ClientPlayfield",
+            "set_ClientPlayfield",
+            "get_Network",
+            "get_GUI",
+            "get_PDA",
+            "set_PDA",
+            "get_Scripting",
+            "get_SoundPlayer",
+            "get_Application",
+            "add_GameEvent",
+            "remove_GameEvent",
+            "Log",
+            "LogWarning",
+            "LogError"
+          ]
+        }
+      }
+    }
+  ]
+}

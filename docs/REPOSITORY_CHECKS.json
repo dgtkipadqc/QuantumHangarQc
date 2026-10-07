@@ -1,0 +1,11 @@
+{
+  "QuantumHangarQc_sources_unchanged": 5,
+  "QuantumHangarQcState_sources_unchanged": 9,
+  "shared_contracts_identical": true,
+  "active_configuration_and_loader_lists_excluded": true,
+  "known_private_server_values_excluded": true,
+  "game_and_third_party_binaries_excluded": true,
+  "windows_build_this_session": "NOT_RUN",
+  "live_server_this_session": "NOT_RUN",
+  "runtime_localization": "NOT_IMPLEMENTED"
+}
