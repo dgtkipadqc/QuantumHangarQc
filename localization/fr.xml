@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="fr">
+  <Text Key="button.close" Args="0">Fermer</Text>
+  <Text Key="button.cancel" Args="0">Annuler</Text>
+  <Text Key="button.store" Args="0">Confirmer le dépôt</Text>
+  <Text Key="button.load" Args="0">Confirmer la sortie</Text>
+  <Text Key="hangar.list.title" Args="1">Ton hangar — {0}/10 places occupées</Text>
+  <Text Key="hangar.list.choose" Args="0">Clique un vaisseau pour le sortir</Text>
+  <Text Key="hangar.list.empty" Args="0">Libre</Text>
+  <Text Key="hangar.list.footer" Args="0">Utilise qh:mark avant la sortie. Confirmation obligatoire. Autre méthode : qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Liste cliquable indisponible. Utilise qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">Stocké</Text>
+  <Text Key="status.quarantine" Args="0">Quarantaine — vérification administrative requise</Text>
+  <Text Key="status.pending" Args="1">Transaction en attente ({0})</Text>
+  <Text Key="language.title" Args="0">Réglage de langue</Text>
+  <Text Key="language.effective" Args="2">Langue effective : {0}. Origine : {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">ton choix mémorisé</Text>
+  <Text Key="language.origin.server" Args="0">défaut du serveur</Text>
+  <Text Key="language.origin.fallback" Args="0">secours anglais</Text>
+  <Text Key="language.auto_unavailable" Args="0">La détection de la langue du jeu n'est pas vérifiée. qh:lang:auto retire ton choix mémorisé et utilise le défaut du serveur.</Text>
+  <Text Key="language.saved" Args="0">Choix de langue mémorisé.</Text>
+  <Text Key="language.cleared" Args="0">Choix de langue mémorisé retiré.</Text>
+  <Text Key="language.unknown" Args="0">Langue inconnue. Ton choix précédent est conservé.</Text>
+  <Text Key="help.body" Args="0">Hangar personnel : 10 places.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+Accessible à tous les joueurs. CV/SV/HV privés appartenant à ton personnage. Alimentation OFF, cockpit quitté, personne à bord et aucun vaisseau arrimé. Reste à 250 m maximum du centre API du vaisseau. Pour sortir : qh:mark, éloigne-toi de 50 à 1000 m, puis qh:load:SLOT. Repère valable 5 minutes. Pas d'aperçu F2.</Text>
+  <Text Key="store.confirm.body" Args="3">Stocker {0} (ID {1}) à la place {2}/10 ?
+
+Le vaisseau et ses fichiers seront archivés, puis retirés du monde. Ferme les accès logistiques et arrête les scripts modifiant les coffres. Personne ne doit rester à bord.</Text>
+  <Text Key="store.retry" Args="0">Reprendre la copie échouée. L'ancienne tentative sera conservée.</Text>
+  <Text Key="store.success" Args="1">Vaisseau stocké à la place {0}. Utilise qh:mark, éloigne-toi d'au moins 50 m, puis qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">Restituer {0} — place {1} ?
+Secteur : {2}
+Position : {3}
+
+Le vaisseau apparaîtra au repère avec son orientation sauvegardée. Vérifie l'espace libre, le sol et les obstacles. Pas d'aperçu F2. Compare les coffres après la sortie.</Text>
+  <Text Key="load.success" Args="1">Vaisseau restitué, ID {0}. Compare TOUS les coffres, réservoirs et appareils avec le départ. Archive de récupération conservée.</Text>
+  <Text Key="mark.success" Args="0">Point de sortie mémorisé pour 5 minutes. Éloigne-toi de 50 à 1000 m, puis qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">Repère GPS envoyé.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS indisponible ; le point de sortie reste utilisable.</Text>
+  <Text Key="info.body" Args="12">Vaisseau {0} : {1}
+Secteur joueur : {2}
+Secteur vaisseau : {3}
+Position joueur : {4}
+Position vaisseau (API directe) : {5}
+Distance au centre : {6} m (maximum 250 m ; secteurs différents non comparables)
+Groupe propriétaire : {7} ; ID : {8} ; ton personnage : {9}
+Alimentation : {10}
+Pilote ID : {11}
+
+Diagnostic uniquement. Aucun export ni retrait.</Text>
+  <Text Key="power.on" Args="0">Allumée</Text>
+  <Text Key="power.off" Args="0">Éteinte</Text>
+  <Text Key="operation.failed" Args="1">Opération non terminée : {0}</Text>
+  <Text Key="error.unexpected" Args="0">Erreur inattendue. Conserve le journal QH ; aucune relance automatique.</Text>
+  <Text Key="error.identity" Args="0">Identité du joueur non vérifiée.</Text>
+  <Text Key="error.archive" Args="0">Archive invalide, incomplète ou modifiée. Conserve-la pour vérification administrative.</Text>
+  <Text Key="error.slot_range" Args="0">Choisis une place de 1 à 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Choisis une place de 1 à 15 pour une ancienne archive.</Text>
+  <Text Key="error.hangar_full" Args="0">Hangar plein : 10 places maximum.</Text>
+  <Text Key="error.duplicate" Args="0">Ce vaisseau possède déjà une transaction dans ton hangar.</Text>
+  <Text Key="error.slot_occupied" Args="0">Place occupée. Choisis une place libre ; remplacement interdit.</Text>
+  <Text Key="error.slot_empty" Args="0">Cette place est libre.</Text>
+  <Text Key="error.stopped" Args="0">Module arrêté. Aucune relance automatique.</Text>
+  <Text Key="error.timeout" Args="0">Délai dépassé. Aucune relance automatique ; vérifie le journal QH.</Text>
+  <Text Key="error.ship_absent" Args="0">Vaisseau absent ou ambigu dans le secteur actuel.</Text>
+  <Text Key="error.live_state" Args="0">État direct indisponible ou invalide. Vérifie QuantumHangarQcState. Dépôt refusé.</Text>
+  <Text Key="error.session" Args="0">Session ou secteur changé. Recommence la commande ; refais qh:mark pour une sortie.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Vaisseau non prêt dans le secteur. Dépôt refusé.</Text>
+  <Text Key="error.docked" Args="0">Détache tous les vaisseaux arrimés avant l'opération.</Text>
+  <Text Key="error.occupants" Args="0">Des joueurs sont encore à bord. Tout le monde doit sortir.</Text>
+  <Text Key="error.owner" Args="0">Utilise un vaisseau privé appartenant à ton personnage.</Text>
+  <Text Key="error.ship_type" Args="0">Vaisseaux CV, SV et HV uniquement.</Text>
+  <Text Key="error.playfield" Args="0">Le joueur et le vaisseau doivent être dans le même secteur.</Text>
+  <Text Key="error.distance" Args="0">Reste à 250 m maximum du centre API du vaisseau. Utilise qh:info:ID pour les positions.</Text>
+  <Text Key="error.ship_powered" Args="0">L'alimentation est encore ALLUMÉE. Éteins le vaisseau, puis réessaie.</Text>
+  <Text Key="error.pilot" Args="0">Le cockpit est encore occupé. Quitte-le, puis réessaie.</Text>
+  <Text Key="error.ui" Args="0">Sélection indisponible ou périmée. Refais qh:list ou utilise qh:load:SLOT.</Text>
+  <Text Key="error.syntax" Args="0">Commande invalide. Utilise qh:help pour les commandes et qh:lang pour les langues.</Text>
+  <Text Key="error.busy" Args="0">Une opération sur ton hangar ou ce vaisseau est déjà ouverte.</Text>
+  <Text Key="error.quarantine" Args="0">Sortie bloquée par une transaction inachevée. Conserve le journal et l'archive pour vérification administrative.</Text>
+  <Text Key="error.mark_missing" Args="0">Choisis d'abord un point de sortie libre avec qh:mark.</Text>
+  <Text Key="error.original_present" Args="0">Vaisseau original encore présent dans le monde. Sortie refusée.</Text>
+  <Text Key="error.spawn" Args="0">Identité, fichiers ou résultat de restauration invalides. Conserve l'archive ; aucune relance automatique.</Text>
+  <Text Key="error.players_near" Args="1">Éloigne tous les joueurs, toi compris, d'au moins {0} m du vaisseau ou du point de sortie.</Text>
+  <Text Key="error.gps" Args="0">Pont GPS indisponible ou invalide. Vérifie le module State.</Text>
+  <Text Key="error.mark_expired" Args="0">Repère périmé ou session/secteur changé. Refais qh:mark.</Text>
+  <Text Key="error.mark_distance" Args="0">Reste entre 50 et 1000 m du point de sortie.</Text>
+  <Text Key="error.obstacle" Args="0">Une structure est à moins de 100 m du point. Choisis un autre point.</Text>
+  <Text Key="error.source_changed" Args="0">Les fichiers du vaisseau ont changé pendant la copie ou avant le retrait. Dépôt refusé ; conserve le journal.</Text>
+  <Text Key="error.copy" Args="0">Copie des fichiers indisponible ou invalide. Conserve l'archive pour vérification.</Text>
+  <Text Key="error.size_limit" Args="0">Archive au-delà des limites : 512 Mio ou 20 000 fichiers.</Text>
+  <Text Key="error.preference_write" Args="0">Le choix de langue n'a pas pu être mémorisé. Le choix actif est conservé.</Text>
+</Catalog>

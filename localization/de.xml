@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="de">
+  <Text Key="button.close" Args="0">Schließen</Text>
+  <Text Key="button.cancel" Args="0">Abbrechen</Text>
+  <Text Key="button.store" Args="0">Einlagern bestätigen</Text>
+  <Text Key="button.load" Args="0">Abruf bestätigen</Text>
+  <Text Key="hangar.list.title" Args="1">Dein Hangar — {0}/10 belegt</Text>
+  <Text Key="hangar.list.choose" Args="0">Klicke auf ein Schiff, um es abzurufen</Text>
+  <Text Key="hangar.list.empty" Args="0">Frei</Text>
+  <Text Key="hangar.list.footer" Args="0">Vor dem Abruf qh:mark verwenden. Bestätigung erforderlich. Alternative: qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Anklickbare Liste nicht verfügbar. Verwende qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">Eingelagert</Text>
+  <Text Key="status.quarantine" Args="0">Quarantäne — Administratorprüfung erforderlich</Text>
+  <Text Key="status.pending" Args="1">Ausstehende Transaktion ({0})</Text>
+  <Text Key="language.title" Args="0">Spracheinstellung</Text>
+  <Text Key="language.effective" Args="2">Aktive Sprache: {0}. Quelle: {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">deine gespeicherte Auswahl</Text>
+  <Text Key="language.origin.server" Args="0">Serverstandard</Text>
+  <Text Key="language.origin.fallback" Args="0">englische Ersatzsprache</Text>
+  <Text Key="language.auto_unavailable" Args="0">Automatische Erkennung der Spielsprache ist nicht verifiziert. qh:lang:auto entfernt deine Auswahl und nutzt den Serverstandard.</Text>
+  <Text Key="language.saved" Args="0">Sprachauswahl gespeichert.</Text>
+  <Text Key="language.cleared" Args="0">Gespeicherte Sprachauswahl entfernt.</Text>
+  <Text Key="language.unknown" Args="0">Unbekannte Sprache. Deine bisherige Auswahl bleibt erhalten.</Text>
+  <Text Key="help.body" Args="0">Persönlicher Hangar: 10 Plätze.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+Für alle Spieler. Nur private CV/SV/HV deines Charakters. Strom AUS, Cockpit verlassen, keine Passagiere oder angedockten Schiffe. Höchstens 250 m vom API-Mittelpunkt entfernt. Abruf: qh:mark, 50–1000 m entfernen, dann qh:load:SLOT. Markierung gilt 5 Minuten. Keine F2-Vorschau.</Text>
+  <Text Key="store.confirm.body" Args="3">{0} (ID {1}) auf Platz {2}/10 einlagern?
+
+Schiff und Dateien werden archiviert, danach wird das Schiff aus der Welt entfernt. Logistikzugriffe schließen und Frachtskripte stoppen. Niemand darf an Bord bleiben.</Text>
+  <Text Key="store.retry" Args="0">Fehlgeschlagene Kopie wiederholen. Der vorherige Versuch bleibt erhalten.</Text>
+  <Text Key="store.success" Args="1">Schiff auf Platz {0} eingelagert. qh:mark verwenden, mindestens 50 m entfernen, dann qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">{0} von Platz {1} abrufen?
+Sektor: {2}
+Position: {3}
+
+Das Schiff erscheint an der Markierung mit gespeicherter Ausrichtung. Abstand zu Gelände und Hindernissen prüfen. Keine F2-Vorschau. Fracht nach Abruf vergleichen.</Text>
+  <Text Key="load.success" Args="1">Schiff abgerufen, ID {0}. ALLE Fracht, Tanks und Geräte mit dem Original vergleichen. Wiederherstellungsarchiv bleibt erhalten.</Text>
+  <Text Key="mark.success" Args="0">Rückkehrpunkt für 5 Minuten gespeichert. 50–1000 m entfernen, dann qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">GPS-Markierung gesendet.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS nicht verfügbar; Rückkehrpunkt funktioniert weiterhin.</Text>
+  <Text Key="info.body" Args="12">Schiff {0}: {1}
+Spielersektor: {2}
+Schiffssektor: {3}
+Spielerposition: {4}
+Schiffsposition (Live-API): {5}
+Entfernung: {6} m (max. 250 m; verschiedene Sektoren nicht vergleichbar)
+Besitzergruppe: {7}; ID: {8}; dein Charakter: {9}
+Strom: {10}
+Piloten-ID: {11}
+
+Nur Diagnose. Kein Export oder Entfernen.</Text>
+  <Text Key="power.on" Args="0">AN</Text>
+  <Text Key="power.off" Args="0">AUS</Text>
+  <Text Key="operation.failed" Args="1">Vorgang nicht abgeschlossen: {0}</Text>
+  <Text Key="error.unexpected" Args="0">Unerwarteter Fehler. QH-Protokoll aufbewahren; keine automatische Wiederholung.</Text>
+  <Text Key="error.identity" Args="0">Spieleridentität konnte nicht geprüft werden.</Text>
+  <Text Key="error.archive" Args="0">Archiv ungültig, unvollständig oder verändert. Zur Administratorprüfung aufbewahren.</Text>
+  <Text Key="error.slot_range" Args="0">Wähle einen Platz von 1 bis 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Für ein altes Archiv Platz 1 bis 15 wählen.</Text>
+  <Text Key="error.hangar_full" Args="0">Hangar voll: höchstens 10 Plätze.</Text>
+  <Text Key="error.duplicate" Args="0">Dieses Schiff hat bereits einen Vorgang in deinem Hangar.</Text>
+  <Text Key="error.slot_occupied" Args="0">Platz belegt. Freien Platz wählen; Ersetzen ist verboten.</Text>
+  <Text Key="error.slot_empty" Args="0">Dieser Platz ist frei.</Text>
+  <Text Key="error.stopped" Args="0">Modul gestoppt. Keine automatische Wiederholung.</Text>
+  <Text Key="error.timeout" Args="0">Zeitüberschreitung. Keine automatische Wiederholung; QH-Protokoll prüfen.</Text>
+  <Text Key="error.ship_absent" Args="0">Schiff fehlt oder ist im aktuellen Sektor nicht eindeutig.</Text>
+  <Text Key="error.live_state" Args="0">Live-Zustand fehlt oder ist ungültig. QuantumHangarQcState prüfen. Einlagern verweigert.</Text>
+  <Text Key="error.session" Args="0">Sitzung oder Sektor geändert. Befehl erneut ausführen; für Abruf qh:mark neu setzen.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Schiff im Sektor nicht bereit. Einlagern verweigert.</Text>
+  <Text Key="error.docked" Args="0">Vor diesem Vorgang alle Schiffe abdocken.</Text>
+  <Text Key="error.occupants" Args="0">Spieler sind noch an Bord. Alle müssen aussteigen.</Text>
+  <Text Key="error.owner" Args="0">Verwende ein privates Schiff deines Charakters.</Text>
+  <Text Key="error.ship_type" Args="0">Nur CV-, SV- und HV-Schiffe werden unterstützt.</Text>
+  <Text Key="error.playfield" Args="0">Spieler und Schiff müssen im selben Sektor sein.</Text>
+  <Text Key="error.distance" Args="0">Höchstens 250 m vom API-Mittelpunkt des Schiffs entfernt bleiben. Positionen mit qh:info:ID prüfen.</Text>
+  <Text Key="error.ship_powered" Args="0">Strom ist noch AN. Schiff ausschalten und erneut versuchen.</Text>
+  <Text Key="error.pilot" Args="0">Cockpit noch besetzt. Cockpit verlassen und erneut versuchen.</Text>
+  <Text Key="error.ui" Args="0">Schiffsauswahl fehlt oder ist ungültig. qh:list erneut oder qh:load:SLOT verwenden.</Text>
+  <Text Key="error.syntax" Args="0">Ungültiger Befehl. qh:help für Befehle und qh:lang für Sprachen verwenden.</Text>
+  <Text Key="error.busy" Args="0">Ein Vorgang für deinen Hangar oder dieses Schiff ist bereits offen.</Text>
+  <Text Key="error.quarantine" Args="0">Abruf durch unvollständigen Vorgang blockiert. Protokoll und Archiv zur Administratorprüfung aufbewahren.</Text>
+  <Text Key="error.mark_missing" Args="0">Zuerst freien Rückkehrpunkt mit qh:mark wählen.</Text>
+  <Text Key="error.original_present" Args="0">Originalschiff noch in der Welt vorhanden. Abruf verweigert.</Text>
+  <Text Key="error.spawn" Args="0">Wiederherstellungs-ID, Dateien oder Ergebnis ungültig. Archiv aufbewahren; keine automatische Wiederholung.</Text>
+  <Text Key="error.players_near" Args="1">Alle Spieler, auch dich selbst, mindestens {0} m vom Schiff oder Rückkehrpunkt entfernen.</Text>
+  <Text Key="error.gps" Args="0">GPS-Brücke fehlt oder ist ungültig. State-Modul prüfen.</Text>
+  <Text Key="error.mark_expired" Args="0">Markierung abgelaufen oder Sitzung/Sektor geändert. qh:mark erneut verwenden.</Text>
+  <Text Key="error.mark_distance" Args="0">50–1000 m vom Rückkehrpunkt entfernt bleiben.</Text>
+  <Text Key="error.obstacle" Args="0">Eine Struktur ist innerhalb von 100 m. Anderen Punkt wählen.</Text>
+  <Text Key="error.source_changed" Args="0">Schiffsdateien während Kopie oder vor Entfernung verändert. Einlagern verweigert; Protokoll aufbewahren.</Text>
+  <Text Key="error.copy" Args="0">Dateikopie fehlt oder ist ungültig. Archiv zur Prüfung aufbewahren.</Text>
+  <Text Key="error.size_limit" Args="0">Archiv überschreitet Grenzen: 512 MiB oder 20.000 Dateien.</Text>
+  <Text Key="error.preference_write" Args="0">Sprachauswahl konnte nicht gespeichert werden. Aktive Auswahl bleibt unverändert.</Text>
+</Catalog>

@@ -105,3 +105,34 @@ fields, and the inspected server player interfaces expose no game-language
 property. Test client-resolved chat keys first; use per-player catalog selection
 for dialogs until a verified client-language signal is available. No multilingual
 runtime or in-game test is delivered by this research update.
+
+## Suivi d'implémentation — 8 octobre 2026
+
+Les sections précédentes décrivent la référence historique 0.2.5. La 0.2.6
+ajoute les catalogues et le choix mémorisé, pas une détection automatique.
+Le 8 octobre, la page Steam officielle affiche toujours les huit langues du
+master. Le code primaire ChatController.cs d'EmpyrionWebAccess a été relu :
+blob `6def9cf5eba7334668efe2b6f85f52ba7399d7ab`, champs IsTextLocaKey/Text/Arg1/Arg2
+et destinataire SinglePlayer. Les SHA Mif Host et ModApi récupérés correspondent
+à l'audit API précédent. Les observations de cet audit restent spécifiques à ces
+binaires, pas à toute future version du jeu.
+
+`experiments/NativeChatProbe.cs` compile contre ces références. Il construit un
+message natif ciblé QH_QC_LOCALE_PROBE_R1 avec deux paramètres, refuse une
+préférence manuelle et n'est intégré à aucun composant livré. Compilation PASS ;
+exécution en jeu NOT_RUN. Aucune preuve de distribution/cache des clés personnalisées.
+Ce prototype ne lit pas la langue du joueur.
+
+Localization.csv : build, chemin installé, en-tête et correspondances = BLOCKED,
+fichier non fourni. Aucun CSV ni composant client obligatoire n'a été livré.
+Pour le test natif : sauvegarder le CSV du scénario test, relever build/en-tête,
+ajouter une clé unique avec les colonnes réellement présentes et les placeholders
+natifs confirmés sur une clé existante. Ne pas remplacer le CSV complet. Avec deux
+clients FR/EN, envoyer le prototype par leurs IDs authentifiés et noter les textes
+et Arg1/Arg2. Essayer une clé absente, reconnexion/cache, puis retirer la ligne de
+laboratoire. Ne pas appeler le prototype avec un choix manuel QH actif.
+
+Test séparé des notifications Request_InGameMessage_SinglePlayer, confirmations
+Request_ShowDialog_SinglePlayer et liste ShowDialogBox. Une preuve du chat ne
+valide aucun de ces trois autres chemins. Aucun transport authentifié/client
+lisant réellement le réglage Empyrion n'est disponible ici ; automatique BLOCKED.

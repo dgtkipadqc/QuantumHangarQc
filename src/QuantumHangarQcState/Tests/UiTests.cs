@@ -8,11 +8,14 @@ class UiTests {
  static void Main(string[] args){
   string dir=Path.GetFullPath(args[0]);Directory.CreateDirectory(dir);
   var pf=new StubIPlayfield{Name="Space",Players=new Dictionary<int,IPlayer>{{7,new StubIPlayer{Id=50,SteamId="a"}},{9,new StubIPlayer{Id=60,SteamId="b"}}}};
-  var app=new App();var bridge=new UiBridge(app,x=>{});var r=Request(50,"a");Put(dir,r);bridge.Tick(dir,new IPlayfield[]{pf},DateTime.UtcNow);
+  var app=new App();var bridge=new UiBridge(app,x=>{});var r=Request(50,"a");r.Language="fr";r.Protocol=2;Put(dir,r);bridge.Tick(dir,new IPlayfield[]{pf},DateTime.UtcNow);
   Check(app.Configs[50].CloseOnLinkClick&&app.Configs[50].ButtonIdxForEnter==-1,"click closes selection, enter cannot select");
-  string body=app.Configs[50].BodyText;Check(body.Contains("<link=\"qh:"+r.Token),"native TMP links rendered");Check(!body.Contains("<link=evil>"),"ship names cannot inject rich text");Check(!body.Contains(HangarUiRules.Link(r,r.Rows[1])),"quarantine not clickable");Check(body.Contains("3 : Libre / Empty"),"free slot shown");
+  string body=app.Configs[50].BodyText;Check(body.Contains("<link=\"qh:"+r.Token),"native TMP links rendered");Check(!body.Contains("<link=evil>"),"ship names cannot inject rich text");Check(!body.Contains(HangarUiRules.Link(r,r.Rows[1])),"quarantine not clickable");Check(body.Contains("3 : Libre"),"French free slot shown");
   int first=app.Keys[50];bridge.Tick(dir,new IPlayfield[]{pf},DateTime.UtcNow);Check(app.Keys[50]==first,"no duplicate dialog on repeated tick");
-  var second=Request(60,"b");Put(dir,second);bridge.Tick(dir,new IPlayfield[]{pf},DateTime.UtcNow);
+  var second=Request(60,"b");second.Language="en";second.Protocol=2;Put(dir,second);bridge.Tick(dir,new IPlayfield[]{pf},DateTime.UtcNow);
+  Check(app.Configs[50].BodyText.Contains("Clique")&&app.Configs[60].BodyText.Contains("Click"),"simultaneous French and English bodies isolated");
+  Check(app.Configs[50].ButtonTexts[0]=="Fermer"&&app.Configs[60].ButtonTexts[0]=="Close","buttons follow per-request language");
+  var oldLanguage=Request(50,"a");Check(HangarUiRules.Body(oldLanguage).Contains("Click"),"old request defaults to English");
   app.Handler(-1,HangarUiRules.Link(r,r.Rows[0]),"",999,first);Check(!File.Exists(Path.Combine(dir,r.Token+".reply.xml")),"wrong player callback ignored");
   app.Handler(-1,HangarUiRules.Link(second,second.Rows[0]),"",50,first);Check(Read(dir,r).Cancelled,"other player's link cannot select");
   app.Handler(-1,HangarUiRules.Link(second,second.Rows[0]),"",60,app.Keys[60]);Check(Read(dir,second).ArchiveId==second.Rows[0].ArchiveId,"second player preserved by shared dispatcher");

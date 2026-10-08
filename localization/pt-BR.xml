@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="pt-BR">
+  <Text Key="button.close" Args="0">Fechar</Text>
+  <Text Key="button.cancel" Args="0">Cancelar</Text>
+  <Text Key="button.store" Args="0">Confirmar armazenamento</Text>
+  <Text Key="button.load" Args="0">Confirmar retirada</Text>
+  <Text Key="hangar.list.title" Args="1">Seu hangar — {0}/10 ocupadas</Text>
+  <Text Key="hangar.list.choose" Args="0">Clique em uma nave para retirá-la</Text>
+  <Text Key="hangar.list.empty" Args="0">Livre</Text>
+  <Text Key="hangar.list.footer" Args="0">Use qh:mark antes de retirar. Confirmação obrigatória. Alternativa: qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Lista clicável indisponível. Use qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">Armazenada</Text>
+  <Text Key="status.quarantine" Args="0">Quarentena — revisão administrativa necessária</Text>
+  <Text Key="status.pending" Args="1">Transação pendente ({0})</Text>
+  <Text Key="language.title" Args="0">Configuração de idioma</Text>
+  <Text Key="language.effective" Args="2">Idioma ativo: {0}. Origem: {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">sua escolha salva</Text>
+  <Text Key="language.origin.server" Args="0">padrão do servidor</Text>
+  <Text Key="language.origin.fallback" Args="0">inglês de reserva</Text>
+  <Text Key="language.auto_unavailable" Args="0">A detecção do idioma do jogo não foi verificada. qh:lang:auto remove sua escolha salva e usa o padrão do servidor.</Text>
+  <Text Key="language.saved" Args="0">Escolha de idioma salva.</Text>
+  <Text Key="language.cleared" Args="0">Escolha de idioma removida.</Text>
+  <Text Key="language.unknown" Args="0">Idioma desconhecido. Sua escolha anterior foi mantida.</Text>
+  <Text Key="help.body" Args="0">Hangar pessoal: 10 vagas.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+Disponível para todos. Somente CV/SV/HV privados do seu personagem. Energia OFF, saia do cockpit, sem passageiros ou naves acopladas. Fique a até 250 m do centro da nave pela API. Retirada: qh:mark, afaste-se 50–1000 m e use qh:load:SLOT. Marcador válido por 5 minutos. Sem prévia F2.</Text>
+  <Text Key="store.confirm.body" Args="3">Armazenar {0} (ID {1}) na vaga {2}/10?
+
+A nave e os arquivos serão arquivados, depois a nave será removida do mundo. Feche a logística e pare scripts que alteram a carga. Ninguém pode ficar a bordo.</Text>
+  <Text Key="store.retry" Args="0">Repetir a cópia falha. A tentativa anterior será mantida.</Text>
+  <Text Key="store.success" Args="1">Nave armazenada na vaga {0}. Use qh:mark, afaste-se pelo menos 50 m e use qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">Retirar {0} da vaga {1}?
+Setor: {2}
+Posição: {3}
+
+A nave aparecerá no marcador com a orientação salva. Verifique o espaço livre de terreno e obstáculos. Sem prévia F2. Compare a carga após retirar.</Text>
+  <Text Key="load.success" Args="1">Nave retirada, ID {0}. Compare TODA a carga, tanques e dispositivos com o original. Arquivo de recuperação mantido.</Text>
+  <Text Key="mark.success" Args="0">Ponto de retirada salvo por 5 minutos. Afaste-se 50–1000 m e use qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">Marcador GPS enviado.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS indisponível; o ponto de retirada continua funcionando.</Text>
+  <Text Key="info.body" Args="12">Nave {0}: {1}
+Setor do jogador: {2}
+Setor da nave: {3}
+Posição do jogador: {4}
+Posição da nave (API): {5}
+Distância: {6} m (limite 250 m; setores diferentes não comparáveis)
+Grupo proprietário: {7}; ID: {8}; seu personagem: {9}
+Energia: {10}
+ID do piloto: {11}
+
+Somente diagnóstico. Sem exportação ou remoção.</Text>
+  <Text Key="power.on" Args="0">Ligada</Text>
+  <Text Key="power.off" Args="0">Desligada</Text>
+  <Text Key="operation.failed" Args="1">Operação não concluída: {0}</Text>
+  <Text Key="error.unexpected" Args="0">Erro inesperado. Guarde o log QH; sem repetição automática.</Text>
+  <Text Key="error.identity" Args="0">Identidade do jogador não verificada.</Text>
+  <Text Key="error.archive" Args="0">Arquivo inválido, incompleto ou alterado. Guarde para revisão administrativa.</Text>
+  <Text Key="error.slot_range" Args="0">Escolha uma vaga de 1 a 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Para arquivo antigo, escolha uma vaga de 1 a 15.</Text>
+  <Text Key="error.hangar_full" Args="0">Hangar cheio: no máximo 10 vagas.</Text>
+  <Text Key="error.duplicate" Args="0">Esta nave já possui uma transação no seu hangar.</Text>
+  <Text Key="error.slot_occupied" Args="0">Vaga ocupada. Escolha uma livre; substituição proibida.</Text>
+  <Text Key="error.slot_empty" Args="0">Esta vaga está livre.</Text>
+  <Text Key="error.stopped" Args="0">Módulo parado. Sem repetição automática.</Text>
+  <Text Key="error.timeout" Args="0">Tempo esgotado. Sem repetição automática; verifique o log QH.</Text>
+  <Text Key="error.ship_absent" Args="0">Nave ausente ou ambígua no setor atual.</Text>
+  <Text Key="error.live_state" Args="0">Estado ao vivo indisponível ou inválido. Verifique QuantumHangarQcState. Armazenamento recusado.</Text>
+  <Text Key="error.session" Args="0">Sessão ou setor alterado. Repita o comando; para retirada, use qh:mark novamente.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Nave não pronta no setor. Armazenamento recusado.</Text>
+  <Text Key="error.docked" Args="0">Desacople todas as naves antes da operação.</Text>
+  <Text Key="error.occupants" Args="0">Ainda há jogadores a bordo. Todos devem sair.</Text>
+  <Text Key="error.owner" Args="0">Use uma nave privada do seu personagem.</Text>
+  <Text Key="error.ship_type" Args="0">Somente naves CV, SV e HV.</Text>
+  <Text Key="error.playfield" Args="0">Jogador e nave devem estar no mesmo setor.</Text>
+  <Text Key="error.distance" Args="0">Fique a até 250 m do centro da nave pela API. Confira com qh:info:ID.</Text>
+  <Text Key="error.ship_powered" Args="0">A energia ainda está ligada. Desligue a nave e tente novamente.</Text>
+  <Text Key="error.pilot" Args="0">Cockpit ainda ocupado. Saia e tente novamente.</Text>
+  <Text Key="error.ui" Args="0">Seleção indisponível ou inválida. Use qh:list novamente ou qh:load:SLOT.</Text>
+  <Text Key="error.syntax" Args="0">Comando inválido. Use qh:help para comandos e qh:lang para idiomas.</Text>
+  <Text Key="error.busy" Args="0">Já existe uma operação no seu hangar ou nesta nave.</Text>
+  <Text Key="error.quarantine" Args="0">Retirada bloqueada por transação incompleta. Guarde log e arquivo para o administrador.</Text>
+  <Text Key="error.mark_missing" Args="0">Escolha primeiro um ponto livre com qh:mark.</Text>
+  <Text Key="error.original_present" Args="0">Nave original ainda presente no mundo. Retirada recusada.</Text>
+  <Text Key="error.spawn" Args="0">Identidade, arquivos ou nave restaurada inválidos. Guarde o arquivo; sem repetição automática.</Text>
+  <Text Key="error.players_near" Args="1">Afaste todos os jogadores, inclusive você, pelo menos {0} m da nave ou do ponto de retirada.</Text>
+  <Text Key="error.gps" Args="0">Ponte GPS indisponível ou inválida. Verifique o módulo State.</Text>
+  <Text Key="error.mark_expired" Args="0">Marcador expirado ou sessão/setor alterado. Use qh:mark novamente.</Text>
+  <Text Key="error.mark_distance" Args="0">Fique a 50–1000 m do ponto de retirada.</Text>
+  <Text Key="error.obstacle" Args="0">Há uma estrutura a menos de 100 m. Escolha outro ponto.</Text>
+  <Text Key="error.source_changed" Args="0">Arquivos da nave alterados durante a cópia ou antes da remoção. Armazenamento recusado; guarde o log.</Text>
+  <Text Key="error.copy" Args="0">Cópia dos arquivos indisponível ou inválida. Guarde o arquivo para revisão.</Text>
+  <Text Key="error.size_limit" Args="0">Arquivo excede limites: 512 MiB ou 20.000 arquivos.</Text>
+  <Text Key="error.preference_write" Args="0">Não foi possível salvar o idioma. Sua escolha ativa não mudou.</Text>
+</Catalog>

@@ -1,0 +1,2729 @@
+{
+  "version": "0.2.6",
+  "catalog_keys": [
+    "button.close",
+    "button.cancel",
+    "button.store",
+    "button.load",
+    "hangar.list.title",
+    "hangar.list.choose",
+    "hangar.list.empty",
+    "hangar.list.footer",
+    "hangar.list.fallback",
+    "status.stored",
+    "status.quarantine",
+    "status.pending",
+    "language.title",
+    "language.effective",
+    "language.origin.manual",
+    "language.origin.server",
+    "language.origin.fallback",
+    "language.auto_unavailable",
+    "language.saved",
+    "language.cleared",
+    "language.unknown",
+    "help.body",
+    "store.confirm.body",
+    "store.retry",
+    "store.success",
+    "load.confirm.body",
+    "load.success",
+    "mark.success",
+    "mark.gps_sent",
+    "mark.gps_unavailable",
+    "info.body",
+    "power.on",
+    "power.off",
+    "operation.failed",
+    "error.unexpected",
+    "error.identity",
+    "error.archive",
+    "error.slot_range",
+    "error.legacy_slot_range",
+    "error.hangar_full",
+    "error.duplicate",
+    "error.slot_occupied",
+    "error.slot_empty",
+    "error.stopped",
+    "error.timeout",
+    "error.ship_absent",
+    "error.live_state",
+    "error.session",
+    "error.ship_not_ready",
+    "error.docked",
+    "error.occupants",
+    "error.owner",
+    "error.ship_type",
+    "error.playfield",
+    "error.distance",
+    "error.ship_powered",
+    "error.pilot",
+    "error.ui",
+    "error.syntax",
+    "error.busy",
+    "error.quarantine",
+    "error.mark_missing",
+    "error.original_present",
+    "error.spawn",
+    "error.players_near",
+    "error.gps",
+    "error.mark_expired",
+    "error.mark_distance",
+    "error.obstacle",
+    "error.source_changed",
+    "error.copy",
+    "error.size_limit",
+    "error.preference_write"
+  ],
+  "exceptions": [
+    {
+      "key": "error.identity",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_range",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.hangar_full",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.duplicate",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_occupied",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.legacy_slot_range",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_empty",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.unexpected",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.unexpected",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.stopped",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.timeout",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.timeout",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.timeout",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.identity",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.playfield",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ship_absent",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ship_absent",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.stopped",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ship_not_ready",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.docked",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.occupants",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.owner",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ship_type",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.playfield",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.distance",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ship_powered",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.pilot",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.docked",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ui",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ui",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ui",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.ui",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.syntax",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.syntax",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_range",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_range",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.busy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_range",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.hangar_full",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.duplicate",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.slot_occupied",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.stopped",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.copy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.quarantine",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.mark_missing",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.archive",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.original_present",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.spawn",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.spawn",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.spawn",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.quarantine",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.live_state",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.players_near",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": [
+        "radius"
+      ]
+    },
+    {
+      "key": "error.gps",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.gps",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.gps",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.gps",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.session",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.mark_expired",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.mark_distance",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.obstacle",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.source_changed",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.source_changed",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.stopped",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.spawn",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.copy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.copy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.size_limit",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.stopped",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.stopped",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.source_changed",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.copy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.copy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.copy",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    },
+    {
+      "key": "error.size_limit",
+      "source": "src/QuantumHangarQc/QuantumHangarQc.cs",
+      "channel": "notification on failure",
+      "params": []
+    }
+  ],
+  "policy": "Exception diagnostics stay in logs; player messages render semantic keys. Host/State use one compiled shared resolver. Protocol/GPS tokens and persisted transaction details remain unchanged.",
+  "messages": [
+    {
+      "key": "button.close",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/UiBridge.cs",
+          "line": 27
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 548
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 560
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 569
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 598
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "button.cancel",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 455
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "button.store",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 628
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "button.load",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 680
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "hangar.list.title",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 17
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 17
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 598
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [
+        0
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "hangar.list.choose",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 16
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 16
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "hangar.list.empty",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 19
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 19
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 597
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "hangar.list.footer",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 24
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 24
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "hangar.list.fallback",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 598
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "status.stored",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 14
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 14
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "status.quarantine",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 14
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 14
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "status.pending",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/HangarUi.cs",
+          "line": 14
+        },
+        {
+          "file": "src/QuantumHangarQc/HangarUi.cs",
+          "line": 14
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [
+        0
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.title",
+      "sources": [],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.effective",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 545
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [
+        0,
+        1
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.origin.manual",
+      "sources": [
+        {
+          "file": "src/Shared/Localization.cs",
+          "line": 125
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.origin.server",
+      "sources": [
+        {
+          "file": "src/Shared/Localization.cs",
+          "line": 127
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.origin.fallback",
+      "sources": [
+        {
+          "file": "src/Shared/Localization.cs",
+          "line": 127
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.auto_unavailable",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 545
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.saved",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 540
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.cleared",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 540
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "language.unknown",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 539
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "help.body",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 560
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "store.confirm.body",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 628
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [
+        0,
+        1,
+        2
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "store.retry",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 628
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "store.success",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 669
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [
+        0
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "load.confirm.body",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 680
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "load.success",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 710
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [
+        0
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "mark.success",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 588
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "mark.gps_sent",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 588
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "mark.gps_unavailable",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 588
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "info.body",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 569
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "power.on",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 569
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "power.off",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 569
+        }
+      ],
+      "channel": "dialogs / buttons / clickable list",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "operation.failed",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 519
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 551
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [
+        0
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.unexpected",
+      "sources": [
+        {
+          "file": "src/Shared/Localization.cs",
+          "line": 84
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 216
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 239
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 254
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 313
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 518
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.identity",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 71
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 339
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.archive",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 77
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 88
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 100
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 101
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 104
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 131
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 136
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 138
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 141
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 604
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 620
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 635
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 674
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 684
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.slot_range",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 113
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 565
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 566
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 610
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.legacy_slot_range",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 125
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.hangar_full",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 115
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 624
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.duplicate",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 116
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 625
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.slot_occupied",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 117
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 626
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.slot_empty",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 127
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.stopped",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 319
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 391
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 647
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 818
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 832
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 836
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.timeout",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 323
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 327
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 332
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.ship_absent",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 369
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 375
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.live_state",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 395
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 396
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 397
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 402
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 412
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 414
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 418
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 421
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 722
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.session",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/UiBridge.cs",
+          "line": 22
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 419
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 420
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 586
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 602
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 612
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 629
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 631
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 657
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 659
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 681
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 764
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 770
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.ship_not_ready",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 427
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.docked",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 428
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 450
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.occupants",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 429
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.owner",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 438
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.ship_type",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 442
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.playfield",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 361
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 444
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.distance",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 446
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.ship_powered",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 447
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.pilot",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 448
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.ui",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQcState/UiBridge.cs",
+          "line": 23
+        },
+        {
+          "file": "src/QuantumHangarQcState/UiBridge.cs",
+          "line": 28
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 472
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 473
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 474
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 477
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.syntax",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 499
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 562
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.busy",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 573
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.quarantine",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 675
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 718
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.mark_missing",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 676
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.original_present",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 685
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.spawn",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 688
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 693
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 706
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 821
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.players_near",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 725
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [
+        0
+      ],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.gps",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 729
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 749
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 750
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 755
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.mark_expired",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 801
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.mark_distance",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 802
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.obstacle",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 804
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.source_changed",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 811
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 812
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 841
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.copy",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 651
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 826
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 828
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 846
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 855
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 856
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.size_limit",
+      "sources": [
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 830
+        },
+        {
+          "file": "src/QuantumHangarQc/QuantumHangarQc.cs",
+          "line": 856
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    },
+    {
+      "key": "error.preference_write",
+      "sources": [
+        {
+          "file": "src/Shared/Localization.cs",
+          "line": 106
+        },
+        {
+          "file": "src/Shared/Localization.cs",
+          "line": 117
+        }
+      ],
+      "channel": "notifications",
+      "parameter_indices": [],
+      "translations": {
+        "en": "localization/en.xml",
+        "fr": "localization/fr.xml",
+        "de": "localization/de.xml",
+        "ru": "localization/ru.xml",
+        "it": "localization/it.xml",
+        "pt-BR": "localization/pt-BR.xml",
+        "zh-Hans": "localization/zh-Hans.xml",
+        "el": "localization/el.xml"
+      },
+      "review": "NOT_REVIEWED"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
-# Quantum Hangar Qc — BETA 0.2.5
+# Quantum Hangar Qc — BETA 0.2.6
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
-[Français](README.fr.md) · [Player guide](docs/PLAYER_GUIDE_EN.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localization plan](docs/LOCALIZATION_FR_EN.md)
+[Français](README.fr.md) · [Player guide](docs/PLAYER_GUIDE_EN.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localization](docs/LOCALIZATION_FR_EN.md)
 
 Take your fleet on your next adventure. Quantum Hangar Qc is a community mod for
 Empyrion — Galactic Survival, with a personal virtual hangar for up to **10 ships**.
@@ -10,12 +10,12 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-**Public BETA 0.2.5 — testing in progress.** Players and server administrators
+**Public BETA 0.2.6 — testing in progress.** Players and server administrators
 are welcome to try the mod and report their feedback.
-The game UI is currently mainly French with some bilingual dialogs. Automatic
-language detection and `qh:lang` are **planned, not implemented in this version**.
-The Windows startup fix was checked locally; this package does not certify a new
-live-server test. See [validation](docs/VALIDATION.md).
+This `validate` version implements eight local catalogs and persistent per-player
+`qh:lang` selection. Automatic game-language detection is **BLOCKED / unverified**.
+Windows startup, fonts, cargo and native chat localization still require real-game tests.
+All translations are initial drafts awaiting human review. See [validation](docs/VALIDATION.md).
 
 ## Features
 
@@ -38,6 +38,9 @@ live-server test. See [validation](docs/VALIDATION.md).
 | `qh:info:SHIP_ID` | Distance, position and ownership diagnostic |
 | `qh:mark` | Set a return point valid for five minutes |
 | `qh:load:SLOT` | Retrieve a stored ship |
+| `qh:lang` | Effective language, source and available languages |
+| `qh:lang:CODE` | Save a personal language choice |
+| `qh:lang:auto` | Remove the choice; currently use the server default |
 
 Use the commands without a leading slash. Before storage: power OFF, cockpit
 empty, no occupants or docked ships, private ownership, within 250 m of the
@@ -71,7 +74,7 @@ the repository; building does not install or restart the server.
 
 Report the QH version, game build, scenario, command, expected result and actual
 result. Redact player identifiers and private paths before sharing logs.
-Translation contributions are welcome once the message catalog is integrated.
+Translation contributions are welcome in `localization/*.xml`.
 See [the roadmap](docs/LOCALIZATION_FR_EN.md) before advertising language support.
 
 ## Ownership and publication

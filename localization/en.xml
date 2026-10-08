@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="en">
+  <Text Key="button.close" Args="0">Close</Text>
+  <Text Key="button.cancel" Args="0">Cancel</Text>
+  <Text Key="button.store" Args="0">Confirm storage</Text>
+  <Text Key="button.load" Args="0">Confirm retrieval</Text>
+  <Text Key="hangar.list.title" Args="1">Your hangar — {0}/10 occupied</Text>
+  <Text Key="hangar.list.choose" Args="0">Click a ship to retrieve it</Text>
+  <Text Key="hangar.list.empty" Args="0">Empty</Text>
+  <Text Key="hangar.list.footer" Args="0">Use qh:mark before retrieval. Confirmation required. Alternative: qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Clickable list unavailable. Use qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">Stored</Text>
+  <Text Key="status.quarantine" Args="0">Quarantine — administrator review required</Text>
+  <Text Key="status.pending" Args="1">Pending transaction ({0})</Text>
+  <Text Key="language.title" Args="0">Language settings</Text>
+  <Text Key="language.effective" Args="2">Effective language: {0}. Source: {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">your saved choice</Text>
+  <Text Key="language.origin.server" Args="0">server default</Text>
+  <Text Key="language.origin.fallback" Args="0">English fallback</Text>
+  <Text Key="language.auto_unavailable" Args="0">Automatic game-language detection is not verified. qh:lang:auto removes your saved choice and uses the server default.</Text>
+  <Text Key="language.saved" Args="0">Language choice saved.</Text>
+  <Text Key="language.cleared" Args="0">Saved language choice removed.</Text>
+  <Text Key="language.unknown" Args="0">Unknown language. Your previous choice is unchanged.</Text>
+  <Text Key="help.body" Args="0">Personal hangar: 10 slots.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+All players can use QH. Private CV/SV/HV owned by your character only. Power OFF, leave the cockpit, remove passengers and undock all ships. Stay within 250 m of the ship's API center. For retrieval: qh:mark, move 50–1000 m away, then qh:load:SLOT. Marker valid for 5 minutes. No F2 preview.</Text>
+  <Text Key="store.confirm.body" Args="3">Store {0} (ID {1}) in slot {2}/10?
+
+The ship and save files will be archived, then the ship will be removed from the world. Close logistics access and stop scripts changing cargo. Nobody may remain aboard.</Text>
+  <Text Key="store.retry" Args="0">Retry the failed copy. The previous attempt will be retained.</Text>
+  <Text Key="store.success" Args="1">Ship stored in slot {0}. Use qh:mark, move at least 50 m away, then qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">Retrieve {0} from slot {1}?
+Playfield: {2}
+Position: {3}
+
+The ship will appear at the marker with its saved orientation. Check clearance from terrain and obstacles. No F2 preview. Compare cargo after retrieval.</Text>
+  <Text Key="load.success" Args="1">Ship retrieved, ID {0}. Compare ALL cargo, tanks and devices with the original. Recovery archive retained.</Text>
+  <Text Key="mark.success" Args="0">Return point saved for 5 minutes. Move 50–1000 m away, then qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">GPS marker sent.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS unavailable; the return point still works.</Text>
+  <Text Key="info.body" Args="12">Ship {0}: {1}
+Player playfield: {2}
+Ship playfield: {3}
+Player position: {4}
+Ship position (live API): {5}
+Distance: {6} m (limit 250 m; different playfields cannot be compared)
+Owner group: {7}; ID: {8}; your character: {9}
+Power: {10}
+Pilot ID: {11}
+
+Diagnostic only. No export or removal.</Text>
+  <Text Key="power.on" Args="0">ON</Text>
+  <Text Key="power.off" Args="0">OFF</Text>
+  <Text Key="operation.failed" Args="1">Operation not completed: {0}</Text>
+  <Text Key="error.unexpected" Args="0">Unexpected error. Preserve the QH log; no automatic retry.</Text>
+  <Text Key="error.identity" Args="0">Player identity could not be verified.</Text>
+  <Text Key="error.archive" Args="0">Archive invalid, incomplete or changed. Preserve it for administrator review.</Text>
+  <Text Key="error.slot_range" Args="0">Choose a slot from 1 to 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Choose a slot from 1 to 15 for a legacy archive.</Text>
+  <Text Key="error.hangar_full" Args="0">Hangar full: 10 slots maximum.</Text>
+  <Text Key="error.duplicate" Args="0">This ship already has a transaction in your hangar.</Text>
+  <Text Key="error.slot_occupied" Args="0">Slot occupied. Choose an empty slot; replacement is forbidden.</Text>
+  <Text Key="error.slot_empty" Args="0">This slot is empty.</Text>
+  <Text Key="error.stopped" Args="0">Module stopped. No automatic retry.</Text>
+  <Text Key="error.timeout" Args="0">Request timed out. No automatic retry; check the QH log.</Text>
+  <Text Key="error.ship_absent" Args="0">Ship absent or ambiguous in the current playfield.</Text>
+  <Text Key="error.live_state" Args="0">Live state unavailable or invalid. Check QuantumHangarQcState. Storage refused.</Text>
+  <Text Key="error.session" Args="0">Session or playfield changed. Restart the command; use qh:mark again for retrieval.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Ship not ready in the playfield. Storage refused.</Text>
+  <Text Key="error.docked" Args="0">Undock all ships before this operation.</Text>
+  <Text Key="error.occupants" Args="0">Players still aboard. Everyone must leave.</Text>
+  <Text Key="error.owner" Args="0">Use a private ship owned by your character.</Text>
+  <Text Key="error.ship_type" Args="0">Only CV, SV and HV ships are supported.</Text>
+  <Text Key="error.playfield" Args="0">Player and ship must be in the same playfield.</Text>
+  <Text Key="error.distance" Args="0">Stay within 250 m of the ship's API center. Use qh:info:ID to check positions.</Text>
+  <Text Key="error.ship_powered" Args="0">Power is still ON. Turn the ship OFF, then retry.</Text>
+  <Text Key="error.pilot" Args="0">Cockpit still occupied. Leave the cockpit, then retry.</Text>
+  <Text Key="error.ui" Args="0">Ship selection unavailable or no longer valid. Use qh:list again or qh:load:SLOT.</Text>
+  <Text Key="error.syntax" Args="0">Invalid command. Use qh:help for commands and qh:lang for languages.</Text>
+  <Text Key="error.busy" Args="0">A transaction on your hangar or this ship is already open.</Text>
+  <Text Key="error.quarantine" Args="0">Retrieval blocked by an unfinished transaction. Preserve the log and archive for administrator review.</Text>
+  <Text Key="error.mark_missing" Args="0">Choose a clear return point with qh:mark first.</Text>
+  <Text Key="error.original_present" Args="0">Original ship still present in the world. Retrieval refused.</Text>
+  <Text Key="error.spawn" Args="0">Restoration identity, files or resulting ship invalid. Preserve the archive; no automatic retry.</Text>
+  <Text Key="error.players_near" Args="1">Move every player, including yourself, at least {0} m from the ship or return point.</Text>
+  <Text Key="error.gps" Args="0">GPS bridge unavailable or invalid. Check the State module.</Text>
+  <Text Key="error.mark_expired" Args="0">Marker expired or session/playfield changed. Use qh:mark again.</Text>
+  <Text Key="error.mark_distance" Args="0">Stay 50–1000 m from the return point.</Text>
+  <Text Key="error.obstacle" Args="0">A structure is within 100 m of the return point. Choose another point.</Text>
+  <Text Key="error.source_changed" Args="0">Ship save files changed during copying or before removal. Storage refused; preserve the log.</Text>
+  <Text Key="error.copy" Args="0">Save-file copy unavailable or invalid. Preserve the archive for review.</Text>
+  <Text Key="error.size_limit" Args="0">Archive exceeds limits: 512 MiB or 20,000 files.</Text>
+  <Text Key="error.preference_write" Args="0">Language preference could not be saved. Your active choice is unchanged.</Text>
+</Catalog>

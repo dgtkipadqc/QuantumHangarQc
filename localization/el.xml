@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="el">
+  <Text Key="button.close" Args="0">Κλείσιμο</Text>
+  <Text Key="button.cancel" Args="0">Ακύρωση</Text>
+  <Text Key="button.store" Args="0">Επιβεβαίωση αποθήκευσης</Text>
+  <Text Key="button.load" Args="0">Επιβεβαίωση ανάκτησης</Text>
+  <Text Key="hangar.list.title" Args="1">Το υπόστεγό σου — {0}/10 κατειλημμένες</Text>
+  <Text Key="hangar.list.choose" Args="0">Πάτησε ένα σκάφος για ανάκτηση</Text>
+  <Text Key="hangar.list.empty" Args="0">Ελεύθερη</Text>
+  <Text Key="hangar.list.footer" Args="0">Χρησιμοποίησε qh:mark πριν την ανάκτηση. Απαιτείται επιβεβαίωση. Εναλλακτικά: qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Η λίστα επιλογής δεν είναι διαθέσιμη. Χρησιμοποίησε qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">Αποθηκευμένο</Text>
+  <Text Key="status.quarantine" Args="0">Καραντίνα — απαιτείται έλεγχος διαχειριστή</Text>
+  <Text Key="status.pending" Args="1">Εκκρεμής συναλλαγή ({0})</Text>
+  <Text Key="language.title" Args="0">Ρυθμίσεις γλώσσας</Text>
+  <Text Key="language.effective" Args="2">Ενεργή γλώσσα: {0}. Πηγή: {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">η αποθηκευμένη επιλογή σου</Text>
+  <Text Key="language.origin.server" Args="0">προεπιλογή διακομιστή</Text>
+  <Text Key="language.origin.fallback" Args="0">αγγλική εφεδρεία</Text>
+  <Text Key="language.auto_unavailable" Args="0">Η αυτόματη ανίχνευση γλώσσας παιχνιδιού δεν έχει επαληθευτεί. Το qh:lang:auto αφαιρεί την επιλογή σου και χρησιμοποιεί την προεπιλογή διακομιστή.</Text>
+  <Text Key="language.saved" Args="0">Η επιλογή γλώσσας αποθηκεύτηκε.</Text>
+  <Text Key="language.cleared" Args="0">Η αποθηκευμένη επιλογή γλώσσας αφαιρέθηκε.</Text>
+  <Text Key="language.unknown" Args="0">Άγνωστη γλώσσα. Η προηγούμενη επιλογή διατηρείται.</Text>
+  <Text Key="help.body" Args="0">Προσωπικό υπόστεγο: 10 θέσεις.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+Για όλους τους παίκτες. Μόνο ιδιωτικά CV/SV/HV του χαρακτήρα σου. Ρεύμα OFF, άδεια καμπίνα, χωρίς επιβάτες ή προσαρτημένα σκάφη. Έως 250 μ. από το κέντρο API του σκάφους. Ανάκτηση: qh:mark, απομακρύνσου 50–1000 μ., μετά qh:load:SLOT. Σημείο έγκυρο για 5 λεπτά. Χωρίς προεπισκόπηση F2.</Text>
+  <Text Key="store.confirm.body" Args="3">Αποθήκευση του {0} (ID {1}) στη θέση {2}/10;
+
+Το σκάφος και τα αρχεία θα αρχειοθετηθούν και το σκάφος θα αφαιρεθεί από τον κόσμο. Κλείσε τη σύνδεση εφοδιαστικής και σταμάτησε τα scripts φορτίου. Κανείς δεν πρέπει να μείνει μέσα.</Text>
+  <Text Key="store.retry" Args="0">Επανάληψη αποτυχημένης αντιγραφής. Η προηγούμενη προσπάθεια θα διατηρηθεί.</Text>
+  <Text Key="store.success" Args="1">Το σκάφος αποθηκεύτηκε στη θέση {0}. Χρησιμοποίησε qh:mark, απομακρύνσου τουλάχιστον 50 μ., μετά qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">Ανάκτηση του {0} από τη θέση {1};
+Περιοχή: {2}
+Θέση: {3}
+
+Το σκάφος θα εμφανιστεί στο σημείο με τον αποθηκευμένο προσανατολισμό. Έλεγξε χώρο από έδαφος και εμπόδια. Χωρίς προεπισκόπηση F2. Σύγκρινε το φορτίο μετά την ανάκτηση.</Text>
+  <Text Key="load.success" Args="1">Το σκάφος ανακτήθηκε, ID {0}. Σύγκρινε ΟΛΟ το φορτίο, τις δεξαμενές και τις συσκευές με το αρχικό. Το αρχείο ανάκτησης διατηρείται.</Text>
+  <Text Key="mark.success" Args="0">Το σημείο ανάκτησης αποθηκεύτηκε για 5 λεπτά. Απομακρύνσου 50–1000 μ., μετά qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">Το σημείο GPS στάλθηκε.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">Το GPS δεν είναι διαθέσιμο· το σημείο ανάκτησης λειτουργεί.</Text>
+  <Text Key="info.body" Args="12">Σκάφος {0}: {1}
+Περιοχή παίκτη: {2}
+Περιοχή σκάφους: {3}
+Θέση παίκτη: {4}
+Θέση σκάφους (API): {5}
+Απόσταση: {6} μ. (όριο 250 μ.· διαφορετικές περιοχές δεν συγκρίνονται)
+Ομάδα ιδιοκτήτη: {7}· ID: {8}· ο χαρακτήρας σου: {9}
+Ρεύμα: {10}
+ID πιλότου: {11}
+
+Μόνο διάγνωση. Χωρίς εξαγωγή ή αφαίρεση.</Text>
+  <Text Key="power.on" Args="0">Ενεργό</Text>
+  <Text Key="power.off" Args="0">Ανενεργό</Text>
+  <Text Key="operation.failed" Args="1">Η λειτουργία δεν ολοκληρώθηκε: {0}</Text>
+  <Text Key="error.unexpected" Args="0">Απρόσμενο σφάλμα. Διατήρησε το αρχείο QH· χωρίς αυτόματη επανάληψη.</Text>
+  <Text Key="error.identity" Args="0">Δεν επαληθεύτηκε η ταυτότητα παίκτη.</Text>
+  <Text Key="error.archive" Args="0">Μη έγκυρο, ελλιπές ή αλλαγμένο αρχείο. Διατήρησέ το για έλεγχο διαχειριστή.</Text>
+  <Text Key="error.slot_range" Args="0">Διάλεξε θέση από 1 έως 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Για παλαιό αρχείο διάλεξε θέση από 1 έως 15.</Text>
+  <Text Key="error.hangar_full" Args="0">Το υπόστεγο είναι γεμάτο: έως 10 θέσεις.</Text>
+  <Text Key="error.duplicate" Args="0">Υπάρχει ήδη συναλλαγή για αυτό το σκάφος στο υπόστεγό σου.</Text>
+  <Text Key="error.slot_occupied" Args="0">Κατειλημμένη θέση. Διάλεξε ελεύθερη· απαγορεύεται η αντικατάσταση.</Text>
+  <Text Key="error.slot_empty" Args="0">Αυτή η θέση είναι ελεύθερη.</Text>
+  <Text Key="error.stopped" Args="0">Το πρόσθετο σταμάτησε. Χωρίς αυτόματη επανάληψη.</Text>
+  <Text Key="error.timeout" Args="0">Η αίτηση έληξε. Χωρίς αυτόματη επανάληψη· έλεγξε το αρχείο QH.</Text>
+  <Text Key="error.ship_absent" Args="0">Το σκάφος απουσιάζει ή δεν προσδιορίζεται στην τρέχουσα περιοχή.</Text>
+  <Text Key="error.live_state" Args="0">Μη διαθέσιμη ή άκυρη ζωντανή κατάσταση. Έλεγξε QuantumHangarQcState. Η αποθήκευση απορρίφθηκε.</Text>
+  <Text Key="error.session" Args="0">Άλλαξε η συνεδρία ή η περιοχή. Επανάλαβε την εντολή· για ανάκτηση χρησιμοποίησε ξανά qh:mark.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Το σκάφος δεν είναι έτοιμο στην περιοχή. Η αποθήκευση απορρίφθηκε.</Text>
+  <Text Key="error.docked" Args="0">Αποσύνδεσε όλα τα προσαρτημένα σκάφη πριν τη λειτουργία.</Text>
+  <Text Key="error.occupants" Args="0">Υπάρχουν ακόμα παίκτες μέσα. Όλοι πρέπει να βγουν.</Text>
+  <Text Key="error.owner" Args="0">Χρησιμοποίησε ιδιωτικό σκάφος του χαρακτήρα σου.</Text>
+  <Text Key="error.ship_type" Args="0">Υποστηρίζονται μόνο σκάφη CV, SV και HV.</Text>
+  <Text Key="error.playfield" Args="0">Ο παίκτης και το σκάφος πρέπει να είναι στην ίδια περιοχή.</Text>
+  <Text Key="error.distance" Args="0">Μείνε έως 250 μ. από το κέντρο API του σκάφους. Έλεγξε θέσεις με qh:info:ID.</Text>
+  <Text Key="error.ship_powered" Args="0">Το ρεύμα είναι ακόμα ενεργό. Σβήσε το σκάφος και ξαναδοκίμασε.</Text>
+  <Text Key="error.pilot" Args="0">Η καμπίνα είναι ακόμα κατειλημμένη. Βγες και ξαναδοκίμασε.</Text>
+  <Text Key="error.ui" Args="0">Η επιλογή δεν είναι διαθέσιμη ή έληξε. Χρησιμοποίησε ξανά qh:list ή qh:load:SLOT.</Text>
+  <Text Key="error.syntax" Args="0">Μη έγκυρη εντολή. Χρησιμοποίησε qh:help για εντολές και qh:lang για γλώσσες.</Text>
+  <Text Key="error.busy" Args="0">Υπάρχει ήδη ανοιχτή λειτουργία στο υπόστεγό σου ή αυτό το σκάφος.</Text>
+  <Text Key="error.quarantine" Args="0">Η ανάκτηση μπλοκαρίστηκε από ημιτελή συναλλαγή. Διατήρησε αρχείο και καταγραφή για έλεγχο διαχειριστή.</Text>
+  <Text Key="error.mark_missing" Args="0">Διάλεξε πρώτα ελεύθερο σημείο με qh:mark.</Text>
+  <Text Key="error.original_present" Args="0">Το αρχικό σκάφος υπάρχει ακόμα στον κόσμο. Η ανάκτηση απορρίφθηκε.</Text>
+  <Text Key="error.spawn" Args="0">Μη έγκυρη ταυτότητα, αρχεία ή αποτέλεσμα ανάκτησης. Διατήρησε το αρχείο· χωρίς αυτόματη επανάληψη.</Text>
+  <Text Key="error.players_near" Args="1">Απομάκρυνε όλους τους παίκτες, μαζί και εσένα, τουλάχιστον {0} μ. από το σκάφος ή το σημείο ανάκτησης.</Text>
+  <Text Key="error.gps" Args="0">Μη διαθέσιμη ή άκυρη σύνδεση GPS. Έλεγξε το πρόσθετο State.</Text>
+  <Text Key="error.mark_expired" Args="0">Το σημείο έληξε ή άλλαξε η συνεδρία/περιοχή. Χρησιμοποίησε ξανά qh:mark.</Text>
+  <Text Key="error.mark_distance" Args="0">Μείνε 50–1000 μ. από το σημείο ανάκτησης.</Text>
+  <Text Key="error.obstacle" Args="0">Υπάρχει κατασκευή σε απόσταση κάτω από 100 μ. Διάλεξε άλλο σημείο.</Text>
+  <Text Key="error.source_changed" Args="0">Τα αρχεία σκάφους άλλαξαν κατά την αντιγραφή ή πριν την αφαίρεση. Η αποθήκευση απορρίφθηκε· διατήρησε την καταγραφή.</Text>
+  <Text Key="error.copy" Args="0">Μη διαθέσιμη ή άκυρη αντιγραφή αρχείων. Διατήρησε το αρχείο για έλεγχο.</Text>
+  <Text Key="error.size_limit" Args="0">Το αρχείο υπερβαίνει τα όρια: 512 MiB ή 20.000 αρχεία.</Text>
+  <Text Key="error.preference_write" Args="0">Δεν αποθηκεύτηκε η γλώσσα. Η ενεργή επιλογή δεν άλλαξε.</Text>
+</Catalog>

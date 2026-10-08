@@ -49,3 +49,35 @@ natively by PfServer and must not be added to Host/DllNames.txt.
 Restart, join, then test `qh:help` and `qh:list`. Verify private ship storage,
 retrieval and cargo on a test save. Existing saved ships are not part of the
 repository or installation output.
+
+## Paquet de test 0.2.6 / Test package
+
+Le ZIP précompilé a exactement `ModLoader/` et `QuantumHangarQcState/` à la racine.
+Arrêter le serveur, ses playfields et EmpyrionModHost ; sauvegarder les deux
+composants QH et les données de la sauvegarde, puis fusionner ces deux dossiers
+dans Content/Mods/ en une seule opération. Remplacer les deux DLL QH ensemble.
+**Aucun PowerShell requis pour installer le ZIP précompilé.** Ne pas supprimer
+les dossiers existants avant la fusion. Le ZIP ne contient ni Configuration.xml,
+ni DllNames.txt, ni dépendances du chargeur, ni sauvegardes ou données de joueur.
+
+Catalogues : ModLoader/MODs/QuantumHangarQc/Languages et
+QuantumHangarQcState/Languages. Défaut en ; pour garder des textes FR sans choix
+individuel, ajouter facultativement `<DefaultLanguage>fr</DefaultLanguage>` dans
+le Configuration.xml actif, sans remplacer ses autres valeurs. Chaque joueur
+peut simplement taper `qh:lang:fr`. Mettre à jour les deux composants en 0.2.6 ;
+les préférences sont nouvelles, les archives de vaisseaux restent au format existant.
+
+Retour arrière : arrêter les mêmes processus, restaurer les deux DLL/metadata/
+catalogues QH de la sauvegarde 0.2.5, garder Configuration.xml, listes et archives
+actives. Les préférences supplémentaires peuvent rester : 0.2.5 les ignore.
+Ne pas restaurer des archives anciennes sur des transactions de jeu plus récentes.
+Puis redémarrer et vérifier aide, liste et présence des vaisseaux. Ce protocole
+n'a pas été exécuté sur un serveur réel pendant cette livraison.
+
+Stop dedicated server, playfields and ModHost. Back up both QH components and
+save data. Merge both ZIP root folders into Content/Mods together. No PowerShell
+is needed for the precompiled update. Keep loader lists and active configuration.
+To roll back, stop the same processes and restore both backed-up 0.2.5 components;
+retain current save archives and loader configuration. Extra language preferences
+are ignored by 0.2.5. Do not overwrite newer transactions with stale archives.
+Windows startup, live update and rollback still require your test server.

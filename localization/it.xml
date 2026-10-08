@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="it">
+  <Text Key="button.close" Args="0">Chiudi</Text>
+  <Text Key="button.cancel" Args="0">Annulla</Text>
+  <Text Key="button.store" Args="0">Conferma deposito</Text>
+  <Text Key="button.load" Args="0">Conferma recupero</Text>
+  <Text Key="hangar.list.title" Args="1">Il tuo hangar — {0}/10 occupati</Text>
+  <Text Key="hangar.list.choose" Args="0">Seleziona una nave da recuperare</Text>
+  <Text Key="hangar.list.empty" Args="0">Libero</Text>
+  <Text Key="hangar.list.footer" Args="0">Usa qh:mark prima del recupero. Conferma obbligatoria. Alternativa: qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Lista cliccabile non disponibile. Usa qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">Depositato</Text>
+  <Text Key="status.quarantine" Args="0">Quarantena — verifica amministrativa necessaria</Text>
+  <Text Key="status.pending" Args="1">Operazione in sospeso ({0})</Text>
+  <Text Key="language.title" Args="0">Impostazioni lingua</Text>
+  <Text Key="language.effective" Args="2">Lingua attiva: {0}. Origine: {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">la tua scelta salvata</Text>
+  <Text Key="language.origin.server" Args="0">impostazione del server</Text>
+  <Text Key="language.origin.fallback" Args="0">inglese di riserva</Text>
+  <Text Key="language.auto_unavailable" Args="0">Il rilevamento della lingua del gioco non è verificato. qh:lang:auto rimuove la scelta salvata e usa la lingua del server.</Text>
+  <Text Key="language.saved" Args="0">Scelta della lingua salvata.</Text>
+  <Text Key="language.cleared" Args="0">Scelta della lingua rimossa.</Text>
+  <Text Key="language.unknown" Args="0">Lingua sconosciuta. La scelta precedente rimane.</Text>
+  <Text Key="help.body" Args="0">Hangar personale: 10 posti.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+Per tutti i giocatori. Solo CV/SV/HV privati del tuo personaggio. Alimentazione OFF, esci dalla cabina, nessun passeggero o nave attraccata. Entro 250 m dal centro API della nave. Recupero: qh:mark, allontanati di 50–1000 m, poi qh:load:SLOT. Indicatore valido 5 minuti. Nessuna anteprima F2.</Text>
+  <Text Key="store.confirm.body" Args="3">Depositare {0} (ID {1}) nel posto {2}/10?
+
+Nave e file saranno archiviati, poi la nave sarà rimossa dal mondo. Chiudi la logistica e ferma gli script del carico. Nessuno deve restare a bordo.</Text>
+  <Text Key="store.retry" Args="0">Riprendi la copia fallita. Il tentativo precedente sarà conservato.</Text>
+  <Text Key="store.success" Args="1">Nave depositata nel posto {0}. Usa qh:mark, allontanati di almeno 50 m, poi qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">Recuperare {0} dal posto {1}?
+Settore: {2}
+Posizione: {3}
+
+La nave apparirà al punto segnato con l'orientamento salvato. Verifica lo spazio da terreno e ostacoli. Nessuna anteprima F2. Confronta il carico dopo il recupero.</Text>
+  <Text Key="load.success" Args="1">Nave recuperata, ID {0}. Confronta TUTTO il carico, i serbatoi e i dispositivi con l'originale. Archivio di recupero conservato.</Text>
+  <Text Key="mark.success" Args="0">Punto di recupero salvato per 5 minuti. Allontanati di 50–1000 m, poi qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">Indicatore GPS inviato.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS non disponibile; il punto di recupero funziona comunque.</Text>
+  <Text Key="info.body" Args="12">Nave {0}: {1}
+Settore giocatore: {2}
+Settore nave: {3}
+Posizione giocatore: {4}
+Posizione nave (API): {5}
+Distanza: {6} m (limite 250 m; settori diversi non confrontabili)
+Gruppo proprietario: {7}; ID: {8}; tuo personaggio: {9}
+Alimentazione: {10}
+ID pilota: {11}
+
+Solo diagnosi. Nessun export o rimozione.</Text>
+  <Text Key="power.on" Args="0">Accesa</Text>
+  <Text Key="power.off" Args="0">Spenta</Text>
+  <Text Key="operation.failed" Args="1">Operazione non completata: {0}</Text>
+  <Text Key="error.unexpected" Args="0">Errore imprevisto. Conserva il log QH; nessun tentativo automatico.</Text>
+  <Text Key="error.identity" Args="0">Identità del giocatore non verificata.</Text>
+  <Text Key="error.archive" Args="0">Archivio non valido, incompleto o modificato. Conservalo per la verifica amministrativa.</Text>
+  <Text Key="error.slot_range" Args="0">Scegli un posto da 1 a 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Per un archivio precedente scegli un posto da 1 a 15.</Text>
+  <Text Key="error.hangar_full" Args="0">Hangar pieno: massimo 10 posti.</Text>
+  <Text Key="error.duplicate" Args="0">Questa nave ha già un'operazione nel tuo hangar.</Text>
+  <Text Key="error.slot_occupied" Args="0">Posto occupato. Scegli un posto libero; sostituzione vietata.</Text>
+  <Text Key="error.slot_empty" Args="0">Questo posto è libero.</Text>
+  <Text Key="error.stopped" Args="0">Modulo fermato. Nessun tentativo automatico.</Text>
+  <Text Key="error.timeout" Args="0">Richiesta scaduta. Nessun tentativo automatico; controlla il log QH.</Text>
+  <Text Key="error.ship_absent" Args="0">Nave assente o ambigua nel settore attuale.</Text>
+  <Text Key="error.live_state" Args="0">Stato in tempo reale non valido o assente. Controlla QuantumHangarQcState. Deposito rifiutato.</Text>
+  <Text Key="error.session" Args="0">Sessione o settore cambiati. Ripeti il comando; per il recupero usa di nuovo qh:mark.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Nave non pronta nel settore. Deposito rifiutato.</Text>
+  <Text Key="error.docked" Args="0">Sgancia tutte le navi prima dell'operazione.</Text>
+  <Text Key="error.occupants" Args="0">Giocatori ancora a bordo. Tutti devono uscire.</Text>
+  <Text Key="error.owner" Args="0">Usa una nave privata del tuo personaggio.</Text>
+  <Text Key="error.ship_type" Args="0">Solo navi CV, SV e HV.</Text>
+  <Text Key="error.playfield" Args="0">Giocatore e nave devono essere nello stesso settore.</Text>
+  <Text Key="error.distance" Args="0">Resta entro 250 m dal centro API della nave. Controlla con qh:info:ID.</Text>
+  <Text Key="error.ship_powered" Args="0">Alimentazione ancora accesa. Spegni la nave e riprova.</Text>
+  <Text Key="error.pilot" Args="0">Cabina ancora occupata. Esci e riprova.</Text>
+  <Text Key="error.ui" Args="0">Selezione non disponibile o scaduta. Ripeti qh:list o usa qh:load:SLOT.</Text>
+  <Text Key="error.syntax" Args="0">Comando non valido. Usa qh:help per i comandi e qh:lang per le lingue.</Text>
+  <Text Key="error.busy" Args="0">Un'operazione sul tuo hangar o questa nave è già aperta.</Text>
+  <Text Key="error.quarantine" Args="0">Recupero bloccato da un'operazione incompleta. Conserva log e archivio per l'amministratore.</Text>
+  <Text Key="error.mark_missing" Args="0">Scegli prima un punto libero con qh:mark.</Text>
+  <Text Key="error.original_present" Args="0">Nave originale ancora nel mondo. Recupero rifiutato.</Text>
+  <Text Key="error.spawn" Args="0">Identità, file o nave ripristinata non validi. Conserva l'archivio; nessun tentativo automatico.</Text>
+  <Text Key="error.players_near" Args="1">Allontana tutti i giocatori, te compreso, di almeno {0} m dalla nave o dal punto di recupero.</Text>
+  <Text Key="error.gps" Args="0">Bridge GPS non disponibile o non valido. Controlla il modulo State.</Text>
+  <Text Key="error.mark_expired" Args="0">Indicatore scaduto o sessione/settore cambiati. Ripeti qh:mark.</Text>
+  <Text Key="error.mark_distance" Args="0">Resta a 50–1000 m dal punto di recupero.</Text>
+  <Text Key="error.obstacle" Args="0">Una struttura è a meno di 100 m. Scegli un altro punto.</Text>
+  <Text Key="error.source_changed" Args="0">File della nave cambiati durante la copia o prima della rimozione. Deposito rifiutato; conserva il log.</Text>
+  <Text Key="error.copy" Args="0">Copia dei file non disponibile o non valida. Conserva l'archivio per verifica.</Text>
+  <Text Key="error.size_limit" Args="0">Archivio oltre i limiti: 512 MiB o 20.000 file.</Text>
+  <Text Key="error.preference_write" Args="0">Impossibile salvare la lingua. La scelta attiva non cambia.</Text>
+</Catalog>

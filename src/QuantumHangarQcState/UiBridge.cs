@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Collections.Generic;using Eleon.Modding;using QuantumHangarQc.Live;
+using System;using System.IO;using System.Linq;using System.Collections.Generic;using Eleon.Modding;using QuantumHangarQc.Live;using QuantumHangarQc.Localization;
 namespace QuantumHangarQc.State {
  public sealed class UiBridge {
   sealed class Pending {public string File,Reply;public HangarUiRequest Request;}
@@ -19,16 +19,20 @@ namespace QuantumHangarQc.State {
     lock(gate)if(pending.Values.Any(x=>x.Request.Token==r.Token))continue;
     var item=new Pending{File=file,Reply=reply,Request=r};
     var player=pf.Players.Values.FirstOrDefault(x=>x.Id==r.Player);
-    if(player==null||(!string.IsNullOrEmpty(player.SteamId)&&player.SteamId!=r.Steam)){Reply(item,null,true,"Joueur absent ou session changee / Player absent or session changed");continue;}
-    if(r.Rows==null||r.Rows.Count>15||r.Rows.Any(x=>x==null||x.Slot<1||x.Slot>15)||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){Reply(item,null,true,"Liste invalide / Invalid list");continue;}
+    if(player==null||string.IsNullOrEmpty(player.SteamId)||player.SteamId!=r.Steam){Reply(item,null,true,"error.session");continue;}
+    if((r.Protocol!=0&&r.Protocol!=2)||r.Rows==null||r.Rows.Count>15||r.Rows.Any(x=>!ValidRow(x))||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){Reply(item,null,true,"error.ui");continue;}
     int key;lock(gate){key=++serial;if(key<=0){serial=1;key=1;}while(pending.ContainsKey(key))key=++serial;pending.Add(key,item);}
     try {
      // One shared callback dispatches by customValue; simultaneous players cannot overwrite each other's handler.
-     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText="Quantum Hangar Qc — BETA 0.2.5",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=true,ButtonTexts=new[]{"Fermer / Close"},ButtonIdxForEsc=0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
-     if(!shown){lock(gate)pending.Remove(key);Reply(item,null,true,"Dialogue indisponible / Dialog unavailable");}
+     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText="Quantum Hangar Qc — BETA 0.2.6",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=true,ButtonTexts=new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
+     if(!shown){lock(gate)pending.Remove(key);Reply(item,null,true,"error.ui");}
      else {Transfer.Write(Path.Combine(directory,r.Token+".opened.xml"),new HangarUiReply{Token=r.Token,Player=r.Player,Steam=r.Steam,Client=r.Client,CapturedUtc=now});log("QH_UI OPEN player="+r.Player+" token="+r.Token);}
     } catch(Exception e){lock(gate)pending.Remove(key);Reply(item,null,true,e.Message);}
    }
+  }
+  static bool ValidRow(HangarRow row) {
+   Guid archive;
+   return row!=null&&row.Slot>=1&&row.Slot<=15&&(row.Name==null||row.Name.Length<=256)&&(row.Status==null||row.Status.Length<=64)&&(string.IsNullOrEmpty(row.ArchiveId)||Guid.TryParseExact(row.ArchiveId,"N",out archive));
   }
   void Action(int button,string link,string input,int player,int custom) {
    Pending p;lock(gate){if(!pending.TryGetValue(custom,out p)||p.Request.Player!=player)return;pending.Remove(custom);}

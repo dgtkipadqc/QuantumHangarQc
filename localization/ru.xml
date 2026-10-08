@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="ru">
+  <Text Key="button.close" Args="0">Закрыть</Text>
+  <Text Key="button.cancel" Args="0">Отмена</Text>
+  <Text Key="button.store" Args="0">Подтвердить хранение</Text>
+  <Text Key="button.load" Args="0">Подтвердить выдачу</Text>
+  <Text Key="hangar.list.title" Args="1">Твой ангар — занято {0}/10</Text>
+  <Text Key="hangar.list.choose" Args="0">Нажми на корабль для выдачи</Text>
+  <Text Key="hangar.list.empty" Args="0">Свободно</Text>
+  <Text Key="hangar.list.footer" Args="0">Перед выдачей используй qh:mark. Требуется подтверждение. Альтернатива: qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">Интерактивный список недоступен. Используй qh:load:SLOT.</Text>
+  <Text Key="status.stored" Args="0">На хранении</Text>
+  <Text Key="status.quarantine" Args="0">Карантин — требуется проверка администратора</Text>
+  <Text Key="status.pending" Args="1">Незавершённая операция ({0})</Text>
+  <Text Key="language.title" Args="0">Настройка языка</Text>
+  <Text Key="language.effective" Args="2">Текущий язык: {0}. Источник: {1}.</Text>
+  <Text Key="language.origin.manual" Args="0">твой сохранённый выбор</Text>
+  <Text Key="language.origin.server" Args="0">настройка сервера</Text>
+  <Text Key="language.origin.fallback" Args="0">английский резервный язык</Text>
+  <Text Key="language.auto_unavailable" Args="0">Автоопределение языка игры не проверено. qh:lang:auto удаляет твой выбор и использует настройку сервера.</Text>
+  <Text Key="language.saved" Args="0">Выбор языка сохранён.</Text>
+  <Text Key="language.cleared" Args="0">Сохранённый выбор языка удалён.</Text>
+  <Text Key="language.unknown" Args="0">Неизвестный язык. Предыдущий выбор сохранён.</Text>
+  <Text Key="help.body" Args="0">Личный ангар: 10 мест.
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+Доступно всем игрокам. Только личные CV/SV/HV твоего персонажа. Питание ВЫКЛ, покинь кабину, высади пассажиров и отстыкуй корабли. Не далее 250 м от центра корабля по API. Выдача: qh:mark, отойди на 50–1000 м, затем qh:load:SLOT. Метка действует 5 минут. Предпросмотра F2 нет.</Text>
+  <Text Key="store.confirm.body" Args="3">Поместить {0} (ID {1}) в место {2}/10?
+
+Корабль и файлы будут сохранены, затем корабль будет удалён из мира. Закрой логистику и останови скрипты груза. На борту никого не должно быть.</Text>
+  <Text Key="store.retry" Args="0">Повторить неудачное копирование. Предыдущая попытка сохранится.</Text>
+  <Text Key="store.success" Args="1">Корабль на хранении в месте {0}. Используй qh:mark, отойди минимум на 50 м, затем qh:load:{0}.</Text>
+  <Text Key="load.confirm.body" Args="4">Выдать {0} из места {1}?
+Сектор: {2}
+Позиция: {3}
+
+Корабль появится у метки с сохранённой ориентацией. Проверь расстояние до земли и препятствий. Предпросмотра F2 нет. Сравни груз после выдачи.</Text>
+  <Text Key="load.success" Args="1">Корабль выдан, ID {0}. Сравни ВЕСЬ груз, баки и устройства с исходными. Архив восстановления сохранён.</Text>
+  <Text Key="mark.success" Args="0">Точка выдачи сохранена на 5 минут. Отойди на 50–1000 м, затем qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.gps_sent" Args="0">GPS-метка отправлена.</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS недоступен; точка выдачи работает.</Text>
+  <Text Key="info.body" Args="12">Корабль {0}: {1}
+Сектор игрока: {2}
+Сектор корабля: {3}
+Позиция игрока: {4}
+Позиция корабля (API): {5}
+Расстояние: {6} м (предел 250 м; разные сектора несравнимы)
+Группа владельца: {7}; ID: {8}; твой персонаж: {9}
+Питание: {10}
+ID пилота: {11}
+
+Только диагностика. Без экспорта или удаления.</Text>
+  <Text Key="power.on" Args="0">ВКЛ</Text>
+  <Text Key="power.off" Args="0">ВЫКЛ</Text>
+  <Text Key="operation.failed" Args="1">Операция не завершена: {0}</Text>
+  <Text Key="error.unexpected" Args="0">Неожиданная ошибка. Сохрани журнал QH; автоповтора нет.</Text>
+  <Text Key="error.identity" Args="0">Личность игрока не подтверждена.</Text>
+  <Text Key="error.archive" Args="0">Архив повреждён, неполон или изменён. Сохрани его для проверки администратора.</Text>
+  <Text Key="error.slot_range" Args="0">Выбери место от 1 до 10.</Text>
+  <Text Key="error.legacy_slot_range" Args="0">Для старого архива выбери место от 1 до 15.</Text>
+  <Text Key="error.hangar_full" Args="0">Ангар полон: максимум 10 мест.</Text>
+  <Text Key="error.duplicate" Args="0">Для этого корабля уже есть операция в твоём ангаре.</Text>
+  <Text Key="error.slot_occupied" Args="0">Место занято. Выбери свободное; замена запрещена.</Text>
+  <Text Key="error.slot_empty" Args="0">Это место свободно.</Text>
+  <Text Key="error.stopped" Args="0">Модуль остановлен. Автоповтора нет.</Text>
+  <Text Key="error.timeout" Args="0">Время запроса истекло. Автоповтора нет; проверь журнал QH.</Text>
+  <Text Key="error.ship_absent" Args="0">Корабль отсутствует или неоднозначен в текущем секторе.</Text>
+  <Text Key="error.live_state" Args="0">Текущее состояние недоступно или неверно. Проверь QuantumHangarQcState. Хранение запрещено.</Text>
+  <Text Key="error.session" Args="0">Сессия или сектор изменились. Повтори команду; для выдачи снова qh:mark.</Text>
+  <Text Key="error.ship_not_ready" Args="0">Корабль не готов в секторе. Хранение запрещено.</Text>
+  <Text Key="error.docked" Args="0">Перед операцией отстыкуй все корабли.</Text>
+  <Text Key="error.occupants" Args="0">На борту ещё игроки. Все должны выйти.</Text>
+  <Text Key="error.owner" Args="0">Используй личный корабль своего персонажа.</Text>
+  <Text Key="error.ship_type" Args="0">Поддерживаются только CV, SV и HV.</Text>
+  <Text Key="error.playfield" Args="0">Игрок и корабль должны быть в одном секторе.</Text>
+  <Text Key="error.distance" Args="0">Будь не далее 250 м от центра корабля по API. Проверь позиции через qh:info:ID.</Text>
+  <Text Key="error.ship_powered" Args="0">Питание ещё ВКЛ. Выключи корабль и повтори.</Text>
+  <Text Key="error.pilot" Args="0">Кабина ещё занята. Покинь её и повтори.</Text>
+  <Text Key="error.ui" Args="0">Выбор недоступен или устарел. Повтори qh:list или используй qh:load:SLOT.</Text>
+  <Text Key="error.syntax" Args="0">Неверная команда. Команды: qh:help, языки: qh:lang.</Text>
+  <Text Key="error.busy" Args="0">Операция с твоим ангаром или кораблём уже открыта.</Text>
+  <Text Key="error.quarantine" Args="0">Выдача заблокирована незавершённой операцией. Сохрани журнал и архив для администратора.</Text>
+  <Text Key="error.mark_missing" Args="0">Сначала выбери свободную точку выдачи через qh:mark.</Text>
+  <Text Key="error.original_present" Args="0">Исходный корабль ещё в мире. Выдача запрещена.</Text>
+  <Text Key="error.spawn" Args="0">ID, файлы или результат восстановления неверны. Сохрани архив; автоповтора нет.</Text>
+  <Text Key="error.players_near" Args="1">Все игроки, включая тебя, должны отойти минимум на {0} м от корабля или точки выдачи.</Text>
+  <Text Key="error.gps" Args="0">Мост GPS недоступен или неверен. Проверь модуль State.</Text>
+  <Text Key="error.mark_expired" Args="0">Метка истекла или сессия/сектор изменились. Повтори qh:mark.</Text>
+  <Text Key="error.mark_distance" Args="0">Будь в 50–1000 м от точки выдачи.</Text>
+  <Text Key="error.obstacle" Args="0">Структура ближе 100 м от точки выдачи. Выбери другую точку.</Text>
+  <Text Key="error.source_changed" Args="0">Файлы корабля изменились при копировании или перед удалением. Хранение запрещено; сохрани журнал.</Text>
+  <Text Key="error.copy" Args="0">Копирование файлов недоступно или неверно. Сохрани архив для проверки.</Text>
+  <Text Key="error.size_limit" Args="0">Архив превышает лимит: 512 МиБ или 20 000 файлов.</Text>
+  <Text Key="error.preference_write" Args="0">Не удалось сохранить язык. Текущий выбор не изменён.</Text>
+</Catalog>

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Catalog Schema="1" Code="zh-Hans">
+  <Text Key="button.close" Args="0">关闭</Text>
+  <Text Key="button.cancel" Args="0">取消</Text>
+  <Text Key="button.store" Args="0">确认存入</Text>
+  <Text Key="button.load" Args="0">确认取出</Text>
+  <Text Key="hangar.list.title" Args="1">你的机库 — 已占用 {0}/10</Text>
+  <Text Key="hangar.list.choose" Args="0">点击飞船以取出</Text>
+  <Text Key="hangar.list.empty" Args="0">空闲</Text>
+  <Text Key="hangar.list.footer" Args="0">取出前使用 qh:mark。需要确认。也可使用 qh:load:SLOT</Text>
+  <Text Key="hangar.list.fallback" Args="0">无法使用可点击列表。请使用 qh:load:SLOT。</Text>
+  <Text Key="status.stored" Args="0">已存入</Text>
+  <Text Key="status.quarantine" Args="0">隔离 — 需要管理员检查</Text>
+  <Text Key="status.pending" Args="1">事务待处理（{0}）</Text>
+  <Text Key="language.title" Args="0">语言设置</Text>
+  <Text Key="language.effective" Args="2">当前语言：{0}。来源：{1}。</Text>
+  <Text Key="language.origin.manual" Args="0">已保存的个人选择</Text>
+  <Text Key="language.origin.server" Args="0">服务器默认设置</Text>
+  <Text Key="language.origin.fallback" Args="0">英语备用语言</Text>
+  <Text Key="language.auto_unavailable" Args="0">尚未验证游戏语言自动检测。qh:lang:auto 会清除个人选择并使用服务器默认语言。</Text>
+  <Text Key="language.saved" Args="0">语言选择已保存。</Text>
+  <Text Key="language.cleared" Args="0">已清除保存的语言选择。</Text>
+  <Text Key="language.unknown" Args="0">未知语言。保留原有选择。</Text>
+  <Text Key="help.body" Args="0">个人机库：10 个泊位。
+
+qh:store:ID
+qh:store:ID:SLOT
+qh:info:ID
+qh:list
+qh:mark
+qh:load:SLOT
+qh:lang
+qh:lang:auto
+
+所有玩家均可使用。仅限角色私人拥有的 CV/SV/HV。关闭电源，离开驾驶舱，确保无乘客和停靠飞船。距飞船 API 中心不超过 250 米。取出：qh:mark，离开 50–1000 米后使用 qh:load:SLOT。标记有效期为 5 分钟。无 F2 预览。</Text>
+  <Text Key="store.confirm.body" Args="3">将 {0}（ID {1}）存入泊位 {2}/10？
+
+飞船及存档文件将归档，然后从世界中移除飞船。关闭物流访问并停止修改货物的脚本。船上不得留人。</Text>
+  <Text Key="store.retry" Args="0">重试失败的复制。保留上次尝试。</Text>
+  <Text Key="store.success" Args="1">飞船已存入泊位 {0}。使用 qh:mark，离开至少 50 米后使用 qh:load:{0}。</Text>
+  <Text Key="load.confirm.body" Args="4">从泊位 {1} 取出 {0}？
+区域：{2}
+位置：{3}
+
+飞船将以保存的朝向出现在标记处。检查地形和障碍物附近的空间。无 F2 预览。取出后核对货物。</Text>
+  <Text Key="load.success" Args="1">飞船已取出，ID {0}。核对全部货物、储罐和设备。恢复归档已保留。</Text>
+  <Text Key="mark.success" Args="0">返回点已保存，有效期 5 分钟。离开 50–1000 米后使用 qh:load:SLOT（1–10）。</Text>
+  <Text Key="mark.gps_sent" Args="0">GPS 标记已发送。</Text>
+  <Text Key="mark.gps_unavailable" Args="0">GPS 不可用；返回点仍可使用。</Text>
+  <Text Key="info.body" Args="12">飞船 {0}：{1}
+玩家区域：{2}
+飞船区域：{3}
+玩家位置：{4}
+飞船位置（实时 API）：{5}
+距离：{6} 米（上限 250 米；不同区域不可比较）
+所有者组：{7}；ID：{8}；你的角色：{9}
+电源：{10}
+驾驶员 ID：{11}
+
+仅诊断。不会导出或移除。</Text>
+  <Text Key="power.on" Args="0">开启</Text>
+  <Text Key="power.off" Args="0">关闭</Text>
+  <Text Key="operation.failed" Args="1">操作未完成：{0}</Text>
+  <Text Key="error.unexpected" Args="0">意外错误。请保留 QH 日志；不会自动重试。</Text>
+  <Text Key="error.identity" Args="0">无法验证玩家身份。</Text>
+  <Text Key="error.archive" Args="0">归档无效、不完整或已更改。请保留以供管理员检查。</Text>
+  <Text Key="error.slot_range" Args="0">请选择 1 到 10 的泊位。</Text>
+  <Text Key="error.legacy_slot_range" Args="0">旧归档请选择 1 到 15 的泊位。</Text>
+  <Text Key="error.hangar_full" Args="0">机库已满：最多 10 个泊位。</Text>
+  <Text Key="error.duplicate" Args="0">此飞船在你的机库中已有事务。</Text>
+  <Text Key="error.slot_occupied" Args="0">泊位已占用。请选择空位；禁止替换。</Text>
+  <Text Key="error.slot_empty" Args="0">此泊位为空。</Text>
+  <Text Key="error.stopped" Args="0">模块已停止。不会自动重试。</Text>
+  <Text Key="error.timeout" Args="0">请求超时。不会自动重试；请检查 QH 日志。</Text>
+  <Text Key="error.ship_absent" Args="0">当前区域中飞船不存在或不唯一。</Text>
+  <Text Key="error.live_state" Args="0">实时状态不可用或无效。请检查 QuantumHangarQcState。拒绝存入。</Text>
+  <Text Key="error.session" Args="0">会话或区域已更改。请重新执行命令；取出前重新使用 qh:mark。</Text>
+  <Text Key="error.ship_not_ready" Args="0">区域中的飞船尚未就绪。拒绝存入。</Text>
+  <Text Key="error.docked" Args="0">操作前请解除所有飞船停靠。</Text>
+  <Text Key="error.occupants" Args="0">船上仍有玩家。所有人都必须离开。</Text>
+  <Text Key="error.owner" Args="0">请使用角色私人拥有的飞船。</Text>
+  <Text Key="error.ship_type" Args="0">仅支持 CV、SV 和 HV 飞船。</Text>
+  <Text Key="error.playfield" Args="0">玩家和飞船必须位于同一区域。</Text>
+  <Text Key="error.distance" Args="0">距飞船 API 中心不得超过 250 米。使用 qh:info:ID 检查位置。</Text>
+  <Text Key="error.ship_powered" Args="0">电源仍开启。关闭飞船电源后重试。</Text>
+  <Text Key="error.pilot" Args="0">驾驶舱仍有人。离开驾驶舱后重试。</Text>
+  <Text Key="error.ui" Args="0">飞船选择不可用或已失效。请重新使用 qh:list 或 qh:load:SLOT。</Text>
+  <Text Key="error.syntax" Args="0">无效命令。命令帮助使用 qh:help，语言选择使用 qh:lang。</Text>
+  <Text Key="error.busy" Args="0">你的机库或此飞船已有正在进行的事务。</Text>
+  <Text Key="error.quarantine" Args="0">未完成的事务阻止取出。请保留日志和归档供管理员检查。</Text>
+  <Text Key="error.mark_missing" Args="0">请先使用 qh:mark 选择空旷返回点。</Text>
+  <Text Key="error.original_present" Args="0">原飞船仍存在于世界中。拒绝取出。</Text>
+  <Text Key="error.spawn" Args="0">恢复身份、文件或飞船结果无效。请保留归档；不会自动重试。</Text>
+  <Text Key="error.players_near" Args="1">所有玩家，包括你自己，都必须离开飞船或返回点至少 {0} 米。</Text>
+  <Text Key="error.gps" Args="0">GPS 桥接不可用或无效。请检查 State 模块。</Text>
+  <Text Key="error.mark_expired" Args="0">标记已过期或会话/区域已更改。请重新使用 qh:mark。</Text>
+  <Text Key="error.mark_distance" Args="0">与返回点保持 50–1000 米距离。</Text>
+  <Text Key="error.obstacle" Args="0">返回点 100 米内有结构。请选择其他位置。</Text>
+  <Text Key="error.source_changed" Args="0">飞船文件在复制期间或移除前已更改。拒绝存入；请保留日志。</Text>
+  <Text Key="error.copy" Args="0">存档文件复制不可用或无效。请保留归档供检查。</Text>
+  <Text Key="error.size_limit" Args="0">归档超出限制：512 MiB 或 20,000 个文件。</Text>
+  <Text Key="error.preference_write" Args="0">无法保存语言偏好。当前选择保持不变。</Text>
+</Catalog>

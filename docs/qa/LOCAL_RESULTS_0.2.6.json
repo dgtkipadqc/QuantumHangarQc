@@ -1,0 +1,124 @@
+{
+  "version": "0.2.6",
+  "tests": [
+    {
+      "test": "compile_host",
+      "status": "PASS",
+      "output": "",
+      "method": "compilation"
+    },
+    {
+      "test": "compile_state",
+      "status": "PASS",
+      "output": "src/QuantumHangarQcState/GpsBridge.cs(42,24): warning CS0649: Field `QuantumHangarQc.State.GpsBridge.Check' is never assigned to, and will always have its default value `null'\nsrc/QuantumHangarQcState/GpsBridge.cs(43,28): warning CS0649: Field `QuantumHangarQc.State.GpsBridge.Send' is never assigned to, and will always have its default value `null'\nCompilation succeeded - 2 warning(s)\n",
+      "method": "compilation"
+    },
+    {
+      "test": "compile_host_tests",
+      "status": "PASS",
+      "output": "src/QuantumHangarQc/Tests.cs(22,26): warning CS0649: Field `FakeApi.FailMarkerAdd' is never assigned to, and will always have its default value `false'\nCompilation succeeded - 1 warning(s)\n",
+      "method": "compilation"
+    },
+    {
+      "test": "host_regression",
+      "status": "PASS",
+      "output": "PASS 528 assertions. Real game export contents, cargo, terrain, GUI and placement NOT simulated.\n",
+      "method": "simulated API / local filesystem"
+    },
+    {
+      "test": "compile_state_tests",
+      "status": "PASS",
+      "output": "",
+      "method": "compilation"
+    },
+    {
+      "test": "state_regression",
+      "status": "PASS",
+      "output": "PASS 34 native observer assertions on mocked engine interfaces.\n",
+      "method": "simulated API / local filesystem"
+    },
+    {
+      "test": "compile_ui_tests",
+      "status": "PASS",
+      "output": "src/QuantumHangarQcState/GpsBridge.cs(42,24): warning CS0649: Field `QuantumHangarQc.State.GpsBridge.Check' is never assigned to, and will always have its default value `null'\nsrc/QuantumHangarQcState/GpsBridge.cs(43,28): warning CS0649: Field `QuantumHangarQc.State.GpsBridge.Send' is never assigned to, and will always have its default value `null'\nCompilation succeeded - 2 warning(s)\n",
+      "method": "compilation"
+    },
+    {
+      "test": "ui_regression",
+      "status": "PASS",
+      "output": "PASS 21 selection bridge checks; mocked UI only.\n",
+      "method": "simulated API / local filesystem"
+    },
+    {
+      "test": "compile_locale_tests",
+      "status": "PASS",
+      "output": "src/QuantumHangarQc/Tests.cs(22,26): warning CS0649: Field `FakeApi.FailMarkerAdd' is never assigned to, and will always have its default value `false'\nCompilation succeeded - 1 warning(s)\n",
+      "method": "compilation"
+    },
+    {
+      "test": "localization",
+      "status": "PASS",
+      "output": "PASS 1226 localization assertions; simulated APIs / local files. No game-language source or game rendering tested.\n",
+      "method": "simulated API / local filesystem"
+    },
+    {
+      "test": "compile_fallback_tests",
+      "status": "PASS",
+      "output": "",
+      "method": "compilation"
+    },
+    {
+      "test": "fallback_cache",
+      "status": "PASS",
+      "output": "PASS 10006 fallback/cache assertions. Local files only.\n",
+      "method": "simulated API / local filesystem"
+    },
+    {
+      "test": "compile_native_chat_probe",
+      "status": "PASS",
+      "output": "",
+      "method": "compilation"
+    }
+  ],
+  "references": [
+    {
+      "name": "mscorlib.dll",
+      "sha256": "a69849cf0b433664b14dbaeb82385ec043449f71f7c69559cba4be0dd3e8be8d"
+    },
+    {
+      "name": "System.dll",
+      "sha256": "541c6067cc69a43660d06a4f0f6eab0febcd33df9089f209d99b7ea36682a0a5"
+    },
+    {
+      "name": "System.Core.dll",
+      "sha256": "f9c65f2d44f244e1195802a68f5d8f3457caeef2e385cf28c534218749adbe7f"
+    },
+    {
+      "name": "System.Xml.dll",
+      "sha256": "a01c28f804dca406d6d5d1eacfa9d8d435755fbef58f6673bce40efb789717f3"
+    },
+    {
+      "name": "Mif.dll",
+      "sha256": "f7152cf3274603c899fbe84a20641d24c924cbce004723c8f17064bd6217821f"
+    },
+    {
+      "name": "ModApi.dll",
+      "sha256": "eb26f35ca50baaa9e2c54bd9a319a30d7742e82d789af4abca816da9b48e0f38"
+    },
+    {
+      "name": "UnityEngine.CoreModule.dll",
+      "sha256": "2c2b357c34b6e61ea71c12bff711002822f617589f637baf1d5e78690c907b25"
+    },
+    {
+      "name": "netstandard.dll",
+      "sha256": "9f12554ddf1fa4ef8befabbb8616173a3bf020b7512ada39f21e746ddd1d18fc"
+    },
+    {
+      "name": "Mif.dll",
+      "sha256": "0a2cc0e535923807d32f5c1831e14b1b04659b51d8be9f470d0e2e796ca51e08"
+    }
+  ],
+  "game_tests": "NOT_RUN",
+  "windows_startup": "NOT_RUN",
+  "simulated_state_runtime": "net8.0"
+}

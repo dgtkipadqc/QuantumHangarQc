@@ -1,25 +1,18 @@
-# Current state — 2026-10-07
+# Current state — 2026-10-08
 
-- Runtime baseline: corrected QH BETA 0.2.5, recovered from the previous package.
-- No new runtime version or production C# change in this preparation.
-- Repository preparation: English/French docs, owner-approved artwork, build
-  entry point, sources/tests, issue templates, privacy checks and PayPal support links.
-- Language API audit: no per-player language member in the inspected interfaces.
-- Research update: native chat has IsTextLocaKey; QH dialogs inspected as raw text.
-  See docs/LANGUAGE_RESEARCH_FR_EN.md. Eight Steam interface languages identified.
-- Support wording simplified to Support Frank ( Dgt Kipad QC ) / Soutenir Frank ( Dgt Kipad QC ), optional donation.
-- Multilingual runtime: NOT IMPLEMENTED; automatic game-language detection BLOCKED
-  pending a verified client signal/transport. Do not claim it is available.
-- Latest live server result for 0.2.5 was not provided in this thread.
-- Owner terms confirmed: use on own multiplayer server permitted; distribution
-  of versions/updates reserved to Frank ( Dgt Kipad QC ). Redistribution requires his written
-  permission. See LICENSE.md.
-- Public PayPal link provided by owner and added to both READMEs and funding:
-  https://paypal.me/FrankOuellet
-- Pending game input: Localization.csv header from the target game build.
-- Release plan: BETA testing, followed by changing the repository from private to public.
+- Branch target: validate; runtime BETA 0.2.6. main remains the 0.2.5 reference pending Frank's agreement.
+- Implemented: 73 semantic message keys, eight UTF-8 XML catalogs, shared Host/State resolver, embedded English fallback.
+- Implemented: qh:lang and eight choices; authenticated Steam preference in the save's Mods/QuantumHangarQc/Preferences, independent of ship archives and character entity ID.
+- Implemented: qh:lang:auto removes the manual override. There is NO verified automatic language source; server default then English applies.
+- Implemented: localized help, diagnostics, confirmations, notification results/refusals, list rows and buttons. Technical exception details remain in logs; player errors have translated semantic explanations and stable codes.
+- A language change during a ship dialog sends a notification and changes the next dialog; it does not replace or execute the pending transaction.
+- Both components compiled using Microsoft .NET Framework 4.7.2 references and real external Empyrion APIs. Queue<T> resolves to System.dll.
+- Local tests: 528 Host assertions, 34 State assertions, 21 selection assertions, 1226 localization assertions, 10006 fallback/cache assertions. These are simulated API/filesystem checks; not game certification.
+- Prototype native chat helper compiles, but is laboratory-only and excluded from production DLLs/ZIP. Native chat behavior NOT_RUN.
+- Windows startup, real-game fonts/cargo/rollback and automatic language detection remain NOT_RUN/BLOCKED. Localization.csv build/path/header not supplied.
+- All eight language drafts require human review. Language commands are the selection interface; a clickable language picker is not delivered.
+- Capacity remains 10; legacy archive compatibility, marker expiry/removal and retrieval geometry preserved.
+- Public beta repository; no future private-to-public transition pending.
+- Owner: Frank ( Dgt Kipad QC ). https://paypal.me/FrankOuellet unchanged; LICENSE.md unchanged.
 
-Next authorized implementation should begin with the local message catalog and
-verified player-language acquisition, then proceed through the acceptance tests
-in docs/LOCALIZATION_FR_EN.md. Preserve the 0.2.5 reference until a successor is
-actually verified. Do not overwrite other modules' loader lists.
+See docs/VALIDATION.md, docs/LOCALIZATION_FR_EN.md and docs/qa for current evidence.

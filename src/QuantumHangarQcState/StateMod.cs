@@ -5,14 +5,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using Eleon.Modding;
 using QuantumHangarQc.Live;
-[assembly: AssemblyVersion("0.2.5.0")]
+using QuantumHangarQc.Localization;
+[assembly: AssemblyVersion("0.2.6.0")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc - Live State")]
 namespace QuantumHangarQc.State {
  // Live structure observer plus targeted GPS removal. No ship or inventory mutations.
  public sealed class StateMod:IMod {
   IModApi api;readonly Dictionary<string,IPlayfield> fields=new Dictionary<string,IPlayfield>();
   UiBridge ui;GpsBridge gps;DateTime gpsNext;DateTime next;string directory;readonly object gate=new object();
-  public void Init(IModApi value){api=value;if(api.Application.Mode!=ApplicationMode.PlayfieldServer){api.LogError("QH_STATE: PfServer requis");return;}gps=new GpsBridge(api.Log);ui=new UiBridge(api.Application,api.Log);api.Application.OnPlayfieldLoaded+=Loaded;api.Application.OnPlayfieldUnloading+=Unloaded;api.Application.Update+=Update;api.Log("QH_STATE START 0.2.5; observation + retrait GPS cible");}
+  public void Init(IModApi value){api=value;if(api.Application.Mode!=ApplicationMode.PlayfieldServer){api.LogError("QH_STATE: PfServer requis");return;}Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(StateMod).Assembly.Location),"Languages"),api.Log);gps=new GpsBridge(api.Log);ui=new UiBridge(api.Application,api.Log);api.Application.OnPlayfieldLoaded+=Loaded;api.Application.OnPlayfieldUnloading+=Unloaded;api.Application.Update+=Update;api.Log("QH_STATE START 0.2.6; observation + retrait GPS cible");}
   public void Shutdown(){if(api==null)return;if(ui!=null)ui.Clear();api.Application.OnPlayfieldLoaded-=Loaded;api.Application.OnPlayfieldUnloading-=Unloaded;api.Application.Update-=Update;lock(gate)fields.Clear();}
   void Loaded(IPlayfield pf){lock(gate)fields[pf.Name]=pf;api.Log("QH_STATE PLAYFIELD "+pf.Name);}
   void Unloaded(IPlayfield pf){lock(gate)fields.Remove(pf.Name);}
@@ -43,7 +45,7 @@ namespace QuantumHangarQc.State {
     // the reply are correlation data only, NOT native identity verification.
     // Native requester presence/SteamId must not gate a structure observation.
     var players=pf.Players.Values.ToList();
-    answer.ObserverVersion="0.2.5";answer.PlayersSeen=players.Count;
+    answer.ObserverVersion="0.2.6";answer.PlayersSeen=players.Count;
     answer.RequesterSeen=players.Any(p=>p.Id==r.Player);
     IEntity e;if(!pf.Entities.TryGetValue(r.Entity,out e)||e.Structure==null)throw new Exception("Vaisseau absent du playfield charge");
     var s=e.Structure;

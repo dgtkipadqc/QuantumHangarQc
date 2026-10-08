@@ -147,6 +147,8 @@ class Tests {
         var a=new FakeApi {Root=Path.Combine(root,(++serial).ToString())};
         Directory.CreateDirectory(Path.Combine(a.Root,"Shared","200"));
         File.WriteAllText(Path.Combine(a.Root,"Shared","200","0.area"),"test bytes: chest A slot0=123x15; chest B slot2=456x9");
+        // Baseline regression expectations are French; choose it explicitly.
+        new QuantumHangarQc.Localization.Preferences(Path.Combine(a.Root,"Mods","QuantumHangarQc","Preferences"),null).Set(a.P.steamId,"fr");
         a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root);return a;
     }
     static void Pump(FakeApi a,int max=2500) {
@@ -235,7 +237,7 @@ class Tests {
     }
     static void PlayerBetaTests() {
         var a=New();Run(a,"qh:help");
-        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.5")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
+        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.6")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
         Run(a,"qh:store:200:11");Assert.That(!a.Calls.Contains(CmdId.Request_Entity_Export),"eleventh slot unavailable");
         Run(a,"qh:store:200:10");Assert.That(a.Store().At(10,a.P.steamId).Status=="STORED","player slot ten");
         a.P.pos=new PVector3{x=250.25f,y=-125.5f,z=88.75f};Run(a,"qh:mark");

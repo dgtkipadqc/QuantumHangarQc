@@ -1,4 +1,4 @@
-# Quantum Hangar Qc — BETA 0.2.5
+# Quantum Hangar Qc — BETA 0.2.6
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -12,8 +12,10 @@ votre prochaine aventure.
 
 **BETA publique 0.2.5 — en cours de test.** Joueurs et administrateurs de
 serveurs sont invités à essayer le mod et à partager leurs retours.
-Les dialogues sont encore principalement en français, avec quelques textes bilingues.
-La détection automatique de langue et `qh:lang` sont **à développer**.
+Cette version de `validate` contient huit catalogues locaux et le choix individuel
+mémorisé `qh:lang`. La détection automatique de la langue du jeu reste **BLOQUÉE / non vérifiée**.
+Le démarrage Windows, les polices, les coffres et la localisation native du chat
+restent à tester en jeu. Les huit traductions initiales sont **à relire**.
 
 ## Utilisation
 
@@ -26,6 +28,9 @@ La détection automatique de langue et `qh:lang` sont **à développer**.
 | `qh:info:ID` | Diagnostic position, distance et propriété |
 | `qh:mark` | Point de sortie valable cinq minutes |
 | `qh:load:PLACE` | Sortir un vaisseau |
+| `qh:lang` | Langue effective, origine et choix disponibles |
+| `qh:lang:CODE` | Mémoriser un choix individuel |
+| `qh:lang:auto` | Retirer ce choix ; défaut du serveur actuellement |
 
 Sans `/` devant les commandes. Pour déposer : vaisseau privé appartenant au
 personnage, alimentation OFF, cockpit quitté, personne à bord, aucun vaisseau
