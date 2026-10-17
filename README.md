@@ -6,6 +6,10 @@
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
+<p align="center">
+  <img src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="112" height="112">
+</p>
+
 [Français](README.fr.md) · [Player guide](docs/PLAYER_GUIDE_EN.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localization](docs/LOCALIZATION_FR_EN.md)
 
 Take your fleet on your next adventure. Quantum Hangar Qc is a community mod for

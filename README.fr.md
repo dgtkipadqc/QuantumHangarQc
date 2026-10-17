@@ -6,6 +6,10 @@
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
+<p align="center">
+  <img src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="112" height="112">
+</p>
+
 [English](README.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localisation](docs/LOCALIZATION_FR_EN.md)
 
 Votre flotte vous accompagne : stockez jusqu'à **10 vaisseaux** dans votre
