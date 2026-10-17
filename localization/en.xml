@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="en">
-  <Text Key="button.next" Args="0">Next</Text>
-  <Text Key="language.buttons_hint" Args="0">Click the language button to select it, or Next to browse. Closing without selecting keeps your current language.</Text>
+  <Text Key="language.menu_error" Args="0">Language menu unavailable. Retry qh:lang. (error.ui)</Text>
   <Text Key="button.close" Args="0">Close</Text>
   <Text Key="button.cancel" Args="0">Cancel</Text>
   <Text Key="button.store" Args="0">Confirm storage</Text>

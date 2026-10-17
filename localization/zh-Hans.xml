@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="zh-Hans">
-  <Text Key="button.next" Args="0">下一个</Text>
-  <Text Key="language.buttons_hint" Args="0">点击语言按钮进行选择，或点击下一个浏览。关闭而不选择将保留当前语言。</Text>
+  <Text Key="language.menu_error" Args="0">语言菜单不可用。请重试 qh:lang。(error.ui)</Text>
   <Text Key="button.close" Args="0">关闭</Text>
   <Text Key="button.cancel" Args="0">取消</Text>
   <Text Key="button.store" Args="0">确认存入</Text>

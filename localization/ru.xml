@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="ru">
-  <Text Key="button.next" Args="0">Далее</Text>
-  <Text Key="language.buttons_hint" Args="0">Нажмите кнопку языка для выбора или Далее. Закрытие без выбора сохраняет текущий язык.</Text>
+  <Text Key="language.menu_error" Args="0">Меню языков недоступно. Повторите qh:lang. (error.ui)</Text>
   <Text Key="button.close" Args="0">Закрыть</Text>
   <Text Key="button.cancel" Args="0">Отмена</Text>
   <Text Key="button.store" Args="0">Подтвердить хранение</Text>

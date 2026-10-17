@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="pt-BR">
-  <Text Key="button.next" Args="0">Próximo</Text>
-  <Text Key="language.buttons_hint" Args="0">Clique no botão do idioma para selecionar ou em Próximo. Fechar sem selecionar mantém o idioma atual.</Text>
+  <Text Key="language.menu_error" Args="0">Menu de idiomas indisponível. Tente qh:lang novamente. (error.ui)</Text>
   <Text Key="button.close" Args="0">Fechar</Text>
   <Text Key="button.cancel" Args="0">Cancelar</Text>
   <Text Key="button.store" Args="0">Confirmar armazenamento</Text>

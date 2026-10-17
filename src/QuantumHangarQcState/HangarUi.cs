@@ -12,9 +12,14 @@ namespace QuantumHangarQc.Live {
   public static string Link(HangarUiRequest r,HangarRow row) { return "qh:"+r.Token+":"+row.Slot+":"+row.ArchiveId; }
   public static HangarRow Select(HangarUiRequest r,string link) { return r.Rows.SingleOrDefault(x=>x.Status=="STORED"&&!string.IsNullOrEmpty(x.ArchiveId)&&Link(r,x)==link); }
   public static string Status(string language,string status) { return Texts.Render(language,status=="STORED"?"status.stored":status=="QUARANTINE"?"status.quarantine":"status.pending",status=="STORED"||status=="QUARANTINE"?new object[0]:new object[]{status}); }
-  public static string LanguageLink(HangarUiRequest r,string code) { return "qh-language:"+r.Token+":"+code; }
+  public static string LanguageLink(HangarUiRequest r,string code) { if(r.Protocol==2) {
+    int index=Array.IndexOf(Languages.Codes.Concat(new[]{"auto"}).ToArray(),code);
+    var row=r.Rows.SingleOrDefault(x=>x.Slot==index+1);
+    return row==null?null:Link(r,row);
+   }
+   return "qh-language:"+r.Token+":"+code; }
   public static string SelectLanguage(HangarUiRequest r,string link) {
-   if(r.Purpose!="language"||r.Protocol!=3)return null;
+   if(r.Purpose!="language"||(r.Protocol!=2&&r.Protocol!=3))return null;
    return Languages.Codes.Concat(new[]{"auto"}).SingleOrDefault(code=>LanguageLink(r,code)==link);
   }
   public static string Body(HangarUiRequest r) {

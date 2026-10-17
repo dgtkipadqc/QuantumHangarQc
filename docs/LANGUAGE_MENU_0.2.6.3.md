@@ -1,29 +1,34 @@
-# QH 0.2.6.3 — language menu availability fallback
+# QH 0.2.6.3 — clickable languages using the qh:list transport
 
-Observed report on 0.2.6.2: bare qh:lang returned a yellow error.ui notification;
-qh:lang:auto worked. Exact native failure cause is not established without server logs.
+User report: qh:list works, qh:lang:auto works, bare qh:lang returns error.ui.
+The prior language implementation introduced protocol 3. The older qh:list
+bridge accepts protocols 0/2 only and deterministically returns error.ui for 3.
+This incompatibility is reproduced locally. The exact DLL loaded on the user's
+server has not been inspected, so this remains a matching cause, not a confirmed
+server diagnosis.
 
-The clickable list remains the preferred UI. If the State bridge reports dialog
-unavailability (including legacy error.ui), or does not acknowledge opening within
-six seconds, the Host now uses its existing two-button dialog transport.
-This fallback displays all languages and highlights the current candidate. Click
-the named language button to save, or Next to advance; the final negative button
-closes. This is a sequential button picker, not clickable rows. Direct language
-commands remain supported. No automatic language selection occurs on opening.
+qh:lang now sends nine ordinary protocol-2 selection rows using the exact
+qh:list token/slot/archive link format and callback. Eight languages plus server
+default appear together. Each row maps to one language in the Host; no ship
+store/list/load action is executed by that mapping. Updated State displays the
+language title and native names. The original protocol-2 State can also return
+these choices (with its older generic ship-list headings).
 
-Both paths recheck Steam identity and client session before saving. Invalid reply
-correlation, invalid request and explicit identity errors do not enable fallback.
-Expired native requests are removed before the fallback is opened.
+The briefly prepared sequential Next-button fallback has been REMOVED. There is
+no sequential picker in this deliverable. Invalid selection tokens, identity,
+client reconnect and stale callbacks remain rejected. Choices are saved through
+the existing Preferences mechanism. Closing does not change the language.
+Language failures now advise retrying qh:lang, never qh:load:SLOT.
 
-State logs now distinguish SHOW_REJECTED, SHOW_EXCEPTION and request rejection.
-Host logs MENU_FALLBACK with its reason. State startup identifies 0.2.6.3.
+Install BOTH DLLs, State YAML and BOTH Languages folders together. In particular,
+the intermediate 0.2.6.2 State expects language protocol 3; do not mix that State
+with the new Host. Stop server, playfields and Host before copying. Preserve all
+configuration, loader lists, archive and Preferences files.
 
-Update both DLLs, State YAML and both Languages directories while server,
-playfields and ModHost are stopped. Preserve all configs, loader lists, save data
-and Preferences. The update archive contains no loader binaries or configs.
-
-Local validation: 59 menu assertions; 1268 localization assertions; 528 Host
-assertions. Native API simulated, actual production bridge and file exchange.
-Production DLLs compile against .NET Framework 4.7.2 and native ModApi references.
-Native Windows/game rendering is NOT tested. This is an availability mitigation;
-it does not prove the cause of the original native dialog failure is repaired.
+Local QA: 154 language-menu assertions, 1252 localization assertions and 528 Host
+assertions. Tests include the original cff7ad0 qh:list bridge and request/reply
+classes (namespace-only renaming) serialized through real files, all nine choices
+on both bridges, protocol-3 rejection reproduction, save persistence, cancellation,
+replay, wrong token/player, reconnect. Native UI API is simulated.
+Production DLLs built against Microsoft .NET Framework 4.7.2 references.
+Native game rendering / Windows server runtime remain NOT TESTED.

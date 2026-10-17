@@ -457,7 +457,6 @@ namespace QuantumHangarQc
                 new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.6\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
-        sealed class UiUnavailableException:Exception { public UiUnavailableException(string message):base(message){} }
         internal int UiOpenTimeout=6000,UiTimeout=90000;
         async Task<Live.HangarUiReply> ChooseShip(PlayerInfo player,List<Entry> entries) {
             var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Capacity=store.Capacity,Protocol=2,CreatedUtc=DateTime.UtcNow};
@@ -476,15 +475,18 @@ namespace QuantumHangarQc
                     if(File.Exists(reply)) {
                         var a=Live.Transfer.Read<Live.HangarUiReply>(reply);
                         if(a.Token!=r.Token||a.Player!=r.Player||a.Client!=r.Client||a.Steam!=r.Steam||a.CapturedUtc<r.CreatedUtc.AddSeconds(-1)||a.CapturedUtc>DateTime.UtcNow.AddSeconds(1))throw Texts.Tag(new InvalidDataException("Reponse de selection non correspondante"),"error.ui");
-                        if(r.Purpose=="language"&&(a.Error=="error.ui"||a.Error=="ui.unavailable"))throw new UiUnavailableException("UI rejected: "+a.Error);
                         if(!string.IsNullOrEmpty(a.Error))throw Texts.Tag(new InvalidOperationException(a.Error),"error.ui");
+                        if(!a.Cancelled&&r.Purpose=="language"&&r.Protocol==2) {
+                            var row=r.Rows.SingleOrDefault(x=>x.Slot==a.Slot&&x.ArchiveId==a.ArchiveId&&x.Status=="STORED");
+                            if(row==null)throw Texts.Tag(new InvalidDataException("Language row mismatch"),"error.ui");
+                            var codes=Languages.Codes.Concat(new[]{"auto"}).ToArray();
+                            if(row.Slot<1||row.Slot>codes.Length)throw Texts.Tag(new InvalidDataException("Language slot mismatch"),"error.ui");
+                            a.SelectedLanguage=codes[row.Slot-1];
+                        }
                         if(!a.Cancelled&&(r.Purpose=="language"?!(a.SelectedLanguage=="auto"||Languages.Codes.Contains(a.SelectedLanguage)):!r.Rows.Any(x=>x.Slot==a.Slot&&x.ArchiveId==a.ArchiveId&&x.Status=="STORED")))throw Texts.Tag(new InvalidDataException("Vaisseau selectionne absent de la liste disponible"),"error.ui");
                         return a;
                     }
-                    if(!File.Exists(opened)&&(DateTime.UtcNow-start).TotalMilliseconds>UiOpenTimeout) {
-                        if(r.Purpose=="language")throw new UiUnavailableException("UI_OPEN_TIMEOUT: State absent, outdated or unavailable");
-                        throw Texts.Tag(new TimeoutException("Composant de liste cliquable sans reponse"),"error.ui");
-                    }
+                    if(!File.Exists(opened)&&(DateTime.UtcNow-start).TotalMilliseconds>UiOpenTimeout)throw Texts.Tag(new TimeoutException("Composant de liste cliquable sans reponse"),"error.ui");
                     await Task.Delay(50);
                 }
                 return new Live.HangarUiReply{Cancelled=true};
@@ -539,26 +541,6 @@ namespace QuantumHangarQc
             catch(Exception ex){Log("QH_LOCALE COMMAND_ERROR "+ex.Message);}
             finally{lock(gate)languageBusy.Remove(id);}
         }
-        async Task<Live.HangarUiReply> ChooseLanguageButtons(PlayerInfo initial) {
-            // Legacy dialog transport works independently of the native State UI bridge.
-            // Each positive button names exactly the language it selects; negative only advances.
-            string steam=initial.steamId;int client=initial.clientId,id=initial.entityId;
-            var codes=Languages.Codes.Concat(new[]{"auto"}).ToArray();
-            for(int index=0;index<codes.Length&&!stopped;index++) {
-                var current=await Player(id);
-                if(current.steamId!=steam||current.clientId!=client)return new Live.HangarUiReply{Cancelled=true};
-                string code=codes[index],label=code=="auto"?T(current,"language.origin.server"):Languages.Name(code);
-                string rows=string.Join("\n",codes.Select(c=>(c==code?"> ":"   ")+(c=="auto"?T(current,"language.origin.server"):Languages.Name(c))));
-                var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,new DialogBoxData {
-                    Id=id,MsgText=T(current,"language.title")+"\n\n"+T(current,"language.buttons_hint")+"\n\n"+rows,
-                    PosButtonText=label,NegButtonText=index==codes.Length-1?T(current,"button.close"):T(current,"button.next")
-                },CmdId.Event_DialogButtonIndex,id,DialogTimeout);
-                if(answer.Id!=id)return new Live.HangarUiReply{Cancelled=true};
-                if(answer.Value==0)return new Live.HangarUiReply{SelectedLanguage=code};
-                if(answer.Value!=1)return new Live.HangarUiReply{Cancelled=true};
-            }
-            return new Live.HangarUiReply{Cancelled=true};
-        }
         async Task ChangeLanguage(int id,string[] args) {
             string steam=null;int client=-1;
             try {
@@ -567,13 +549,14 @@ namespace QuantumHangarQc
                 if(args.Length==1) {
                     bool pendingOperation;lock(gate)pendingOperation=busy.Contains(id);
                     if(!pendingOperation) {
-                        var request=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=id,Client=client,Steam=steam,Playfield=p.playfield,Language=Language(p),Purpose="language",Protocol=3,CreatedUtc=DateTime.UtcNow};
-                        Live.HangarUiReply selected;
-                        try { selected=await ChooseUi(request); }
-                        catch(UiUnavailableException ex) {
-                            Log("QH_LOCALE MENU_FALLBACK "+ex.Message);
-                            selected=await ChooseLanguageButtons(p);
-                        }
+                        var request=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=id,Client=client,Steam=steam,Playfield=p.playfield,Language=Language(p),Purpose="language",Protocol=2,CreatedUtc=DateTime.UtcNow};
+                        // Same row/slot/archive/link protocol as qh:list; these are UI choices only.
+                        // No Store lookup, load command or ship operation is invoked for these rows.
+                        int languageSlot=0;
+                        foreach(var code in Languages.Codes.Concat(new[]{"auto"}))
+                            request.Rows.Add(new Live.HangarRow{Slot=++languageSlot,ArchiveId=Guid.NewGuid().ToString("N"),Name=code=="auto"?T(p,"language.origin.server"):Languages.Name(code),Status="STORED"});
+                        request.Capacity=request.Rows.Count;
+                        var selected=await ChooseUi(request);
                         if(selected.Cancelled||stopped)return;
                         var verified=await Player(id);
                         if(verified.steamId!=steam||verified.clientId!=client)return;
@@ -596,7 +579,7 @@ namespace QuantumHangarQc
                 if(operation)Notify(id,message);else await Dialog(p,message,T(p,"button.close"));
             }catch(Exception ex){
                 Log("QH_LOCALE COMMAND_ERROR "+ex.Message);
-                if(steam!=null)try{var current=await Player(id);if(current.steamId==steam&&current.clientId==client)Notify(id,T(current,"operation.failed",Texts.Error(Language(current),ex)));}catch(Exception){Log("QH_LOCALE ERROR_RECIPIENT_UNVERIFIED");}
+                if(steam!=null)try{var current=await Player(id);if(current.steamId==steam&&current.clientId==client)Notify(id,args.Length==1?T(current,"language.menu_error"):T(current,"operation.failed",Texts.Error(Language(current),ex)));}catch(Exception){Log("QH_LOCALE ERROR_RECIPIENT_UNVERIFIED");}
             }
         }
         async Task ExecuteCore(int id,string[] args,PlayerInfo p) {
