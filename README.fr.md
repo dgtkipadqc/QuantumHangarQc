@@ -2,13 +2,13 @@
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
+<img align="right" src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="64" height="64">
+
 # Quantum Hangar Qc — BETA 0.2.6
 
-![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
+<br clear="right">
 
-<p align="center">
-  <img src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="112" height="112">
-</p>
+![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
 [English](README.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localisation](docs/LOCALIZATION_FR_EN.md)
 
