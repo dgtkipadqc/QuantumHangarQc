@@ -2,19 +2,19 @@
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-<img align="right" src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="64" height="64">
-
 # Quantum Hangar Qc — BETA 0.2.6
-
-<br clear="right">
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
 [Français](README.fr.md) · [Player guide](docs/PLAYER_GUIDE_EN.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localization](docs/LOCALIZATION_FR_EN.md)
 
+<img align="left" src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="64" height="64" hspace="12">
+
 Take your fleet on your next adventure. Quantum Hangar Qc is a community mod for
 Empyrion — Galactic Survival, with a personal virtual hangar for up to **10 ships**.
 Store a ship, choose a return location, and retrieve it when you need it.
+
+<br clear="left">
 
 ## Current status
 

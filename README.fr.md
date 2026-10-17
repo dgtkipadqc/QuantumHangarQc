@@ -2,19 +2,19 @@
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-<img align="right" src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="64" height="64">
-
 # Quantum Hangar Qc — BETA 0.2.6
-
-<br clear="right">
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
 [English](README.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localisation](docs/LOCALIZATION_FR_EN.md)
 
+<img align="left" src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="64" height="64" hspace="12">
+
 Votre flotte vous accompagne : stockez jusqu'à **10 vaisseaux** dans votre
 hangar personnel, marquez un point de sortie et récupérez un vaisseau pour
 votre prochaine aventure.
+
+<br clear="left">
 
 ## État actuel
 
