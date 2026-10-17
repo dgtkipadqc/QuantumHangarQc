@@ -72,6 +72,24 @@ class LocaleTests {
   Run(a,"qh:lang:auto");Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains("Personal hangar"),"auto command actually removed override");
   Run(a,"qh:lang:fr");a.P.entityId=77;Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains("Hangar personnel"),"character reset keeps Steam preference");
   a.P.steamId=other;Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains("Personal hangar"),"entity reuse with another Steam does not leak language");a.Mod.Game_Exit();
+  // Exercise the actual chat entry point and a fresh Host over the same save.
+  var persisted=New();Run(persisted,"qh:lang fr");
+  Check(persisted.HeldDialog.MsgText.Contains("Français"),"space syntax selects French");
+  string pref=Path.Combine(persisted.Root,"Mods","QuantumHangarQc","Preferences",steam+".xml");
+  Check(Transfer.Read<Preference>(pref).Language=="fr","command persisted authenticated Steam choice");
+  persisted.P.clientId++;Run(persisted,"qh:help");
+  Check(persisted.HeldDialog.MsgText.Contains("Hangar personnel"),"reconnect retains French");
+  persisted.Mod.Game_Exit();persisted.Mod=new HangarMod{RequestTimeout=300,DialogTimeout=500};
+  persisted.Mod.StartAt(persisted,persisted.Root);Run(persisted,"qh:help");
+  Check(persisted.HeldDialog.MsgText.Contains("Hangar personnel"),"fresh Host restores French over English save default");
+  persisted.P.steamId=other;Run(persisted,"qh:help");
+  Check(persisted.HeldDialog.MsgText.Contains("Personal hangar"),"new player still gets English after restart");
+  persisted.P.steamId=steam;Run(persisted,"qh:lang:en");Run(persisted,"qh:help");
+  Check(persisted.HeldDialog.MsgText.Contains("Personal hangar")&&Transfer.Read<Preference>(pref).Language=="en","change back to English updates same player file");
+  persisted.Mod.Game_Exit();
+  string[] parsed;
+  foreach(var invalid in new[]{"qh:lang fr extra","qh:lang:fr:en","qh:lang ../fr","qh:lang\nfr"})
+   Check(!HangarMod.TryParseCommand(invalid,out parsed),"invalid language command rejected: "+invalid);
   var during=New();during.HoldDialogs=true;var task=Start(during,"qh:store:200");DateTime until=DateTime.UtcNow.AddSeconds(2);
   while(during.HeldDialog==null&&DateTime.UtcNow<until){during.ReplyState();during.Mod.Game_Update();Thread.Sleep(1);}
   Check(during.HeldDialog!=null,"store confirmation opened");ushort token=during.HeldSeq;

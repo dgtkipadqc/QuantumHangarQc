@@ -1,3 +1,12 @@
+> **2026-10-17 — ajustement langues sur `validate`, sans publication `main`.**
+> Paquet EN par défaut ; choix personnel par SteamID conservé. Commandes
+> `qh:lang:fr` et `qh:lang fr`. Les configurations et préférences existantes
+> restent prioritaires. Preuves : `docs/qa/PLAYER_LANGUAGE_VALIDATE.json`.
+> PASS local : 528 Host, 1236 localisation, 56 configuration. API jeu simulée,
+> fichiers réels ; reconnexion/redémarrage du Host simulés. Jeu/Windows NON TESTÉS.
+> Le signalement terrain « ne reste pas en FR » n'est pas reproduit par ces
+> tests ; ne pas attribuer sa cause au seul défaut du modèle de configuration.
+
 > **VALIDATE 0.2.6.1 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.

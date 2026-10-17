@@ -486,7 +486,7 @@ namespace QuantumHangarQc
         internal static bool TryParseCommand(string text,out string[] args) {
             args=null;
             if(text==null||text.Length>120||text.IndexOfAny(new[]{'\r','\n','\t'})>=0) return false;
-            var lang=Regex.Match(text.Trim(),@"^qh:lang(?::(?<code>[A-Za-z][A-Za-z0-9_-]{0,23}))?$",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+            var lang=Regex.Match(text.Trim(),@"^qh:lang(?:(?::| +)(?<code>[A-Za-z][A-Za-z0-9_-]{0,23}))?$",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
             if(lang.Success) {args=lang.Groups["code"].Success?new[]{"qh:lang",lang.Groups["code"].Value}:new[]{"qh:lang"};return true;}
             var m=Regex.Match(text.Trim(),@"^qh(?::(?<verb>help|status|list|mark|store|load|info))?(?:(?: +|:)(?<a>[0-9]+))?(?:(?: +|:)(?<b>[0-9]+))?$",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
             if(!m.Success) return false;

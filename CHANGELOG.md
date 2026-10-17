@@ -1,3 +1,13 @@
+## Validate — 2026-10-17 — langues
+
+- Le modèle de configuration utilise `en`, conformément au défaut du code.
+- `qh:lang fr` accepté en plus de `qh:lang:fr` ; sélection par SteamID inchangée.
+- Non-régression : choix FR après reconnexion/redémarrage, isolation entre joueurs,
+  retour à EN et ancienne configuration sans langue. Aucun écrasement des données.
+- Corrige l'inclusion de `ActiveSavePath.cs` dans le vérificateur historique.
+- Ajoute `tools/test_player_languages.py` pour rejouer les contrôles ciblés.
+- Tests locaux PASS ; essai Windows/jeu non effectué. Pas de publication main.
+
 # 0.2.6.1 VALIDATE — 2026-10-17
 
 - Détection de la sauvegarde active via le client connecté au Host.

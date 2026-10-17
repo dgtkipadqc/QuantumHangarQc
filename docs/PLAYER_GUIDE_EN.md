@@ -24,5 +24,8 @@ STORED means available. QUARANTINE means ask a server administrator to inspect
 the logs before attempting recovery. Never delete archive files to free a slot.
 Use a test ship and test cargo for initial beta validation.
 
-Player language selection is not implemented in baseline 0.2.5. Instructions
-in this document do not imply that dialogs are already translated into English.
+The package defaults to English. Use `qh:lang:fr` (or `qh:lang fr`) for
+French, `qh:lang:en` for English, and `qh:lang` to check the effective choice.
+Your choice is saved per SteamID in the current save and survives reconnection
+and restart. `qh:lang:auto` restores the save default. Changing the game
+language does not automatically change the mod language.

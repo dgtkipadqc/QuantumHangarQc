@@ -14,12 +14,13 @@ Une configuration déjà créée pour une partie reste prioritaire et est conser
 ```xml
 <Settings>
   <MaxShipsPerPlayer>10</MaxShipsPerPlayer>
-  <DefaultLanguage>fr</DefaultLanguage>
+  <DefaultLanguage>en</DefaultLanguage>
 </Settings>
 ```
 
 - `MaxShipsPerPlayer` : 1 à 15. Mettre 5 pour limiter les nouveaux dépôts à
   cinq vaisseaux par joueur. Les réservations et quarantaines comptent aussi.
+- Défaut du paquet : anglais (`en`). Les réglages existants ne sont pas écrasés.
 - `DefaultLanguage` : fr, en, de, el, it, pt-BR, ru ou zh-Hans. Le choix
   personnel enregistré avec `qh:lang` reste prioritaire.
 - Arrêter le serveur, modifier le fichier de la partie, puis redémarrer.
@@ -56,3 +57,17 @@ Install both updated QH DLLs and both language folders together. Use separate
 server/loader installations for concurrent servers. Bundled dependencies are
 included; Windows, Empyrion and .NET installation are not automated.
 Windows startup and real game tests remain pending.
+
+## Choix personnel / Player choice
+
+Dans le chat, `qh:lang:fr` (ou `qh:lang fr`) choisit le français ;
+`qh:lang:en` choisit l’anglais. `qh:lang` affiche le choix effectif.
+Le choix est enregistré par SteamID dans la sauvegarde active :
+`Mods/QuantumHangarQc/Preferences/<SteamID>.xml`. Il reste prioritaire
+après reconnexion et redémarrage ; un autre joueur garde son propre choix.
+`qh:lang:auto` efface ce choix et reprend le défaut de la sauvegarde.
+Changer la langue du jeu ne change pas automatiquement celle du mod.
+
+The package defaults to English. Use `qh:lang:fr` or `qh:lang fr` to
+save French for your SteamID in this save; reconnecting or restarting
+does not reset the choice. Existing save settings and preferences are preserved.

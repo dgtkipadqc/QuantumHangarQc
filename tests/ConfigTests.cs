@@ -42,6 +42,10 @@ class ConfigTests {
   Bad(()=>ActiveSavePath.Resolve(new Host("missing")),"invalid path rejected");
   Bad(()=>new Settings{MaxShipsPerPlayer=0}.Validate(),"zero rejected");Bad(()=>new Settings{MaxShipsPerPlayer=16}.Validate(),"over archive limit rejected");
   Bad(()=>new Settings{DefaultLanguage="invalid"}.Validate(),"invalid language rejected");
+  Check(new Settings().DefaultLanguage=="en","code default English");
+  Check(Disk.Read<Settings>(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Configuration.xml")).DefaultLanguage=="en","packaged default English");
+  string legacy=Path.Combine(root,"legacy.xml");File.WriteAllText(legacy,"<Settings><MaxShipsPerPlayer>5</MaxShipsPerPlayer></Settings>");
+  Check(Disk.Read<Settings>(legacy).DefaultLanguage=="en","legacy config without language defaults to English");
   var modA=new HangarMod();modA.StartAt(hostA,a);modA.Game_Exit();
   string cfgA=Path.Combine(a,"Mods","QuantumHangarQc","Configuration.xml");
   Check(Disk.Read<Settings>(cfgA).MaxShipsPerPlayer==10,"default config created");
