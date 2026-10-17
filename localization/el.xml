@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="el">
+  <Text Key="button.next" Args="0">Επόμενο</Text>
+  <Text Key="language.buttons_hint" Args="0">Πατήστε το κουμπί της γλώσσας για επιλογή ή Επόμενο. Το κλείσιμο χωρίς επιλογή διατηρεί την τρέχουσα γλώσσα.</Text>
   <Text Key="button.close" Args="0">Κλείσιμο</Text>
   <Text Key="button.cancel" Args="0">Ακύρωση</Text>
   <Text Key="button.store" Args="0">Επιβεβαίωση αποθήκευσης</Text>

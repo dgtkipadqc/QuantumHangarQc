@@ -20,14 +20,14 @@ namespace QuantumHangarQc.State {
     var item=new Pending{File=file,Reply=reply,Request=r};
     var player=pf.Players.Values.FirstOrDefault(x=>x.Id==r.Player);
     if(player==null||string.IsNullOrEmpty(player.SteamId)||player.SteamId!=r.Steam){Reply(item,null,true,"error.session");continue;}
-    if((r.Purpose=="language"?r.Protocol!=3:(!string.IsNullOrEmpty(r.Purpose)||(r.Protocol!=0&&r.Protocol!=2)))||r.Rows==null||r.Rows.Count>15||r.Rows.Any(x=>!ValidRow(x))||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){Reply(item,null,true,"error.ui");continue;}
+    if((r.Purpose=="language"?r.Protocol!=3:(!string.IsNullOrEmpty(r.Purpose)||(r.Protocol!=0&&r.Protocol!=2)))||r.Rows==null||r.Rows.Count>15||r.Rows.Any(x=>!ValidRow(x))||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){log("QH_UI REJECT protocol="+r.Protocol+" purpose="+r.Purpose);Reply(item,null,true,"ui.invalid_request");continue;}
     int key;lock(gate){key=++serial;if(key<=0){serial=1;key=1;}while(pending.ContainsKey(key))key=++serial;pending.Add(key,item);}
     try {
      // One shared callback dispatches by customValue; simultaneous players cannot overwrite each other's handler.
      bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.6",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=true,ButtonTexts=new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
-     if(!shown){lock(gate)pending.Remove(key);Reply(item,null,true,"error.ui");}
+     if(!shown){lock(gate)pending.Remove(key);log("QH_UI SHOW_REJECTED player="+r.Player+" purpose="+r.Purpose);Reply(item,null,true,"ui.unavailable");}
      else {Transfer.Write(Path.Combine(directory,r.Token+".opened.xml"),new HangarUiReply{Token=r.Token,Player=r.Player,Steam=r.Steam,Client=r.Client,CapturedUtc=now});log("QH_UI OPEN player="+r.Player+" token="+r.Token);}
-    } catch(Exception e){lock(gate)pending.Remove(key);Reply(item,null,true,e.Message);}
+    } catch(Exception e){lock(gate)pending.Remove(key);log("QH_UI SHOW_EXCEPTION "+e.GetType().Name+": "+e.Message);Reply(item,null,true,"ui.unavailable");}
    }
   }
   static bool ValidRow(HangarRow row) {

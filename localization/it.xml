@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="it">
+  <Text Key="button.next" Args="0">Avanti</Text>
+  <Text Key="language.buttons_hint" Args="0">Premi il pulsante della lingua per sceglierla o Avanti. Chiudere senza scegliere mantiene la lingua attuale.</Text>
   <Text Key="button.close" Args="0">Chiudi</Text>
   <Text Key="button.cancel" Args="0">Annulla</Text>
   <Text Key="button.store" Args="0">Conferma deposito</Text>

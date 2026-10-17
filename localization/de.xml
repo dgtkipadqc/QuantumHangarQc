@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Catalog Schema="1" Code="de">
+  <Text Key="button.next" Args="0">Weiter</Text>
+  <Text Key="language.buttons_hint" Args="0">Klicke auf die Sprachschaltfläche oder auf Weiter. Ohne Auswahl bleibt die bisherige Sprache erhalten.</Text>
   <Text Key="button.close" Args="0">Schließen</Text>
   <Text Key="button.cancel" Args="0">Abbrechen</Text>
   <Text Key="button.store" Args="0">Einlagern bestätigen</Text>
