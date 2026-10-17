@@ -1,0 +1,10 @@
+{
+  "version": "0.2.6.2",
+  "compilation_host": "PASS",
+  "compilation_state": "PASS",
+  "host_assertions": 528,
+  "localization_assertions": 1236,
+  "language_menu_assertions": 26,
+  "method": "Simulated native UI and game API; real UiBridge, C# code and filesystem",
+  "windows_game": "NOT_TESTED"
+}

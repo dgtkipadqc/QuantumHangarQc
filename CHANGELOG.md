@@ -1,3 +1,6 @@
+> **0.2.6.2 VALIDATE : `qh:lang` ouvre la selection au clic, comme `qh:list`.**
+> [Installation et tests](docs/LANGUAGE_MENU_0.2.6.2.md). Host + State a installer ensemble.
+
 ## Validate — 2026-10-17 — langues
 
 - Le modèle de configuration utilise `en`, conformément au défaut du code.

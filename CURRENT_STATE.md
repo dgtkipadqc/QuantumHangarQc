@@ -1,3 +1,6 @@
+> **0.2.6.2 VALIDATE : `qh:lang` ouvre la selection au clic, comme `qh:list`.**
+> [Installation et tests](docs/LANGUAGE_MENU_0.2.6.2.md). Host + State a installer ensemble.
+
 > **2026-10-17 — ajustement langues sur `validate`, sans publication `main`.**
 > Paquet EN par défaut ; choix personnel par SteamID conservé. Commandes
 > `qh:lang:fr` et `qh:lang fr`. Les configurations et préférences existantes

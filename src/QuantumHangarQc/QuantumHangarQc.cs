@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.6.1")]
+[assembly: AssemblyVersion("0.2.6.2")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -464,6 +464,9 @@ namespace QuantumHangarQc
                 var e=entries.SingleOrDefault(x=>x.PersonalSlot==slot);
                 r.Rows.Add(new Live.HangarRow{Slot=slot,ArchiveId=e==null?null:e.ArchiveId,Name=e==null?null:e.Ship.name,Status=e==null?null:e.Status});
             }
+            return await ChooseUi(r);
+        }
+        async Task<Live.HangarUiReply> ChooseUi(Live.HangarUiRequest r) {
             string dir=Path.Combine(logDir,"HangarUI"),request=Path.Combine(dir,r.Token+".request.xml"),reply=Path.Combine(dir,r.Token+".reply.xml"),opened=Path.Combine(dir,r.Token+".opened.xml");
             Live.Transfer.Write(request,r);
             try {
@@ -473,7 +476,7 @@ namespace QuantumHangarQc
                         var a=Live.Transfer.Read<Live.HangarUiReply>(reply);
                         if(a.Token!=r.Token||a.Player!=r.Player||a.Client!=r.Client||a.Steam!=r.Steam||a.CapturedUtc<r.CreatedUtc.AddSeconds(-1)||a.CapturedUtc>DateTime.UtcNow.AddSeconds(1))throw Texts.Tag(new InvalidDataException("Reponse de selection non correspondante"),"error.ui");
                         if(!string.IsNullOrEmpty(a.Error))throw Texts.Tag(new InvalidOperationException(a.Error),"error.ui");
-                        if(!a.Cancelled&&!r.Rows.Any(x=>x.Slot==a.Slot&&x.ArchiveId==a.ArchiveId&&x.Status=="STORED"))throw Texts.Tag(new InvalidDataException("Vaisseau selectionne absent de la liste disponible"),"error.ui");
+                        if(!a.Cancelled&&(r.Purpose=="language"?!(a.SelectedLanguage=="auto"||Languages.Codes.Contains(a.SelectedLanguage)):!r.Rows.Any(x=>x.Slot==a.Slot&&x.ArchiveId==a.ArchiveId&&x.Status=="STORED")))throw Texts.Tag(new InvalidDataException("Vaisseau selectionne absent de la liste disponible"),"error.ui");
                         return a;
                     }
                     if(!File.Exists(opened)&&(DateTime.UtcNow-start).TotalMilliseconds>UiOpenTimeout)throw Texts.Tag(new TimeoutException("Composant de liste cliquable sans reponse"),"error.ui");
@@ -536,6 +539,19 @@ namespace QuantumHangarQc
             try {
                 var p=await Player(id);string key=null;
                 steam=p.steamId;client=p.clientId;
+                if(args.Length==1) {
+                    bool pendingOperation;lock(gate)pendingOperation=busy.Contains(id);
+                    if(!pendingOperation) {
+                        var request=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=id,Client=client,Steam=steam,Playfield=p.playfield,Language=Language(p),Purpose="language",Protocol=3,CreatedUtc=DateTime.UtcNow};
+                        var selected=await ChooseUi(request);
+                        if(selected.Cancelled||stopped)return;
+                        var verified=await Player(id);
+                        if(verified.steamId!=steam||verified.clientId!=client)return;
+                        preferences.Set(steam,selected.SelectedLanguage=="auto"?null:selected.SelectedLanguage);
+                        Notify(id,T(verified,selected.SelectedLanguage=="auto"?"language.cleared":"language.saved"));
+                        return;
+                    }
+                }
                 if(args.Length==2) {
                     bool auto=args[1].Equals("auto",StringComparison.OrdinalIgnoreCase);string code=Languages.Normalize(args[1]);
                     if(!auto&&code==null)key="language.unknown";

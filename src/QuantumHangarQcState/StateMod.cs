@@ -6,7 +6,7 @@ using System.Reflection;
 using Eleon.Modding;
 using QuantumHangarQc.Live;
 using QuantumHangarQc.Localization;
-[assembly: AssemblyVersion("0.2.6.1")]
+[assembly: AssemblyVersion("0.2.6.2")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc - Live State")]
 namespace QuantumHangarQc.State {
