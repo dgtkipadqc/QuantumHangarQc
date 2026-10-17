@@ -24,12 +24,12 @@ class LanguageMenuTests {
   public void Finish(){var until=DateTime.UtcNow.AddSeconds(3);while(!Task.IsCompleted&&DateTime.UtcNow<until)Tick();Check(Task.IsCompleted,"menu task completes");Task.GetAwaiter().GetResult();Api.Mod.Game_Update();}
   public HangarUiRequest Request(){return Transfer.Read<HangarUiRequest>(Directory.GetFiles(Dir,"*.request.xml").Single());}
  }
- static Case Open(bool legacy=false){
+ static Case Open(bool legacy=false,string nativeSteam=null){
   var c=new Case();c.Api=new FakeApi{Root=Path.Combine(root,(++serial).ToString())};Directory.CreateDirectory(c.Api.Root);
   c.Api.Mod=new HangarMod{RequestTimeout=300,DialogTimeout=300,UiOpenTimeout=500,UiTimeout=2000};c.Api.Mod.StartAt(c.Api,c.Api.Root);
   c.Dir=Path.Combine(c.Api.Root,"Mods","QuantumHangarQc","HangarUI");Directory.CreateDirectory(c.Dir);
   c.Pref=Path.Combine(c.Api.Root,"Mods","QuantumHangarQc","Preferences",c.Api.P.steamId+".xml");
-  c.App=new App();if(legacy)c.Legacy=new QuantumHangarQc.LegacyState.UiBridge(c.App,s=>{});c.Bridge=new UiBridge(c.App,s=>{});c.Field=new Field{Name=c.Api.P.playfield,Players=new Dictionary<int,IPlayer>{{c.Api.P.entityId,new Player{Id=c.Api.P.entityId,SteamId=c.Api.P.steamId}}}};
+  c.App=new App();if(legacy)c.Legacy=new QuantumHangarQc.LegacyState.UiBridge(c.App,s=>{});c.Bridge=new UiBridge(c.App,s=>{});c.Field=new Field{Name=c.Api.P.playfield,Players=new Dictionary<int,IPlayer>{{c.Api.P.entityId,new Player{Id=c.Api.P.entityId,SteamId=nativeSteam??c.Api.P.steamId}}}};
   c.Api.Mod.Game_Event(CmdId.Event_ChatMessage,0,new ChatInfo{playerId=c.Api.P.entityId,msg="qh:lang"});c.Task=c.Api.Mod.LanguageTask;
   var until=DateTime.UtcNow.AddSeconds(2);while(c.App.Dialog==null&&DateTime.UtcNow<until)c.Tick();Check(c.App.Dialog!=null,"qh:lang opens native dialog");return c;
  }
@@ -66,6 +66,33 @@ class LanguageMenuTests {
    Check(Transfer.Read<Preference>(menu.Pref).Language==(code=="auto"?null:code),"clicked language persists with bridge legacy="+legacy);
    Check(!menu.Api.Calls.Contains(CmdId.Request_Entity_Export),"language menu never exports a ship");
    menu.Api.Mod.Game_Exit();
+  }
+  var noSteam=Open(false,"");noSteam.App.Click(HangarUiRules.LanguageLink(noSteam.Request(),"fr"));noSteam.Finish();
+  Check(Transfer.Read<Preference>(noSteam.Pref).Language=="fr","missing playfield SteamId still permits authenticated language selection");noSteam.Api.Mod.Game_Exit();
+  var reconnectNoSteam=Open(false,"");reconnectNoSteam.Api.P.clientId++;reconnectNoSteam.App.Click(HangarUiRules.LanguageLink(reconnectNoSteam.Request(),"fr"));reconnectNoSteam.Finish();
+  Check(!File.Exists(reconnectNoSteam.Pref),"Host still rejects reconnect with absent playfield SteamId");reconnectNoSteam.Api.Mod.Game_Exit();
+  var changedSteam=Open(false,"");changedSteam.Api.P.steamId="76561198000000002";changedSteam.App.Click(HangarUiRules.LanguageLink(changedSteam.Request(),"fr"));changedSteam.Finish();
+  Check(!File.Exists(changedSteam.Pref),"Host still rejects changed Steam identity");changedSteam.Api.Mod.Game_Exit();
+  foreach(string mode in new[]{"empty","matching","mismatch","absent"}) {
+   string dir=Path.Combine(root,"ship-ui-"+mode);Directory.CreateDirectory(dir);
+   var ship=new HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=50,Client=7,Steam="76561198000000001",Playfield="Space",Language="en",Protocol=2,CreatedUtc=DateTime.UtcNow};
+   ship.Rows.Add(new HangarRow{Slot=1,Name="Ship",ArchiveId=Guid.NewGuid().ToString("N"),Status="STORED"});
+   ship.Rows.Add(new HangarRow{Slot=2});
+   ship.Rows.Add(new HangarRow{Slot=3,Name="Blocked",ArchiveId=Guid.NewGuid().ToString("N"),Status="QUARANTINE"});
+   var field=new Field{Name="Space",Players=new Dictionary<int,IPlayer>()};
+   if(mode!="absent")field.Players[50]=new Player{Id=50,SteamId=mode=="empty"?"":mode=="matching"?ship.Steam:"76561198000000002"};
+   var app=new App();var bridge=new UiBridge(app,x=>{});Transfer.Write(Path.Combine(dir,ship.Token+".request.xml"),ship);
+   bridge.Tick(dir,new IPlayfield[]{field},DateTime.UtcNow);
+   if(mode=="empty"||mode=="matching") {
+    Check(app.Dialog!=null,"ship list opens with "+mode+" native SteamId");
+    Check(app.Dialog.BodyText.Contains(HangarUiRules.Link(ship,ship.Rows[0])),"stored ship row remains clickable");
+    Check(!app.Dialog.BodyText.Contains(HangarUiRules.Link(ship,ship.Rows[2])),"quarantine cannot be clicked");
+    app.Click(HangarUiRules.Link(ship,ship.Rows[0]));var reply=Transfer.Read<HangarUiReply>(Path.Combine(dir,ship.Token+".reply.xml"));
+    Check(reply.Slot==1&&reply.ArchiveId==ship.Rows[0].ArchiveId&&!reply.Cancelled,"ship selection callback returns exact archive");
+   }else {
+    Check(app.Dialog==null,"absent or mismatched player never opens UI");
+    Check(Transfer.Read<HangarUiReply>(Path.Combine(dir,ship.Token+".reply.xml")).Error=="error.session","identity mismatch stays refused");
+   }
   }
   Console.WriteLine("PASS "+checks+" language menu assertions; native dialog API simulated, real UiBridge and files.");
  }

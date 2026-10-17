@@ -1,3 +1,5 @@
+> Superseded by UI_FIX_0.2.6.4.md. User clarified that qh:list was also failing; the earlier working-list premise below was incorrect.
+
 # QH 0.2.6.3 — clickable languages using the qh:list transport
 
 User report: qh:list works, qh:lang:auto works, bare qh:lang returns error.ui.

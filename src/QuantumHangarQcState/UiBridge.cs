@@ -19,7 +19,11 @@ namespace QuantumHangarQc.State {
     lock(gate)if(pending.Values.Any(x=>x.Request.Token==r.Token))continue;
     var item=new Pending{File=file,Reply=reply,Request=r};
     var player=pf.Players.Values.FirstOrDefault(x=>x.Id==r.Player);
-    if(player==null||string.IsNullOrEmpty(player.SteamId)||player.SteamId!=r.Steam){Reply(item,null,true,"error.session");continue;}
+    // Some playfield APIs omit SteamId. Host authenticates Steam/client before
+    // requesting the UI and rechecks both before any action or preference save.
+    // Preserve 0.2.5 compatibility while refusing absent players and known mismatches.
+    if(player==null||(!string.IsNullOrEmpty(player.SteamId)&&player.SteamId!=r.Steam)){log("QH_UI SESSION_REJECT player="+r.Player);Reply(item,null,true,"error.session");continue;}
+    if(string.IsNullOrEmpty(player.SteamId))log("QH_UI IDENTITY_HOST player="+r.Player);
     if((r.Purpose=="language"?(r.Protocol!=2&&r.Protocol!=3):(!string.IsNullOrEmpty(r.Purpose)||(r.Protocol!=0&&r.Protocol!=2)))||r.Rows==null||r.Rows.Count>15||r.Rows.Any(x=>!ValidRow(x))||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){log("QH_UI REJECT protocol="+r.Protocol+" purpose="+r.Purpose);Reply(item,null,true,"ui.invalid_request");continue;}
     int key;lock(gate){key=++serial;if(key<=0){serial=1;key=1;}while(pending.ContainsKey(key))key=++serial;pending.Add(key,item);}
     try {
