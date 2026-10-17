@@ -1,3 +1,7 @@
+> **VALIDATE 0.2.6.1 — configuration par sauvegarde / per-save settings.**
+> [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
+> La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
+
 # Quantum Hangar Qc — BETA 0.2.6
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)

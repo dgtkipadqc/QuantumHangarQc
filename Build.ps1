@@ -32,7 +32,7 @@ $dist = Join-Path $PSScriptRoot 'dist\Content\Mods'
 $hostOutput = Join-Path $dist 'ModLoader\MODs\QuantumHangarQc'
 $stateOutput = Join-Path $dist 'QuantumHangarQcState'
 New-Item -ItemType Directory -Path $hostOutput,$stateOutput -Force | Out-Null
-$hostSources = @('QuantumHangarQc.cs','LiveState.cs','Markers.cs','HangarUi.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQc\' + $_) }
+$hostSources = @('QuantumHangarQc.cs','ActiveSavePath.cs','LiveState.cs','Markers.cs','HangarUi.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQc\' + $_) }
 $stateSources = @('LiveState.cs','StateMod.cs','Markers.cs','GpsBridge.cs','HangarUi.cs','UiBridge.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQcState\' + $_) }
 $sharedSource = Join-Path $PSScriptRoot 'src\Shared\Localization.cs'
 $hostSources += $sharedSource
@@ -45,6 +45,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Host compilation failed / Echec compilation Ho
 & $compiler @common @stateRefs "/out:$stateOutput\QuantumHangarQcState.dll" @stateSources
 if ($LASTEXITCODE -ne 0) { throw 'State compilation failed / Echec compilation State.' }
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'config\QuantumHangarQcState_Info.yaml') -Destination $stateOutput -Force
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'config\Configuration.example.xml') -Destination (Join-Path $hostOutput 'Configuration.xml') -Force
 foreach ($output in @($hostOutput,$stateOutput)) {
     $languages = Join-Path $output 'Languages'
     New-Item -ItemType Directory -Path $languages -Force | Out-Null

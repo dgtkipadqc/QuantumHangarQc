@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">Отмена</Text>
   <Text Key="button.store" Args="0">Подтвердить хранение</Text>
   <Text Key="button.load" Args="0">Подтвердить выдачу</Text>
-  <Text Key="hangar.list.title" Args="1">Твой ангар — занято {0}/10</Text>
+  <Text Key="hangar.list.title" Args="2">Твой ангар — занято {0}/{1}</Text>
   <Text Key="hangar.list.choose" Args="0">Нажми на корабль для выдачи</Text>
   <Text Key="hangar.list.empty" Args="0">Свободно</Text>
   <Text Key="hangar.list.footer" Args="0">Перед выдачей используй qh:mark. Требуется подтверждение. Альтернатива: qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">Выбор языка сохранён.</Text>
   <Text Key="language.cleared" Args="0">Сохранённый выбор языка удалён.</Text>
   <Text Key="language.unknown" Args="0">Неизвестный язык. Предыдущий выбор сохранён.</Text>
-  <Text Key="help.body" Args="0">Личный ангар: 10 мест.
+  <Text Key="help.body" Args="1">Личный ангар: {0} мест.
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 Доступно всем игрокам. Только личные CV/SV/HV твоего персонажа. Питание ВЫКЛ, покинь кабину, высади пассажиров и отстыкуй корабли. Не далее 250 м от центра корабля по API. Выдача: qh:mark, отойди на 50–1000 м, затем qh:load:SLOT. Метка действует 5 минут. Предпросмотра F2 нет.</Text>
-  <Text Key="store.confirm.body" Args="3">Поместить {0} (ID {1}) в место {2}/10?
+  <Text Key="store.confirm.body" Args="4">Поместить {0} (ID {1}) в место {2}/{3}?
 
 Корабль и файлы будут сохранены, затем корабль будет удалён из мира. Закрой логистику и останови скрипты груза. На борту никого не должно быть.</Text>
   <Text Key="store.retry" Args="0">Повторить неудачное копирование. Предыдущая попытка сохранится.</Text>
@@ -44,7 +44,7 @@ qh:lang:auto
 
 Корабль появится у метки с сохранённой ориентацией. Проверь расстояние до земли и препятствий. Предпросмотра F2 нет. Сравни груз после выдачи.</Text>
   <Text Key="load.success" Args="1">Корабль выдан, ID {0}. Сравни ВЕСЬ груз, баки и устройства с исходными. Архив восстановления сохранён.</Text>
-  <Text Key="mark.success" Args="0">Точка выдачи сохранена на 5 минут. Отойди на 50–1000 м, затем qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.success" Args="0">Точка выдачи сохранена на 5 минут. Отойди на 50–1000 м, затем qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">GPS-метка отправлена.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS недоступен; точка выдачи работает.</Text>
   <Text Key="info.body" Args="12">Корабль {0}: {1}
@@ -64,9 +64,9 @@ ID пилота: {11}
   <Text Key="error.unexpected" Args="0">Неожиданная ошибка. Сохрани журнал QH; автоповтора нет.</Text>
   <Text Key="error.identity" Args="0">Личность игрока не подтверждена.</Text>
   <Text Key="error.archive" Args="0">Архив повреждён, неполон или изменён. Сохрани его для проверки администратора.</Text>
-  <Text Key="error.slot_range" Args="0">Выбери место от 1 до 10.</Text>
+  <Text Key="error.slot_range" Args="1">Выбери место от 1 до {0}.</Text>
   <Text Key="error.legacy_slot_range" Args="0">Для старого архива выбери место от 1 до 15.</Text>
-  <Text Key="error.hangar_full" Args="0">Ангар полон: максимум 10 мест.</Text>
+  <Text Key="error.hangar_full" Args="1">Ангар полон: максимум {0} мест.</Text>
   <Text Key="error.duplicate" Args="0">Для этого корабля уже есть операция в твоём ангаре.</Text>
   <Text Key="error.slot_occupied" Args="0">Место занято. Выбери свободное; замена запрещена.</Text>
   <Text Key="error.slot_empty" Args="0">Это место свободно.</Text>

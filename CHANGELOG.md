@@ -1,3 +1,11 @@
+# 0.2.6.1 VALIDATE — 2026-10-17
+
+- Détection de la sauvegarde active via le client connecté au Host.
+- Configuration par partie, quota de 1 à 15 et langue par défaut.
+- Conservation des archives lors de la réduction du quota.
+- Affichage de la limite réelle dans les huit langues.
+- Validation locale; démarrage Windows et essais en jeu à effectuer.
+
 # Changes
 
 ## BETA 0.2.6 — validate, 2026-10-08

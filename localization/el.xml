@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">Ακύρωση</Text>
   <Text Key="button.store" Args="0">Επιβεβαίωση αποθήκευσης</Text>
   <Text Key="button.load" Args="0">Επιβεβαίωση ανάκτησης</Text>
-  <Text Key="hangar.list.title" Args="1">Το υπόστεγό σου — {0}/10 κατειλημμένες</Text>
+  <Text Key="hangar.list.title" Args="2">Το υπόστεγό σου — {0}/{1} κατειλημμένες</Text>
   <Text Key="hangar.list.choose" Args="0">Πάτησε ένα σκάφος για ανάκτηση</Text>
   <Text Key="hangar.list.empty" Args="0">Ελεύθερη</Text>
   <Text Key="hangar.list.footer" Args="0">Χρησιμοποίησε qh:mark πριν την ανάκτηση. Απαιτείται επιβεβαίωση. Εναλλακτικά: qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">Η επιλογή γλώσσας αποθηκεύτηκε.</Text>
   <Text Key="language.cleared" Args="0">Η αποθηκευμένη επιλογή γλώσσας αφαιρέθηκε.</Text>
   <Text Key="language.unknown" Args="0">Άγνωστη γλώσσα. Η προηγούμενη επιλογή διατηρείται.</Text>
-  <Text Key="help.body" Args="0">Προσωπικό υπόστεγο: 10 θέσεις.
+  <Text Key="help.body" Args="1">Προσωπικό υπόστεγο: {0} θέσεις.
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 Για όλους τους παίκτες. Μόνο ιδιωτικά CV/SV/HV του χαρακτήρα σου. Ρεύμα OFF, άδεια καμπίνα, χωρίς επιβάτες ή προσαρτημένα σκάφη. Έως 250 μ. από το κέντρο API του σκάφους. Ανάκτηση: qh:mark, απομακρύνσου 50–1000 μ., μετά qh:load:SLOT. Σημείο έγκυρο για 5 λεπτά. Χωρίς προεπισκόπηση F2.</Text>
-  <Text Key="store.confirm.body" Args="3">Αποθήκευση του {0} (ID {1}) στη θέση {2}/10;
+  <Text Key="store.confirm.body" Args="4">Αποθήκευση του {0} (ID {1}) στη θέση {2}/{3};
 
 Το σκάφος και τα αρχεία θα αρχειοθετηθούν και το σκάφος θα αφαιρεθεί από τον κόσμο. Κλείσε τη σύνδεση εφοδιαστικής και σταμάτησε τα scripts φορτίου. Κανείς δεν πρέπει να μείνει μέσα.</Text>
   <Text Key="store.retry" Args="0">Επανάληψη αποτυχημένης αντιγραφής. Η προηγούμενη προσπάθεια θα διατηρηθεί.</Text>
@@ -44,7 +44,7 @@ qh:lang:auto
 
 Το σκάφος θα εμφανιστεί στο σημείο με τον αποθηκευμένο προσανατολισμό. Έλεγξε χώρο από έδαφος και εμπόδια. Χωρίς προεπισκόπηση F2. Σύγκρινε το φορτίο μετά την ανάκτηση.</Text>
   <Text Key="load.success" Args="1">Το σκάφος ανακτήθηκε, ID {0}. Σύγκρινε ΟΛΟ το φορτίο, τις δεξαμενές και τις συσκευές με το αρχικό. Το αρχείο ανάκτησης διατηρείται.</Text>
-  <Text Key="mark.success" Args="0">Το σημείο ανάκτησης αποθηκεύτηκε για 5 λεπτά. Απομακρύνσου 50–1000 μ., μετά qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.success" Args="0">Το σημείο ανάκτησης αποθηκεύτηκε για 5 λεπτά. Απομακρύνσου 50–1000 μ., μετά qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">Το σημείο GPS στάλθηκε.</Text>
   <Text Key="mark.gps_unavailable" Args="0">Το GPS δεν είναι διαθέσιμο· το σημείο ανάκτησης λειτουργεί.</Text>
   <Text Key="info.body" Args="12">Σκάφος {0}: {1}
@@ -64,9 +64,9 @@ ID πιλότου: {11}
   <Text Key="error.unexpected" Args="0">Απρόσμενο σφάλμα. Διατήρησε το αρχείο QH· χωρίς αυτόματη επανάληψη.</Text>
   <Text Key="error.identity" Args="0">Δεν επαληθεύτηκε η ταυτότητα παίκτη.</Text>
   <Text Key="error.archive" Args="0">Μη έγκυρο, ελλιπές ή αλλαγμένο αρχείο. Διατήρησέ το για έλεγχο διαχειριστή.</Text>
-  <Text Key="error.slot_range" Args="0">Διάλεξε θέση από 1 έως 10.</Text>
+  <Text Key="error.slot_range" Args="1">Διάλεξε θέση από 1 έως {0}.</Text>
   <Text Key="error.legacy_slot_range" Args="0">Για παλαιό αρχείο διάλεξε θέση από 1 έως 15.</Text>
-  <Text Key="error.hangar_full" Args="0">Το υπόστεγο είναι γεμάτο: έως 10 θέσεις.</Text>
+  <Text Key="error.hangar_full" Args="1">Το υπόστεγο είναι γεμάτο: έως {0} θέσεις.</Text>
   <Text Key="error.duplicate" Args="0">Υπάρχει ήδη συναλλαγή για αυτό το σκάφος στο υπόστεγό σου.</Text>
   <Text Key="error.slot_occupied" Args="0">Κατειλημμένη θέση. Διάλεξε ελεύθερη· απαγορεύεται η αντικατάσταση.</Text>
   <Text Key="error.slot_empty" Args="0">Αυτή η θέση είναι ελεύθερη.</Text>

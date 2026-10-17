@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">取消</Text>
   <Text Key="button.store" Args="0">确认存入</Text>
   <Text Key="button.load" Args="0">确认取出</Text>
-  <Text Key="hangar.list.title" Args="1">你的机库 — 已占用 {0}/10</Text>
+  <Text Key="hangar.list.title" Args="2">你的机库 — 已占用 {0}/{1}</Text>
   <Text Key="hangar.list.choose" Args="0">点击飞船以取出</Text>
   <Text Key="hangar.list.empty" Args="0">空闲</Text>
   <Text Key="hangar.list.footer" Args="0">取出前使用 qh:mark。需要确认。也可使用 qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">语言选择已保存。</Text>
   <Text Key="language.cleared" Args="0">已清除保存的语言选择。</Text>
   <Text Key="language.unknown" Args="0">未知语言。保留原有选择。</Text>
-  <Text Key="help.body" Args="0">个人机库：10 个泊位。
+  <Text Key="help.body" Args="1">个人机库：{0} 个泊位。
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 所有玩家均可使用。仅限角色私人拥有的 CV/SV/HV。关闭电源，离开驾驶舱，确保无乘客和停靠飞船。距飞船 API 中心不超过 250 米。取出：qh:mark，离开 50–1000 米后使用 qh:load:SLOT。标记有效期为 5 分钟。无 F2 预览。</Text>
-  <Text Key="store.confirm.body" Args="3">将 {0}（ID {1}）存入泊位 {2}/10？
+  <Text Key="store.confirm.body" Args="4">将 {0}（ID {1}）存入泊位 {2}/{3}？
 
 飞船及存档文件将归档，然后从世界中移除飞船。关闭物流访问并停止修改货物的脚本。船上不得留人。</Text>
   <Text Key="store.retry" Args="0">重试失败的复制。保留上次尝试。</Text>
@@ -44,7 +44,7 @@ qh:lang:auto
 
 飞船将以保存的朝向出现在标记处。检查地形和障碍物附近的空间。无 F2 预览。取出后核对货物。</Text>
   <Text Key="load.success" Args="1">飞船已取出，ID {0}。核对全部货物、储罐和设备。恢复归档已保留。</Text>
-  <Text Key="mark.success" Args="0">返回点已保存，有效期 5 分钟。离开 50–1000 米后使用 qh:load:SLOT（1–10）。</Text>
+  <Text Key="mark.success" Args="0">返回点已保存，有效期 5 分钟。离开 50–1000 米后使用 qh:load:SLOT（1–15）。</Text>
   <Text Key="mark.gps_sent" Args="0">GPS 标记已发送。</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS 不可用；返回点仍可使用。</Text>
   <Text Key="info.body" Args="12">飞船 {0}：{1}
@@ -64,9 +64,9 @@ qh:lang:auto
   <Text Key="error.unexpected" Args="0">意外错误。请保留 QH 日志；不会自动重试。</Text>
   <Text Key="error.identity" Args="0">无法验证玩家身份。</Text>
   <Text Key="error.archive" Args="0">归档无效、不完整或已更改。请保留以供管理员检查。</Text>
-  <Text Key="error.slot_range" Args="0">请选择 1 到 10 的泊位。</Text>
+  <Text Key="error.slot_range" Args="1">请选择 1 到 {0} 的泊位。</Text>
   <Text Key="error.legacy_slot_range" Args="0">旧归档请选择 1 到 15 的泊位。</Text>
-  <Text Key="error.hangar_full" Args="0">机库已满：最多 10 个泊位。</Text>
+  <Text Key="error.hangar_full" Args="1">机库已满：最多 {0} 个泊位。</Text>
   <Text Key="error.duplicate" Args="0">此飞船在你的机库中已有事务。</Text>
   <Text Key="error.slot_occupied" Args="0">泊位已占用。请选择空位；禁止替换。</Text>
   <Text Key="error.slot_empty" Args="0">此泊位为空。</Text>

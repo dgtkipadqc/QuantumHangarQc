@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">Cancel</Text>
   <Text Key="button.store" Args="0">Confirm storage</Text>
   <Text Key="button.load" Args="0">Confirm retrieval</Text>
-  <Text Key="hangar.list.title" Args="1">Your hangar — {0}/10 occupied</Text>
+  <Text Key="hangar.list.title" Args="2">Your hangar — {0}/{1} occupied</Text>
   <Text Key="hangar.list.choose" Args="0">Click a ship to retrieve it</Text>
   <Text Key="hangar.list.empty" Args="0">Empty</Text>
   <Text Key="hangar.list.footer" Args="0">Use qh:mark before retrieval. Confirmation required. Alternative: qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">Language choice saved.</Text>
   <Text Key="language.cleared" Args="0">Saved language choice removed.</Text>
   <Text Key="language.unknown" Args="0">Unknown language. Your previous choice is unchanged.</Text>
-  <Text Key="help.body" Args="0">Personal hangar: 10 slots.
+  <Text Key="help.body" Args="1">Personal hangar: {0} slots.
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 All players can use QH. Private CV/SV/HV owned by your character only. Power OFF, leave the cockpit, remove passengers and undock all ships. Stay within 250 m of the ship's API center. For retrieval: qh:mark, move 50–1000 m away, then qh:load:SLOT. Marker valid for 5 minutes. No F2 preview.</Text>
-  <Text Key="store.confirm.body" Args="3">Store {0} (ID {1}) in slot {2}/10?
+  <Text Key="store.confirm.body" Args="4">Store {0} (ID {1}) in slot {2}/{3}?
 
 The ship and save files will be archived, then the ship will be removed from the world. Close logistics access and stop scripts changing cargo. Nobody may remain aboard.</Text>
   <Text Key="store.retry" Args="0">Retry the failed copy. The previous attempt will be retained.</Text>
@@ -44,7 +44,7 @@ Position: {3}
 
 The ship will appear at the marker with its saved orientation. Check clearance from terrain and obstacles. No F2 preview. Compare cargo after retrieval.</Text>
   <Text Key="load.success" Args="1">Ship retrieved, ID {0}. Compare ALL cargo, tanks and devices with the original. Recovery archive retained.</Text>
-  <Text Key="mark.success" Args="0">Return point saved for 5 minutes. Move 50–1000 m away, then qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.success" Args="0">Return point saved for 5 minutes. Move 50–1000 m away, then qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">GPS marker sent.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS unavailable; the return point still works.</Text>
   <Text Key="info.body" Args="12">Ship {0}: {1}
@@ -64,9 +64,9 @@ Diagnostic only. No export or removal.</Text>
   <Text Key="error.unexpected" Args="0">Unexpected error. Preserve the QH log; no automatic retry.</Text>
   <Text Key="error.identity" Args="0">Player identity could not be verified.</Text>
   <Text Key="error.archive" Args="0">Archive invalid, incomplete or changed. Preserve it for administrator review.</Text>
-  <Text Key="error.slot_range" Args="0">Choose a slot from 1 to 10.</Text>
+  <Text Key="error.slot_range" Args="1">Choose a slot from 1 to {0}.</Text>
   <Text Key="error.legacy_slot_range" Args="0">Choose a slot from 1 to 15 for a legacy archive.</Text>
-  <Text Key="error.hangar_full" Args="0">Hangar full: 10 slots maximum.</Text>
+  <Text Key="error.hangar_full" Args="1">Hangar full: {0} slots maximum.</Text>
   <Text Key="error.duplicate" Args="0">This ship already has a transaction in your hangar.</Text>
   <Text Key="error.slot_occupied" Args="0">Slot occupied. Choose an empty slot; replacement is forbidden.</Text>
   <Text Key="error.slot_empty" Args="0">This slot is empty.</Text>

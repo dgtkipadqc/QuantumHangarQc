@@ -13,13 +13,20 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.6.0")]
+[assembly: AssemblyVersion("0.2.6.1")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
 namespace QuantumHangarQc
 {
-    public sealed class Settings { public string SaveGameName = ""; public string DefaultLanguage = "en"; }
+    public sealed class Settings {
+        public int MaxShipsPerPlayer = 10;
+        public string DefaultLanguage = "en";
+        public void Validate() {
+            if(MaxShipsPerPlayer<1 || MaxShipsPerPlayer>15) throw new InvalidDataException("MaxShipsPerPlayer must be between 1 and 15");
+            if(Languages.Normalize(DefaultLanguage)==null) throw new InvalidDataException("DefaultLanguage invalid");
+        }
+    }
     public sealed class FileDigest { public string Path; public long Bytes; public string Sha256; }
     public sealed class Entry {
         // CarrierId/Slot retain the legacy on-disk address; PersonalSlot is the new player-facing number.
@@ -62,9 +69,9 @@ namespace QuantumHangarQc
         }
     }
     public sealed class ArchiveStore {
-        public const int Capacity=10;
+        public readonly int Capacity;
         public readonly string Root;
-        public ArchiveStore(string root) { Root=root; Directory.CreateDirectory(root); }
+        public ArchiveStore(string root,int capacity=10) { if(capacity<1||capacity>15) throw new ArgumentOutOfRangeException("capacity"); Capacity=capacity;Root=root; Directory.CreateDirectory(root); }
         static string Steam(string id) {
             ulong n;
             if(string.IsNullOrEmpty(id)||!ulong.TryParse(id,NumberStyles.None,CultureInfo.InvariantCulture,out n)||n==0||n.ToString(CultureInfo.InvariantCulture)!=id)
@@ -110,9 +117,9 @@ namespace QuantumHangarQc
             return list.OrderBy(e=>e.PersonalSlot).ToList();
         }
         public Entry Reserve(GlobalStructureInfo ship,string steam,int requestedSlot=0) {
-            if(requestedSlot<0||requestedSlot>Capacity) throw Texts.Tag(new InvalidOperationException("Choisis une place de 1 a 10"),"error.slot_range");
+            if(requestedSlot<0||requestedSlot>Capacity) throw Texts.Tag(new InvalidOperationException("Place hors limite configuree"),"error.slot_range",Capacity);
             var entries=List(steam);
-            if(entries.Count>=ArchiveStore.Capacity) throw Texts.Tag(new InvalidOperationException("Hangar plein : 10 places maximum"),"error.hangar_full");
+            if(entries.Count>=Capacity) throw Texts.Tag(new InvalidOperationException("Limite du hangar atteinte"),"error.hangar_full",Capacity);
             if(entries.Any(existing=>existing.ShipId==ship.id)) throw Texts.Tag(new InvalidOperationException("Ce vaisseau possede deja une transaction dans ton hangar"),"error.duplicate");
             if(requestedSlot>0&&entries.Any(existing=>existing.PersonalSlot==requestedSlot)) throw Texts.Tag(new InvalidOperationException("Place "+requestedSlot+" occupee : aucun remplacement autorise"),"error.slot_occupied");
             int slot=requestedSlot>0?requestedSlot:Enumerable.Range(1,Capacity).First(x=>!entries.Any(existing=>existing.PersonalSlot==x));
@@ -199,7 +206,7 @@ namespace QuantumHangarQc
         readonly HashSet<int> busy=new HashSet<int>(), entities=new HashSet<int>();
         readonly Dictionary<int,DateTime> lastCommand=new Dictionary<int,DateTime>();
         ModGameAPI api; ArchiveStore store; string saveDir, logDir;
-        Preferences preferences; string defaultLanguage="en";
+        Preferences preferences; string defaultLanguage="en"; Settings settings=new Settings(); volatile bool ready;
         string Language(PlayerInfo p) { return preferences.Resolve(p.steamId,defaultLanguage).Code; }
         string T(PlayerInfo p,string key,params object[] values) { return Texts.Render(Language(p),key,values); }
         readonly SemaphoreSlim gpsGate=new SemaphoreSlim(1,1);
@@ -216,32 +223,27 @@ namespace QuantumHangarQc
             if(!Directory.Exists(saveDir)) throw Texts.Tag(new DirectoryNotFoundException("Sauvegarde introuvable : "+saveDir),"error.unexpected");
             logDir=Path.Combine(saveDir,"Mods","QuantumHangarQc"); Directory.CreateDirectory(logDir);
             instanceLock=new FileStream(Path.Combine(logDir,"Instance.lock"),FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);
-            store=new ArchiveStore(Path.Combine(logDir,"Archives"));
+            string settingsPath=Path.Combine(logDir,"Configuration.xml");
+            if(File.Exists(settingsPath)) settings=Disk.Read<Settings>(settingsPath);
+            settings.Validate();defaultLanguage=settings.DefaultLanguage;
+            if(!File.Exists(settingsPath)) Disk.Write(settingsPath,settings);
+            store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            Log("START 0.2.6 BETA PERSONAL 10 SLOTS; store/destroy/restore enabled; save="+saveDir);
+            ready=true;Log("START 0.2.6 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
             try {
                 string dir=Path.GetDirectoryName(typeof(HangarMod).Assembly.Location);
                 string configPath=Path.Combine(dir,"Configuration.xml");
-                var cfg=File.Exists(configPath)?Disk.Read<Settings>(configPath):new Settings();
-                defaultLanguage=cfg.DefaultLanguage;
-                string save=cfg.SaveGameName;
-                if(string.IsNullOrWhiteSpace(save)) {
-                    string cb=Path.GetFullPath(Path.Combine(dir,"..","AtlantisPlayerCommands","Configuration.xml"));
-                    var xml=new XmlDocument { XmlResolver=null };
-                    using(var r=XmlReader.Create(cb,new XmlReaderSettings { DtdProcessing=DtdProcessing.Prohibit,XmlResolver=null })) xml.Load(r);
-                    save=xml.SelectSingleNode("/Configuration/SaveGameName").InnerText;
-                }
-                if(string.IsNullOrWhiteSpace(save) || save!=save.Trim() || save=="." || save==".." || save.IndexOfAny(new[]{'/', '\\', ':'})>=0)
-                    throw Texts.Tag(new InvalidDataException("SaveGameName invalide"),"error.unexpected");
-                var root=new DirectoryInfo(dir); for(int i=0;i<5;i++) root=root.Parent;
-                StartAt(gameApi,Path.Combine(root.FullName,"Saves","Games",save));
+                settings=File.Exists(configPath)?Disk.Read<Settings>(configPath):new Settings();
+                settings.Validate();
+                StartAt(gameApi,ActiveSavePath.Resolve(gameApi));
             } catch(Exception ex) { stopped=true; if(instanceLock!=null) instanceLock.Dispose(); Log("DISABLED "+ex.Message); }
         }
         public void Game_Update() {
+            if(!ready) return;
             ScheduleGps();
             for(int i=0;i<32;i++) {
                 Pending p; ushort seq;
@@ -272,7 +274,7 @@ namespace QuantumHangarQc
             Log("STOP"); lock(gate) { if(busy.Count==0 && instanceLock!=null) { instanceLock.Dispose(); instanceLock=null; } }
         }
         public void Game_Event(CmdId kind,ushort seq,object data) {
-            if(stopped) return;
+            if(stopped||!ready) return;
             if(kind==CmdId.Event_ChatMessage && data is ChatInfo) {
                 var c=(ChatInfo)data; if(c.playerId<=0 || c.msg==null) return;
                 string input=c.msg.Trim();
@@ -457,8 +459,8 @@ namespace QuantumHangarQc
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;
         async Task<Live.HangarUiReply> ChooseShip(PlayerInfo player,List<Entry> entries) {
-            var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Protocol=2,CreatedUtc=DateTime.UtcNow};
-            for(int slot=1;slot<=Math.Max(ArchiveStore.Capacity,entries.Count==0?0:entries.Max(e=>e.PersonalSlot));slot++) {
+            var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Capacity=store.Capacity,Protocol=2,CreatedUtc=DateTime.UtcNow};
+            for(int slot=1;slot<=Math.Max(store.Capacity,entries.Count==0?0:entries.Max(e=>e.PersonalSlot));slot++) {
                 var e=entries.SingleOrDefault(x=>x.PersonalSlot==slot);
                 r.Rows.Add(new Live.HangarRow{Slot=slot,ArchiveId=e==null?null:e.ArchiveId,Name=e==null?null:e.Ship.name,Status=e==null?null:e.Status});
             }
@@ -557,13 +559,13 @@ namespace QuantumHangarQc
             string cmd=args[0].ToLowerInvariant();
             Log("COMMAND player="+id+" command="+string.Join(" ",args));
             if((cmd=="qh"||cmd=="qh:help"||cmd=="qh:status") && args.Length==1) {
-                await Dialog(p,T(p,"help.body"),T(p,"button.close")); return;
+                await Dialog(p,T(p,"help.body",store.Capacity),T(p,"button.close")); return;
             }
             if(cmd!="qh:store"&&cmd!="qh:list"&&cmd!="qh:load"&&cmd!="qh:mark"&&cmd!="qh:info") throw Texts.Tag(new InvalidOperationException("Syntaxe : qh:store:ID:PLACE / qh:load:PLACE / qh:list / qh:mark"),"error.syntax");
             int value=args.Length>=2?Number(args[1]):0;
             int requestedSlot=args.Length==3?Number(args[2]):0;
-            if(requestedSlot>ArchiveStore.Capacity) throw Texts.Tag(new InvalidOperationException("Choisis une place de 1 a 10"),"error.slot_range");
-            if(cmd=="qh:load"&&(value<1||value>15)) throw Texts.Tag(new InvalidOperationException("Numero de place invalide"),"error.slot_range");
+            if(requestedSlot>store.Capacity) throw Texts.Tag(new InvalidOperationException("Place hors limite configuree"),"error.slot_range",store.Capacity);
+            if(cmd=="qh:load"&&(value<1||value>15)) throw Texts.Tag(new InvalidOperationException("Numero de place invalide"),"error.legacy_slot_range");
             if(cmd=="qh:info") {
                 var infoList=await Structures(id);p=await LiveStorePosition(p,infoList,value,"INFO");var infoShip=Find(infoList,value);string sector=Playfield(infoList,value);
                 await Dialog(p,T(p,"info.body",value,infoShip.name,p.playfield,sector,PositionText(p.pos),PositionText(infoShip.pos),sector==p.playfield?Distance(p.pos,infoShip.pos).ToString("0.0",CultureInfo.InvariantCulture):"—",infoShip.factionGroup,infoShip.factionId,p.entityId,T(p,infoShip.powered?"power.on":"power.off"),infoShip.pilotId),T(p,"button.close"));return;
@@ -594,8 +596,8 @@ namespace QuantumHangarQc
                     try {choice=await ChooseShip(p,entries);}
                     catch(Exception ex) {
                         Log("UI_FALLBACK "+ex.Message);
-                        var rows=Enumerable.Range(1,Math.Max(ArchiveStore.Capacity,entries.Count==0?0:entries.Max(e=>e.PersonalSlot))).Select(slot=>{var item=entries.SingleOrDefault(e=>e.PersonalSlot==slot);return slot+" : "+(item==null?T(p,"hangar.list.empty"):Clean(item.Ship.name)+" — "+Live.HangarUiRules.Status(Language(p),item.Status));});
-                        await Dialog(p,T(p,"hangar.list.title",entries.Count)+"\n\n"+string.Join("\n",rows)+"\n\n"+T(p,"hangar.list.fallback"),T(p,"button.close"));return;
+                        var rows=Enumerable.Range(1,Math.Max(store.Capacity,entries.Count==0?0:entries.Max(e=>e.PersonalSlot))).Select(slot=>{var item=entries.SingleOrDefault(e=>e.PersonalSlot==slot);return slot+" : "+(item==null?T(p,"hangar.list.empty"):Clean(item.Ship.name)+" — "+Live.HangarUiRules.Status(Language(p),item.Status));});
+                        await Dialog(p,T(p,"hangar.list.title",entries.Count,store.Capacity)+"\n\n"+string.Join("\n",rows)+"\n\n"+T(p,"hangar.list.fallback"),T(p,"button.close"));return;
                     }
                     if(choice.Cancelled)return;
                     p=await Player(id);
@@ -607,7 +609,7 @@ namespace QuantumHangarQc
                 }
 
                 if(cmd=="qh:store") {
-                    if(requestedSlot>ArchiveStore.Capacity) throw Texts.Tag(new InvalidOperationException("Choisis une place de 1 a 10"),"error.slot_range");
+                    if(requestedSlot>store.Capacity) throw Texts.Tag(new InvalidOperationException("Place hors limite configuree"),"error.slot_range",store.Capacity);
                     var l=await Structures(id);p=await LiveStorePosition(p,l,value,"PREVIEW");
                     if(p.steamId!=sessionSteam||p.clientId!=sessionClient)throw Texts.Tag(new InvalidOperationException("Session changee pendant la preparation"),"error.session");
                     Validate(p,l,value);
@@ -621,11 +623,11 @@ namespace QuantumHangarQc
                         entries=entries.Where(existing=>existing.ArchiveId!=retry.ArchiveId).ToList();
                         if(requestedSlot==0) requestedSlot=retry.PersonalSlot;
                     }
-                    if(entries.Count>=ArchiveStore.Capacity) throw Texts.Tag(new InvalidOperationException("Hangar plein : 10 places maximum"),"error.hangar_full");
+                    if(entries.Count>=store.Capacity) throw Texts.Tag(new InvalidOperationException("Limite du hangar atteinte"),"error.hangar_full",store.Capacity);
                     if(entries.Any(existing=>existing.ShipId==value)) throw Texts.Tag(new InvalidOperationException("Ce vaisseau possede deja une transaction dans ton hangar"),"error.duplicate");
                     if(requestedSlot>0&&entries.Any(existing=>existing.PersonalSlot==requestedSlot)) throw Texts.Tag(new InvalidOperationException("Place "+requestedSlot+" occupee : choisis une place libre"),"error.slot_occupied");
-                    int selectedSlot=requestedSlot>0?requestedSlot:Enumerable.Range(1,ArchiveStore.Capacity).First(x=>!entries.Any(existing=>existing.PersonalSlot==x));
-                    if(!await Dialog(p,(retry==null?"":T(p,"store.retry")+"\n\n")+T(p,"store.confirm.body",ship.name,ship.id,selectedSlot),T(p,"button.store"))) { Log("CANCEL store player="+id); return; }
+                    int selectedSlot=requestedSlot>0?requestedSlot:Enumerable.Range(1,store.Capacity).First(x=>!entries.Any(existing=>existing.PersonalSlot==x));
+                    if(!await Dialog(p,(retry==null?"":T(p,"store.retry")+"\n\n")+T(p,"store.confirm.body",ship.name,ship.id,selectedSlot,store.Capacity),T(p,"button.store"))) { Log("CANCEL store player="+id); return; }
                     var fresh=await Player(id); if(fresh.steamId!=sessionSteam||fresh.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee"),"error.session");
                     l=await Structures(id); fresh=await LiveStorePosition(fresh,l,value,"CONFIRM");Validate(fresh,l,value);
                     if(fresh.playfield!=storeSector)throw Texts.Tag(new InvalidOperationException("Secteur change pendant la confirmation; relance le depot dans le secteur actuel"),"error.session");

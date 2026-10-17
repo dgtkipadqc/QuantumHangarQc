@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">Cancelar</Text>
   <Text Key="button.store" Args="0">Confirmar armazenamento</Text>
   <Text Key="button.load" Args="0">Confirmar retirada</Text>
-  <Text Key="hangar.list.title" Args="1">Seu hangar — {0}/10 ocupadas</Text>
+  <Text Key="hangar.list.title" Args="2">Seu hangar — {0}/{1} ocupadas</Text>
   <Text Key="hangar.list.choose" Args="0">Clique em uma nave para retirá-la</Text>
   <Text Key="hangar.list.empty" Args="0">Livre</Text>
   <Text Key="hangar.list.footer" Args="0">Use qh:mark antes de retirar. Confirmação obrigatória. Alternativa: qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">Escolha de idioma salva.</Text>
   <Text Key="language.cleared" Args="0">Escolha de idioma removida.</Text>
   <Text Key="language.unknown" Args="0">Idioma desconhecido. Sua escolha anterior foi mantida.</Text>
-  <Text Key="help.body" Args="0">Hangar pessoal: 10 vagas.
+  <Text Key="help.body" Args="1">Hangar pessoal: {0} vagas.
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 Disponível para todos. Somente CV/SV/HV privados do seu personagem. Energia OFF, saia do cockpit, sem passageiros ou naves acopladas. Fique a até 250 m do centro da nave pela API. Retirada: qh:mark, afaste-se 50–1000 m e use qh:load:SLOT. Marcador válido por 5 minutos. Sem prévia F2.</Text>
-  <Text Key="store.confirm.body" Args="3">Armazenar {0} (ID {1}) na vaga {2}/10?
+  <Text Key="store.confirm.body" Args="4">Armazenar {0} (ID {1}) na vaga {2}/{3}?
 
 A nave e os arquivos serão arquivados, depois a nave será removida do mundo. Feche a logística e pare scripts que alteram a carga. Ninguém pode ficar a bordo.</Text>
   <Text Key="store.retry" Args="0">Repetir a cópia falha. A tentativa anterior será mantida.</Text>
@@ -44,7 +44,7 @@ Posição: {3}
 
 A nave aparecerá no marcador com a orientação salva. Verifique o espaço livre de terreno e obstáculos. Sem prévia F2. Compare a carga após retirar.</Text>
   <Text Key="load.success" Args="1">Nave retirada, ID {0}. Compare TODA a carga, tanques e dispositivos com o original. Arquivo de recuperação mantido.</Text>
-  <Text Key="mark.success" Args="0">Ponto de retirada salvo por 5 minutos. Afaste-se 50–1000 m e use qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.success" Args="0">Ponto de retirada salvo por 5 minutos. Afaste-se 50–1000 m e use qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">Marcador GPS enviado.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS indisponível; o ponto de retirada continua funcionando.</Text>
   <Text Key="info.body" Args="12">Nave {0}: {1}
@@ -64,9 +64,9 @@ Somente diagnóstico. Sem exportação ou remoção.</Text>
   <Text Key="error.unexpected" Args="0">Erro inesperado. Guarde o log QH; sem repetição automática.</Text>
   <Text Key="error.identity" Args="0">Identidade do jogador não verificada.</Text>
   <Text Key="error.archive" Args="0">Arquivo inválido, incompleto ou alterado. Guarde para revisão administrativa.</Text>
-  <Text Key="error.slot_range" Args="0">Escolha uma vaga de 1 a 10.</Text>
+  <Text Key="error.slot_range" Args="1">Escolha uma vaga de 1 a {0}.</Text>
   <Text Key="error.legacy_slot_range" Args="0">Para arquivo antigo, escolha uma vaga de 1 a 15.</Text>
-  <Text Key="error.hangar_full" Args="0">Hangar cheio: no máximo 10 vagas.</Text>
+  <Text Key="error.hangar_full" Args="1">Hangar cheio: no máximo {0} vagas.</Text>
   <Text Key="error.duplicate" Args="0">Esta nave já possui uma transação no seu hangar.</Text>
   <Text Key="error.slot_occupied" Args="0">Vaga ocupada. Escolha uma livre; substituição proibida.</Text>
   <Text Key="error.slot_empty" Args="0">Esta vaga está livre.</Text>

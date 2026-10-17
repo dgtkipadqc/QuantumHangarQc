@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">Abbrechen</Text>
   <Text Key="button.store" Args="0">Einlagern bestätigen</Text>
   <Text Key="button.load" Args="0">Abruf bestätigen</Text>
-  <Text Key="hangar.list.title" Args="1">Dein Hangar — {0}/10 belegt</Text>
+  <Text Key="hangar.list.title" Args="2">Dein Hangar — {0}/{1} belegt</Text>
   <Text Key="hangar.list.choose" Args="0">Klicke auf ein Schiff, um es abzurufen</Text>
   <Text Key="hangar.list.empty" Args="0">Frei</Text>
   <Text Key="hangar.list.footer" Args="0">Vor dem Abruf qh:mark verwenden. Bestätigung erforderlich. Alternative: qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">Sprachauswahl gespeichert.</Text>
   <Text Key="language.cleared" Args="0">Gespeicherte Sprachauswahl entfernt.</Text>
   <Text Key="language.unknown" Args="0">Unbekannte Sprache. Deine bisherige Auswahl bleibt erhalten.</Text>
-  <Text Key="help.body" Args="0">Persönlicher Hangar: 10 Plätze.
+  <Text Key="help.body" Args="1">Persönlicher Hangar: {0} Plätze.
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 Für alle Spieler. Nur private CV/SV/HV deines Charakters. Strom AUS, Cockpit verlassen, keine Passagiere oder angedockten Schiffe. Höchstens 250 m vom API-Mittelpunkt entfernt. Abruf: qh:mark, 50–1000 m entfernen, dann qh:load:SLOT. Markierung gilt 5 Minuten. Keine F2-Vorschau.</Text>
-  <Text Key="store.confirm.body" Args="3">{0} (ID {1}) auf Platz {2}/10 einlagern?
+  <Text Key="store.confirm.body" Args="4">{0} (ID {1}) auf Platz {2}/{3} einlagern?
 
 Schiff und Dateien werden archiviert, danach wird das Schiff aus der Welt entfernt. Logistikzugriffe schließen und Frachtskripte stoppen. Niemand darf an Bord bleiben.</Text>
   <Text Key="store.retry" Args="0">Fehlgeschlagene Kopie wiederholen. Der vorherige Versuch bleibt erhalten.</Text>
@@ -44,7 +44,7 @@ Position: {3}
 
 Das Schiff erscheint an der Markierung mit gespeicherter Ausrichtung. Abstand zu Gelände und Hindernissen prüfen. Keine F2-Vorschau. Fracht nach Abruf vergleichen.</Text>
   <Text Key="load.success" Args="1">Schiff abgerufen, ID {0}. ALLE Fracht, Tanks und Geräte mit dem Original vergleichen. Wiederherstellungsarchiv bleibt erhalten.</Text>
-  <Text Key="mark.success" Args="0">Rückkehrpunkt für 5 Minuten gespeichert. 50–1000 m entfernen, dann qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.success" Args="0">Rückkehrpunkt für 5 Minuten gespeichert. 50–1000 m entfernen, dann qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">GPS-Markierung gesendet.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS nicht verfügbar; Rückkehrpunkt funktioniert weiterhin.</Text>
   <Text Key="info.body" Args="12">Schiff {0}: {1}
@@ -64,9 +64,9 @@ Nur Diagnose. Kein Export oder Entfernen.</Text>
   <Text Key="error.unexpected" Args="0">Unerwarteter Fehler. QH-Protokoll aufbewahren; keine automatische Wiederholung.</Text>
   <Text Key="error.identity" Args="0">Spieleridentität konnte nicht geprüft werden.</Text>
   <Text Key="error.archive" Args="0">Archiv ungültig, unvollständig oder verändert. Zur Administratorprüfung aufbewahren.</Text>
-  <Text Key="error.slot_range" Args="0">Wähle einen Platz von 1 bis 10.</Text>
+  <Text Key="error.slot_range" Args="1">Wähle einen Platz von 1 bis {0}.</Text>
   <Text Key="error.legacy_slot_range" Args="0">Für ein altes Archiv Platz 1 bis 15 wählen.</Text>
-  <Text Key="error.hangar_full" Args="0">Hangar voll: höchstens 10 Plätze.</Text>
+  <Text Key="error.hangar_full" Args="1">Hangar voll: höchstens {0} Plätze.</Text>
   <Text Key="error.duplicate" Args="0">Dieses Schiff hat bereits einen Vorgang in deinem Hangar.</Text>
   <Text Key="error.slot_occupied" Args="0">Platz belegt. Freien Platz wählen; Ersetzen ist verboten.</Text>
   <Text Key="error.slot_empty" Args="0">Dieser Platz ist frei.</Text>

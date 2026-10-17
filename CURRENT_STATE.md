@@ -1,3 +1,7 @@
+> **VALIDATE 0.2.6.1 — configuration par sauvegarde / per-save settings.**
+> [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
+> La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
+
 # Current state — 2026-10-08
 
 - Branch target: validate; runtime BETA 0.2.6. main remains the 0.2.5 reference pending Frank's agreement.

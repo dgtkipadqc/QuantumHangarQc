@@ -67,7 +67,7 @@ class LocaleTests {
   Check(body.Contains("<link=\""+HangarUiRules.Link(req,row))&&HangarUiRules.Select(req,HangarUiRules.Link(req,row))==row,"generated selection token preserved");
   Check(HangarUiRules.Status("fr","QUARANTINE").Contains("Quarantaine"),"persistent status displayed in French");
   var a=New();Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains("Personal hangar"),"generic installation defaults to English");
-  foreach(var code in Languages.Codes){Run(a,"qh:lang:"+code);Check(a.HeldDialog.MsgText.Contains(Languages.Name(code)),"real command language "+code);Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains(Texts.Render(code,"help.body")),"help integration "+code);}
+  foreach(var code in Languages.Codes){Run(a,"qh:lang:"+code);Check(a.HeldDialog.MsgText.Contains(Languages.Name(code)),"real command language "+code);Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains(Texts.Render(code,"help.body",10)),"help integration "+code);}
   Run(a,"qh:lang:fr");Run(a,"qh:lang:unknown");Check(a.HeldDialog.MsgText.Contains("Langue inconnue"),"unknown command retains French");
   Run(a,"qh:lang:auto");Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains("Personal hangar"),"auto command actually removed override");
   Run(a,"qh:lang:fr");a.P.entityId=77;Run(a,"qh:help");Check(a.HeldDialog.MsgText.Contains("Hangar personnel"),"character reset keeps Steam preference");

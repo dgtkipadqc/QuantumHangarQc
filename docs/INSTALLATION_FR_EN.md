@@ -1,3 +1,8 @@
+# Correctif 0.2.6.1 VALIDATE
+
+Voir [les réglages par sauvegarde](CONFIGURATION_PAR_SAUVEGARDE.md) pour la
+détection automatique et la limite de vaisseaux configurable.
+
 # Installation / Update — FR / EN
 
 ## Français
@@ -11,7 +16,7 @@
    `dist/Content/Mods/QuantumHangarQcState` dans `Content/Mods/`.
 6. Première installation seulement : copier `config/Configuration.example.xml`
    vers `Content/Mods/ModLoader/MODs/QuantumHangarQc/Configuration.xml`.
-   Remplacer `YOUR_SAVE_GAME_FOLDER` par le nom exact sous `Saves/Games`.
+   Aucun nom de sauvegarde : la partie active est détectée par le client du Host.
    Pour une mise à jour, conserver le `Configuration.xml` existant.
 7. Vérifier les deux listes ci-dessous et ajouter seulement la ligne manquante.
    Ne pas remplacer une liste complète ni y ajouter QuantumHangarQcState.
@@ -26,9 +31,8 @@ QuantumHangarQcState est un module natif PfServer, placé directement sous
 `Content/Mods/QuantumHangarQcState/`. Il ne va pas dans la liste du Host.
 
 Les archives restent dans `Saves/Games/<save>/Mods/QuantumHangarQc`.
-Aucun fichier de sauvegarde, aucun DllNames et aucune configuration active
-ne sont fournis dans la sortie de compilation. Il n'y a pas de dépendance
-fonctionnelle à VB, Recycle ou CB lorsque SaveGameName est configuré.
+Le modèle de configuration est inclus dans la sortie de compilation. Aucun
+fichier de sauvegarde ou DllNames n’est fourni. Voir CONFIGURATION_PAR_SAUVEGARDE.md.
 
 En cas d'échec : relever la première erreur QH du journal DedicatedServer après
 connexion. Un ancien QuantumHangarQc.log ne prouve pas le démarrage courant.
@@ -41,7 +45,7 @@ EmpyrionModHost. Back up the current QH binaries, then merge `dist/Content/Mods`
 into the server's `Content/Mods`.
 
 On first installation only, copy the example XML to the host QH module folder,
-rename it `Configuration.xml` and enter the exact save folder name. On updates,
+rename it `Configuration.xml`. The active save is detected automatically. On updates,
 preserve the existing configuration. Append the required lines in the table
 only if absent; never replace complete loader lists. The state module is loaded
 natively by PfServer and must not be added to Host/DllNames.txt.

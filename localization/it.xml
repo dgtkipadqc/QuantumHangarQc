@@ -4,7 +4,7 @@
   <Text Key="button.cancel" Args="0">Annulla</Text>
   <Text Key="button.store" Args="0">Conferma deposito</Text>
   <Text Key="button.load" Args="0">Conferma recupero</Text>
-  <Text Key="hangar.list.title" Args="1">Il tuo hangar — {0}/10 occupati</Text>
+  <Text Key="hangar.list.title" Args="2">Il tuo hangar — {0}/{1} occupati</Text>
   <Text Key="hangar.list.choose" Args="0">Seleziona una nave da recuperare</Text>
   <Text Key="hangar.list.empty" Args="0">Libero</Text>
   <Text Key="hangar.list.footer" Args="0">Usa qh:mark prima del recupero. Conferma obbligatoria. Alternativa: qh:load:SLOT</Text>
@@ -21,7 +21,7 @@
   <Text Key="language.saved" Args="0">Scelta della lingua salvata.</Text>
   <Text Key="language.cleared" Args="0">Scelta della lingua rimossa.</Text>
   <Text Key="language.unknown" Args="0">Lingua sconosciuta. La scelta precedente rimane.</Text>
-  <Text Key="help.body" Args="0">Hangar personale: 10 posti.
+  <Text Key="help.body" Args="1">Hangar personale: {0} posti.
 
 qh:store:ID
 qh:store:ID:SLOT
@@ -33,7 +33,7 @@ qh:lang
 qh:lang:auto
 
 Per tutti i giocatori. Solo CV/SV/HV privati del tuo personaggio. Alimentazione OFF, esci dalla cabina, nessun passeggero o nave attraccata. Entro 250 m dal centro API della nave. Recupero: qh:mark, allontanati di 50–1000 m, poi qh:load:SLOT. Indicatore valido 5 minuti. Nessuna anteprima F2.</Text>
-  <Text Key="store.confirm.body" Args="3">Depositare {0} (ID {1}) nel posto {2}/10?
+  <Text Key="store.confirm.body" Args="4">Depositare {0} (ID {1}) nel posto {2}/{3}?
 
 Nave e file saranno archiviati, poi la nave sarà rimossa dal mondo. Chiudi la logistica e ferma gli script del carico. Nessuno deve restare a bordo.</Text>
   <Text Key="store.retry" Args="0">Riprendi la copia fallita. Il tentativo precedente sarà conservato.</Text>
@@ -44,7 +44,7 @@ Posizione: {3}
 
 La nave apparirà al punto segnato con l'orientamento salvato. Verifica lo spazio da terreno e ostacoli. Nessuna anteprima F2. Confronta il carico dopo il recupero.</Text>
   <Text Key="load.success" Args="1">Nave recuperata, ID {0}. Confronta TUTTO il carico, i serbatoi e i dispositivi con l'originale. Archivio di recupero conservato.</Text>
-  <Text Key="mark.success" Args="0">Punto di recupero salvato per 5 minuti. Allontanati di 50–1000 m, poi qh:load:SLOT (1–10).</Text>
+  <Text Key="mark.success" Args="0">Punto di recupero salvato per 5 minuti. Allontanati di 50–1000 m, poi qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">Indicatore GPS inviato.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS non disponibile; il punto di recupero funziona comunque.</Text>
   <Text Key="info.body" Args="12">Nave {0}: {1}
@@ -64,9 +64,9 @@ Solo diagnosi. Nessun export o rimozione.</Text>
   <Text Key="error.unexpected" Args="0">Errore imprevisto. Conserva il log QH; nessun tentativo automatico.</Text>
   <Text Key="error.identity" Args="0">Identità del giocatore non verificata.</Text>
   <Text Key="error.archive" Args="0">Archivio non valido, incompleto o modificato. Conservalo per la verifica amministrativa.</Text>
-  <Text Key="error.slot_range" Args="0">Scegli un posto da 1 a 10.</Text>
+  <Text Key="error.slot_range" Args="1">Scegli un posto da 1 a {0}.</Text>
   <Text Key="error.legacy_slot_range" Args="0">Per un archivio precedente scegli un posto da 1 a 15.</Text>
-  <Text Key="error.hangar_full" Args="0">Hangar pieno: massimo 10 posti.</Text>
+  <Text Key="error.hangar_full" Args="1">Hangar pieno: massimo {0} posti.</Text>
   <Text Key="error.duplicate" Args="0">Questa nave ha già un'operazione nel tuo hangar.</Text>
   <Text Key="error.slot_occupied" Args="0">Posto occupato. Scegli un posto libero; sostituzione vietata.</Text>
   <Text Key="error.slot_empty" Args="0">Questo posto è libero.</Text>

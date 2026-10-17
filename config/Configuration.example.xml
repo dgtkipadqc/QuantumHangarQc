@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <SaveGameName>YOUR_SAVE_GAME_FOLDER</SaveGameName>
-  <DefaultLanguage>en</DefaultLanguage>
+  <MaxShipsPerPlayer>10</MaxShipsPerPlayer>
+  <DefaultLanguage>fr</DefaultLanguage>
 </Settings>
