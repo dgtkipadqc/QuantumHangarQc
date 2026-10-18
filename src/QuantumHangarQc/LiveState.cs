@@ -19,7 +19,7 @@ namespace QuantumHangarQc.Live {
   public static bool TrueForAllFinite(this float[] values){foreach(float v in values)if(float.IsNaN(v)||float.IsInfinity(v))return false;return true;}
  }
  public class TerrainRequest {public string Token,Steam,Playfield;public int Player,Client;public float X,Y,Z,Clearance;public HullBounds Hull;public DateTime CreatedUtc;}
- public class TerrainReply {public string Token,Steam,Playfield,Error;public int Player,Client,Samples;public float X,Y,Z;public bool Space;public DateTime CapturedUtc;}
+ public class TerrainReply {public string Token,Steam,Playfield,Error;public int Player,Client,Samples,PlacementVersion;public float X,Y,Z,GroundY;public bool Space;public DateTime CapturedUtc;}
  // Incremental sampling: at most 256 API calls per playfield update, on its own thread.
  public sealed class TerrainScan {
   readonly TerrainRequest request;readonly Func<float,float,float> height;readonly int nx,nz;
@@ -44,7 +44,10 @@ namespace QuantumHangarQc.Live {
     float y=height(x,z);if(float.IsNaN(y)||float.IsInfinity(y))throw new InvalidDataException("error.terrain_unavailable");
     highest=Math.Max(highest,y);index++;Reply.Samples=index;
     if(index==(nx+1)*(nz+1)){
-     Reply.Y=Math.Max(request.Y,highest)-Math.Min(0,request.Hull.MinY)+request.Clearance;
+     // Planet placement is measured from the lower hull edge, not marker altitude.
+     // The entity pivot can be above OR below that edge; preserve the signed offset.
+     Reply.PlacementVersion=2;Reply.GroundY=highest;
+     Reply.Y=highest-request.Hull.MinY+request.Clearance;
      if(!new[]{Reply.Y}.TrueForAllFinite())throw new InvalidDataException("error.terrain_unavailable");
      Finish();
     }

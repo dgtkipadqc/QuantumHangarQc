@@ -24,7 +24,7 @@ class TerrainTests {
  static void Main(string[] args){
   var r=Request();var a=Run(r,"Planet",(x,z)=>10+x/2+z/4);Check(a.Y==26.5f&&a.Samples==121,"slope highest corner plus lower hull and clearance");
   a=Run(r,"Planet",(x,z)=>x==0&&z==0?40:10);Check(a.Y==49,"interior peak sampled, not only corners");
-  r.Y=100;a=Run(r,"Planet",(x,z)=>-20);Check(a.Y==109,"elevated marker never lowered; lower hull clears marker");
+  r.Y=100;a=Run(r,"Planet",(x,z)=>-20);Check(a.Y==-11&&a.Y+r.Hull.MinY==-15,"elevated marker does not add height above ground");
   r.Hull=null;a=Run(r,"Space",(x,z)=>{throw new Exception("space must not query terrain");});Check(a.Space&&a.Y==100&&a.Samples==0,"legacy space retrieval unchanged");
   Bad(()=>Run(r,"Planet",(x,z)=>0),"unknown legacy hull fails closed on planet");
   r=Request();Bad(()=>Run(r,"Unknown",(x,z)=>0),"unknown playfield fails closed");
@@ -35,6 +35,9 @@ class TerrainTests {
   r=Request();r.Clearance=0.5f;a=Run(r,"Planet",(x,z)=>10);Check(a.Y+r.Hull.MinY==10.5f,"bottom edge only half a metre above flat ground");
   r.Clearance=0.25f;a=Run(r,"Planet",(x,z)=>10);Check(a.Y+r.Hull.MinY==10.25f,"minimum clearance accepted");
   r.Clearance=0.24f;Bad(()=>Run(r,"Planet",(x,z)=>0),"clearance below minimum rejected");
+  r=Request();r.Y=100;r.Clearance=2;a=Run(r,"Planet",(x,z)=>10);Check(a.Y==16&&a.Y+r.Hull.MinY==12,"2m clearance despite marker 90m above terrain");
+  r.Hull.MinY=40;r.Hull.MaxY=50;a=Run(r,"Planet",(x,z)=>10);Check(a.Y==-28&&a.Y+r.Hull.MinY==12,"positive lower hull offset still places bottom 2m above terrain");
+  Check(a.PlacementVersion==2&&a.GroundY==10,"reply carries signed-placement version and sampled ground");
   r=Request();int calls=0;var scan=new TerrainScan(r,"Planet",(x,z)=>{calls++;return 0;});scan.Step(7);Check(calls==7&&!scan.Done,"work budget bounded");
   while(!scan.Done)scan.Step(7);Check(calls==121,"no duplicate or skipped grid samples");
   var h=TerrainBridge.CaptureHull(new Ship());Check(h.MinX==-3&&h.MaxX==9&&h.MinY==-13&&h.MaxY==7&&h.MinZ==-5&&h.MaxZ==11,"native scale, rotation and half-block edges included");

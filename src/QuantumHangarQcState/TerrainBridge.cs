@@ -50,7 +50,7 @@ namespace QuantumHangarQc.State {
     if(!fields.Any(p=>object.ReferenceEquals(p,field)))throw new InvalidOperationException("Playfield unloaded");
     if(scan==null)scan=new TerrainScan(request,field.PlayfieldType,field.GetTerrainHeightAt);
     scan.Step(256);
-    if(scan.Done){Transfer.Write(replyPath,scan.Reply);log("QH_TERRAIN samples="+scan.Reply.Samples+" space="+scan.Reply.Space+" spawnY="+scan.Reply.Y);Clear();}
+    if(scan.Done){Transfer.Write(replyPath,scan.Reply);log("QH_TERRAIN samples="+scan.Reply.Samples+" space="+scan.Reply.Space+" spawnY="+scan.Reply.Y+" markerY="+request.Y+" groundY="+scan.Reply.GroundY+" hullMinY="+(request.Hull==null?"none":request.Hull.MinY.ToString(System.Globalization.CultureInfo.InvariantCulture))+" clearance="+request.Clearance+" placementVersion="+scan.Reply.PlacementVersion);Clear();}
    }catch(Exception e){
     string code=e.Message=="error.terrain_legacy"||e.Message=="error.terrain_size"?e.Message:"error.terrain_unavailable";
     Transfer.Write(replyPath,new TerrainReply{Token=request.Token,Steam=request.Steam,Player=request.Player,Client=request.Client,Playfield=request.Playfield,Error=code,CapturedUtc=DateTime.UtcNow});

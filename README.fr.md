@@ -1,11 +1,12 @@
-> **Candidat 0.2.7.1 — vaisseaux de test vides uniquement.** Sortie à 30–50 m de `qh:mark` ; marge au sol de 0,5 m par défaut. **La perte des objets des conteneurs signalée en 0.2.7 reste non résolue. Ne pas fusionner sur main pour le moment.** [Mise à jour et essais](docs/TERRAIN_0.2.7.1.md).
+> **Candidat 0.2.7.2 sur validate :** calcul de hauteur sur planète corrigé et distance écrite **entre 30 et 50 mètres**. Les objets signalés manquants sont réapparus dans l’essai du joueur ; délai et cause non établis. L’ID change encore. [Notes de mise à jour](docs/TERRAIN_0.2.7.2.md).
 
 
-> **VALIDATE 0.2.7.1 — configuration par sauvegarde / per-save settings.**
+
+> **VALIDATE 0.2.7.2 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.7.1
+# Quantum Hangar Qc — BETA 0.2.7.2
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -21,7 +22,7 @@ votre prochaine aventure.
 
 ## État actuel
 
-**BETA publique 0.2.7.1 — en cours de test.** Joueurs et administrateurs de
+**BETA publique 0.2.7.2 — en cours de test.** Joueurs et administrateurs de
 serveurs sont invités à essayer le mod et à partager leurs retours.
 Cette version de `validate` contient huit catalogues locaux et le choix individuel
 mémorisé `qh:lang`. La détection automatique de la langue du jeu reste **BLOQUÉE / non vérifiée**.

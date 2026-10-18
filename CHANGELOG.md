@@ -1,3 +1,12 @@
+# 0.2.7.2 VALIDATE candidate — 2026-10-18
+
+- English marker/store/help messages spell out "between 30 and 50 meters"; other catalogs replace the compact dash range with words.
+- Planet spawn Y now equals sampled highest terrain minus the signed lower hull offset plus configured clearance. Marker altitude no longer raises the ship; positive lower hull offsets are handled.
+- Host accepts a planet position below marker altitude only with the new placement protocol and consistent ground/hull/clearance values. Old State planet replies are refused; update both modules.
+- Logs include marker, ground, lower hull, clearance and protocol version to diagnose remaining game-specific placement issues.
+- User reports container items have reappeared; tank contents were also preserved. Cause/timing unconfirmed; no cargo logic changed. Ship IDs still change.
+- Simulated tests pass; real-game height needs confirmation on validate before main.
+
 # 0.2.7.1 VALIDATE candidate — 2026-10-18
 
 - Retrieval now requires the requesting player to be 30–50 m from qh:mark, checked again after confirmation. Spawn proximity checks use a 30 m minimum.

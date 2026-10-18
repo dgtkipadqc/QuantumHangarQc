@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.7.1")]
+[assembly: AssemblyVersion("0.2.7.2")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -233,7 +233,7 @@ namespace QuantumHangarQc
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.7.1 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.7.2 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -422,8 +422,8 @@ namespace QuantumHangarQc
                         if(a==null||a.Token!=r.Token||a.Player!=r.Player||a.Client!=r.Client||a.Steam!=r.Steam||a.Playfield!=r.Playfield||a.CapturedUtc<r.CreatedUtc||a.CapturedUtc>DateTime.UtcNow.AddSeconds(1)||(DateTime.UtcNow-a.CapturedUtc).TotalSeconds>3)throw Texts.Tag(new InvalidDataException("Terrain response invalid"),"error.terrain_unavailable");
                         if(!string.IsNullOrEmpty(a.Error))throw Texts.Tag(new InvalidOperationException("QH_TERRAIN "+a.Error),a.Error=="error.terrain_legacy"||a.Error=="error.terrain_size"?a.Error:"error.terrain_unavailable");
                         var result=new PVector3{x=a.X,y=a.Y,z=a.Z};
-                        if(!Finite(result)||a.X!=r.X||a.Z!=r.Z||a.Y<r.Y||(!a.Space&&(a.Samples<=0||a.Samples>16384))||(a.Space&&(a.Y!=r.Y||a.Samples!=0)))throw Texts.Tag(new InvalidDataException("Terrain position invalid"),"error.terrain_unavailable");
-                        Log("TERRAIN_CHECK archive="+entry.ArchiveId+" samples="+a.Samples+" space="+a.Space+" marker="+PositionText(mark.Position)+" spawn="+PositionText(result)+" clearance="+settings.SpawnClearanceMeters);
+                        if(!Finite(result)||a.X!=r.X||a.Z!=r.Z||(!a.Space&&(a.Samples<=0||a.Samples>16384||a.PlacementVersion!=2||r.Hull==null||(float.IsNaN(a.GroundY)||float.IsInfinity(a.GroundY))||Math.Abs((a.Y+r.Hull.MinY)-(a.GroundY+r.Clearance))>0.05f))||(a.Space&&(a.Y!=r.Y||a.Samples!=0)))throw Texts.Tag(new InvalidDataException("Terrain position invalid"),"error.terrain_unavailable");
+                        Log("TERRAIN_CHECK archive="+entry.ArchiveId+" samples="+a.Samples+" space="+a.Space+" marker="+PositionText(mark.Position)+" spawn="+PositionText(result)+" clearance="+settings.SpawnClearanceMeters+" groundY="+a.GroundY+" hullMinY="+(entry.Hull==null?"none":entry.Hull.MinY.ToString(CultureInfo.InvariantCulture))+" placementVersion="+a.PlacementVersion);
                         return result;
                     }
                     await Task.Delay(StatePoll);
@@ -489,7 +489,7 @@ namespace QuantumHangarQc
         async Task<bool> Dialog(PlayerInfo identity,string message,string positive) {
             int player=identity.entityId;
             var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,
-                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7.1\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
+                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7.2\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;

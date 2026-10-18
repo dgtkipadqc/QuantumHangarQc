@@ -1,11 +1,12 @@
-> **0.2.7.1 candidate — empty test ships only.** Retrieval requires 30–50 m from `qh:mark`; default ground clearance is 0.5 m. **Container item loss reported in 0.2.7 is unresolved. Do not merge to main yet.** [Update and test notes](docs/TERRAIN_0.2.7.1.md).
+> **0.2.7.2 validate candidate:** fixes planet height calculation and displays **between 30 and 50 meters** explicitly. Items previously reported missing have since reappeared in the player test; the timing/cause is not established. Ship ID still changes. [Update notes](docs/TERRAIN_0.2.7.2.md).
 
 
-> **VALIDATE 0.2.7.1 — configuration par sauvegarde / per-save settings.**
+
+> **VALIDATE 0.2.7.2 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.7.1
+# Quantum Hangar Qc — BETA 0.2.7.2
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -21,7 +22,7 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-**Public BETA 0.2.7.1 — testing in progress.** Players and server administrators
+**Public BETA 0.2.7.2 — testing in progress.** Players and server administrators
 are welcome to try the mod and report their feedback.
 This `validate` version implements eight local catalogs and persistent per-player
 `qh:lang` selection. Automatic game-language detection is **BLOCKED / unverified**.
