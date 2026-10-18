@@ -1,0 +1,30 @@
+AssemblyRef Table
+1: Version=4.0.0.0
+	Name=mscorlib
+	Flags=0x00000000
+	Public Key:
+0x00000000: B7 7A 5C 56 19 34 E0 89
+	Zero sized hash value
+2: Version=0.0.0.0
+	Name=ModApi
+	Flags=0x00000000
+	Zero sized public key
+	Zero sized hash value
+3: Version=4.0.0.0
+	Name=System.Core
+	Flags=0x00000000
+	Public Key:
+0x00000000: B7 7A 5C 56 19 34 E0 89
+	Zero sized hash value
+4: Version=4.0.0.0
+	Name=System.Xml
+	Flags=0x00000000
+	Public Key:
+0x00000000: B7 7A 5C 56 19 34 E0 89
+	Zero sized hash value
+5: Version=4.0.0.0
+	Name=System
+	Flags=0x00000000
+	Public Key:
+0x00000000: B7 7A 5C 56 19 34 E0 89
+	Zero sized hash value

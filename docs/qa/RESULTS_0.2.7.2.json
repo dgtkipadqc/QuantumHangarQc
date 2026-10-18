@@ -1,0 +1,34 @@
+{
+  "version": "0.2.7.2",
+  "tests": [
+    {
+      "name": "Host",
+      "assertions": 727,
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "Terrain",
+      "assertions": 27,
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "LanguageMenu",
+      "assertions": 175,
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "Localization",
+      "assertions": 1316,
+      "result": "PASS",
+      "exit_code": 0
+    }
+  ],
+  "method": "Production code with simulated APIs and local files; test doubles excluded from shipped DLLs",
+  "live_game_terrain": "NOT_RUN",
+  "windows_startup": "NOT_RUN",
+  "cargo_status": "USER_REPORT_ITEMS_REAPPEARED_TIMING_UNCONFIRMED",
+  "stable_ship_id": "NOT_IMPLEMENTED"
+}

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <SaveGameName>YOUR_SAVE_GAME_FOLDER</SaveGameName>
+  <MaxShipsPerPlayer>10</MaxShipsPerPlayer>
+  <!-- Metres above sampled terrain and the lower hull edge; accepted range: 0.25 to 50. -->
+  <SpawnClearanceMeters>0.5</SpawnClearanceMeters>
+  <DefaultLanguage>en</DefaultLanguage>
 </Settings>

@@ -1,0 +1,18 @@
+{
+  "host": {
+    "version": "0.2.6.0",
+    "sha256": "e9fcc43dd8e8eec1281afb551aa78f6dcdc87f593ef405f86302d08cad38aa35",
+    "queue_reference": "System, Version=4.0.0.0",
+    "microsoft_reference_assemblies": "Microsoft.NETFramework.ReferenceAssemblies.net472 1.0.3",
+    "compiler": "Mono mcs 6.8.0.105 with -noconfig -nostdlib",
+    "windows_startup": "NOT_RUN"
+  },
+  "state": {
+    "version": "0.2.6.0",
+    "sha256": "1ce4c8bd973841d790c4f7235f285909d3dd36ec057aec889a8b48074a31c593",
+    "queue_reference": "NOT_USED",
+    "microsoft_reference_assemblies": "Microsoft.NETFramework.ReferenceAssemblies.net472 1.0.3",
+    "compiler": "Mono mcs 6.8.0.105 with -noconfig -nostdlib",
+    "windows_startup": "NOT_RUN"
+  }
+}

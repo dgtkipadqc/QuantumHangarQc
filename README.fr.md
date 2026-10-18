@@ -1,19 +1,33 @@
-# Quantum Hangar Qc — BETA 0.2.5
+> **Candidat 0.2.7.2 sur validate :** calcul de hauteur sur planète corrigé et distance écrite **entre 30 et 50 mètres**. Les objets signalés manquants sont réapparus dans l’essai du joueur ; délai et cause non établis. L’ID change encore. [Notes de mise à jour](docs/TERRAIN_0.2.7.2.md).
+
+
+
+> **VALIDATE 0.2.7.2 — configuration par sauvegarde / per-save settings.**
+> [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
+> La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
+
+# Quantum Hangar Qc — BETA 0.2.7.2
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
 [English](README.md) · [Installation](docs/INSTALLATION_FR_EN.md) · [Localisation](docs/LOCALIZATION_FR_EN.md)
 
+<img align="left" src="assets/QH_Icone_Sans_Lettres.jpg" alt="Quantum Hangar Qc" width="64" height="64" hspace="12">
+
 Votre flotte vous accompagne : stockez jusqu'à **10 vaisseaux** dans votre
 hangar personnel, marquez un point de sortie et récupérez un vaisseau pour
 votre prochaine aventure.
 
+<br clear="left">
+
 ## État actuel
 
-**BETA publique 0.2.5 — en cours de test.** Joueurs et administrateurs de
+**BETA publique 0.2.7.2 — en cours de test.** Joueurs et administrateurs de
 serveurs sont invités à essayer le mod et à partager leurs retours.
-Les dialogues sont encore principalement en français, avec quelques textes bilingues.
-La détection automatique de langue et `qh:lang` sont **à développer**.
+Cette version de `validate` contient huit catalogues locaux et le choix individuel
+mémorisé `qh:lang`. La détection automatique de la langue du jeu reste **BLOQUÉE / non vérifiée**.
+Le démarrage Windows, les polices, les coffres et la localisation native du chat
+restent à tester en jeu. Les huit traductions initiales sont **à relire**.
 
 ## Utilisation
 
@@ -26,11 +40,14 @@ La détection automatique de langue et `qh:lang` sont **à développer**.
 | `qh:info:ID` | Diagnostic position, distance et propriété |
 | `qh:mark` | Point de sortie valable cinq minutes |
 | `qh:load:PLACE` | Sortir un vaisseau |
+| `qh:lang` | Liste de langues cliquables ; choix mémorisé |
+| `qh:lang:CODE` | Mémoriser un choix individuel |
+| `qh:lang:auto` | Retirer ce choix ; défaut du serveur actuellement |
 
 Sans `/` devant les commandes. Pour déposer : vaisseau privé appartenant au
 personnage, alimentation OFF, cockpit quitté, personne à bord, aucun vaisseau
 arrimé, distance maximale de 250 m par rapport à la position API du vaisseau.
-Pour sortir : `qh:mark` dans une zone libre, puis s'éloigner de **50 à 1000 m**
+Pour sortir : `qh:mark` dans une zone libre, puis s'éloigner de **30 à 50 m**
 dans le même secteur et lancer `qh:load:PLACE`. Confirmer dans le dialogue.
 
 Les données du hangar sont liées à l'identité Steam. Le mod archive les fichiers

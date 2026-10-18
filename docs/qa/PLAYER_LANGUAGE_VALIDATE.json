@@ -1,0 +1,176 @@
+{
+  "method": "Real C# compilation; simulated game API, real local files",
+  "live_game": "NON TESTÉ",
+  "windows_startup": "NON TESTÉ",
+  "source_sha256": {
+    "src/QuantumHangarQc/ActiveSavePath.cs": "70e3e29737b19c6ff76fd2a6d489fe382a80c10bff98e871672d83051ac03f14",
+    "src/QuantumHangarQc/HangarUi.cs": "819be917c42b8180323b8945124bcb4104024cfbed348f591993efc42c3495de",
+    "src/QuantumHangarQc/LiveState.cs": "cc8178b5d12c841b0ed3009b564cc79732de34f7cdf78af2fb6744c5e2b3513e",
+    "src/QuantumHangarQc/Markers.cs": "6ac4b7c688973f61999a2c20948cb6be329f64a8d555cdbbde13b4be695501bf",
+    "src/QuantumHangarQc/QuantumHangarQc.cs": "ccea52d27d5884a0ce4d92f4e945dc4b5d0482a8c2e209f6a26fdbe3345840dc",
+    "src/Shared/Localization.cs": "8203669343680c59df1cca3c06b87b2de34a92493ea9ef3ce93e0cacbe5c9caa"
+  },
+  "reference_sha256": {
+    "/tmp/qh-net472/build/.NETFramework/v4.7.2/mscorlib.dll": "a69849cf0b433664b14dbaeb82385ec043449f71f7c69559cba4be0dd3e8be8d",
+    "/tmp/qh-net472/build/.NETFramework/v4.7.2/System.dll": "541c6067cc69a43660d06a4f0f6eab0febcd33df9089f209d99b7ea36682a0a5",
+    "/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Core.dll": "f9c65f2d44f244e1195802a68f5d8f3457caeef2e385cf28c534218749adbe7f",
+    "/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Xml.dll": "a01c28f804dca406d6d5d1eacfa9d8d435755fbef58f6673bce40efb789717f3",
+    "/tmp/qh-package/ModLoader/Host/Mif.dll": "0a2cc0e535923807d32f5c1831e14b1b04659b51d8be9f470d0e2e796ca51e08",
+    "/tmp/qh-package/ModLoader/Host/ModExtenderCommunication.dll": "1c7163dd94b722be4aa94d57a177637f2821b6748be6f39802c5875b13589f97"
+  },
+  "tests": [
+    {
+      "name": "compile_host",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/tmp/qh-mono/usr/lib/mono/4.5/mcs.exe",
+        "-noconfig",
+        "-nostdlib+",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/mscorlib.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Core.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Xml.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/Mif.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/ModExtenderCommunication.dll",
+        "-resource:/workspace/scratch/fc92e385baa2/qh-language/localization/en.xml,QH.en.xml",
+        "-target:library",
+        "-out:/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/QuantumHangarQc.dll",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/ActiveSavePath.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/HangarUi.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/LiveState.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Markers.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/QuantumHangarQc.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/Shared/Localization.cs"
+      ],
+      "output": ""
+    },
+    {
+      "name": "compile_Tests",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/tmp/qh-mono/usr/lib/mono/4.5/mcs.exe",
+        "-noconfig",
+        "-nostdlib+",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/mscorlib.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Core.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Xml.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/Mif.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/ModExtenderCommunication.dll",
+        "-resource:/workspace/scratch/fc92e385baa2/qh-language/localization/en.xml,QH.en.xml",
+        "-main:Tests",
+        "-out:/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/Tests.exe",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/ActiveSavePath.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/HangarUi.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/LiveState.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Markers.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/QuantumHangarQc.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/Shared/Localization.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Tests.cs"
+      ],
+      "output": "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Tests.cs(22,26): warning CS0649: Field `FakeApi.FailMarkerAdd' is never assigned to, and will always have its default value `false'\nCompilation succeeded - 1 warning(s)\n"
+    },
+    {
+      "name": "Tests",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/Tests.exe",
+        "/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/host-worlds"
+      ],
+      "output": "PASS 528 assertions. Real game export contents, cargo, terrain, GUI and placement NOT simulated.\n"
+    },
+    {
+      "name": "compile_LocaleTests",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/tmp/qh-mono/usr/lib/mono/4.5/mcs.exe",
+        "-noconfig",
+        "-nostdlib+",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/mscorlib.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Core.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Xml.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/Mif.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/ModExtenderCommunication.dll",
+        "-resource:/workspace/scratch/fc92e385baa2/qh-language/localization/en.xml,QH.en.xml",
+        "-main:LocaleTests",
+        "-out:/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/LocaleTests.exe",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/ActiveSavePath.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/HangarUi.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/LiveState.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Markers.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/QuantumHangarQc.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/Shared/Localization.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Tests.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/tests/LocaleTests.cs"
+      ],
+      "output": "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Tests.cs(22,26): warning CS0649: Field `FakeApi.FailMarkerAdd' is never assigned to, and will always have its default value `false'\nCompilation succeeded - 1 warning(s)\n"
+    },
+    {
+      "name": "LocaleTests",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/LocaleTests.exe",
+        "/workspace/scratch/fc92e385baa2/qh-language/localization",
+        "/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/locale-worlds"
+      ],
+      "output": "PASS 1236 localization assertions; simulated APIs / local files. No game-language source or game rendering tested.\n"
+    },
+    {
+      "name": "compile_ConfigTests",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/tmp/qh-mono/usr/lib/mono/4.5/mcs.exe",
+        "-noconfig",
+        "-nostdlib+",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/mscorlib.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Core.dll",
+        "-r:/tmp/qh-net472/build/.NETFramework/v4.7.2/System.Xml.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/Mif.dll",
+        "-r:/tmp/qh-package/ModLoader/Host/ModExtenderCommunication.dll",
+        "-resource:/workspace/scratch/fc92e385baa2/qh-language/localization/en.xml,QH.en.xml",
+        "-main:ConfigTests",
+        "-out:/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/ConfigTests.exe",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/ActiveSavePath.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/HangarUi.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/LiveState.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Markers.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/QuantumHangarQc.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/src/Shared/Localization.cs",
+        "/workspace/scratch/fc92e385baa2/qh-language/tests/ConfigTests.cs"
+      ],
+      "output": ""
+    },
+    {
+      "name": "ConfigTests",
+      "status": "PASS",
+      "command": [
+        "/tmp/qh-mono/usr/bin/mono-sgen",
+        "/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/ConfigTests.exe",
+        "/workspace/scratch/fc92e385baa2/qh-language/artifacts/player-languages-final/config-worlds"
+      ],
+      "output": "CONFIG PASS 56\n"
+    }
+  ],
+  "base_commit": "132a071a0b28585b8c55b4fd82e7d2cf9c34c7b4",
+  "changed_input_sha256": {
+    "config/Configuration.example.xml": "85427cb69e63d1e253be71ed216f28918699425e0cff385c2f23028ca2235ed6",
+    "tests/LocaleTests.cs": "0b9acf5f2fd6f034dec640cf7eb2c6a9f367e67b5c03575f40139d7f2c56ae8f",
+    "tests/ConfigTests.cs": "9ed3ca92bd33d98d671cbde3c78f60710a2447a1bc8febde15c644ec914a8ccb",
+    "tools/test_player_languages.py": "ce0d0894007bb8e893f341bd1ac11792a3fdbabae128debbb3fbb981dfbd7f2e"
+  },
+  "earlier_attempt": {
+    "status": "FAIL",
+    "stage": "local compiler environment",
+    "cause": "Extracted Mono lacked MONO_CFG_DIR/LD_LIBRARY_PATH; source paths not resolved",
+    "log": "error CS2001: Source file `/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/ActiveSavePath.cs' could not be found\nerror CS2001: Source file `/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/HangarUi.cs' could not be found\nerror CS2001: Source file `/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/LiveState.cs' could not be found\nerror CS2001: Source file `/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/Markers.cs' could not be found\nerror CS2001: Source file `/workspace/scratch/fc92e385baa2/qh-language/src/QuantumHangarQc/QuantumHangarQc.cs' could not be found\nerror CS2001: Source file `/workspace/scratch/fc92e385baa2/qh-language/src/Shared/Localization.cs' could not be found\nCompilation failed: 6 error(s), 0 warnings\n",
+    "resolution": "Runner now sets both variables; all final commands and results recorded below."
+  }
+}

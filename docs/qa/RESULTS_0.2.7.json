@@ -1,0 +1,33 @@
+{
+  "version": "0.2.7",
+  "tests": [
+    {
+      "name": "Host",
+      "assertions": 620,
+      "result": "PASS"
+    },
+    {
+      "name": "Terrain",
+      "assertions": 21,
+      "result": "PASS"
+    },
+    {
+      "name": "LanguageMenu",
+      "assertions": 175,
+      "result": "PASS"
+    },
+    {
+      "name": "Localization",
+      "assertions": 1316,
+      "result": "PASS"
+    },
+    {
+      "name": "Config",
+      "assertions": 56,
+      "result": "PASS"
+    }
+  ],
+  "method": "Compiled production code with simulated APIs and local files; small native test surfaces excluded from shipped DLLs",
+  "live_game_terrain": "NOT_RUN",
+  "windows_startup": "NOT_RUN"
+}
