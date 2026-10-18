@@ -1,8 +1,10 @@
-> **VALIDATE 0.2.6.1 — configuration par sauvegarde / per-save settings.**
+> **0.2.7 :** garde au sol avant restitution, 5 m par défaut. [Mise à jour et anciennes archives](docs/TERRAIN_0.2.7.md). Installer les deux modules QH ensemble. Le placement reste à tester en jeu.
+
+> **VALIDATE 0.2.7 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.6
+# Quantum Hangar Qc — BETA 0.2.7
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -18,7 +20,7 @@ votre prochaine aventure.
 
 ## État actuel
 
-**BETA publique 0.2.5 — en cours de test.** Joueurs et administrateurs de
+**BETA publique 0.2.7 — en cours de test.** Joueurs et administrateurs de
 serveurs sont invités à essayer le mod et à partager leurs retours.
 Cette version de `validate` contient huit catalogues locaux et le choix individuel
 mémorisé `qh:lang`. La détection automatique de la langue du jeu reste **BLOQUÉE / non vérifiée**.
@@ -36,7 +38,7 @@ restent à tester en jeu. Les huit traductions initiales sont **à relire**.
 | `qh:info:ID` | Diagnostic position, distance et propriété |
 | `qh:mark` | Point de sortie valable cinq minutes |
 | `qh:load:PLACE` | Sortir un vaisseau |
-| `qh:lang` | Langue effective, origine et choix disponibles |
+| `qh:lang` | Liste de langues cliquables ; choix mémorisé |
 | `qh:lang:CODE` | Mémoriser un choix individuel |
 | `qh:lang:auto` | Retirer ce choix ; défaut du serveur actuellement |
 

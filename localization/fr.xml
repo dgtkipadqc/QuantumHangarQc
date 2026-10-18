@@ -101,4 +101,8 @@ Diagnostic uniquement. Aucun export ni retrait.</Text>
   <Text Key="error.copy" Args="0">Copie des fichiers indisponible ou invalide. Conserve l'archive pour vérification.</Text>
   <Text Key="error.size_limit" Args="0">Archive au-delà des limites : 512 Mio ou 20 000 fichiers.</Text>
   <Text Key="error.preference_write" Args="0">Le choix de langue n'a pas pu être mémorisé. Le choix actif est conservé.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Vérification du terrain indisponible. Mets les DEUX modules QH à jour en 0.2.7 puis réessaie. Aucun vaisseau créé.</Text>
+  <Text Key="error.terrain_legacy" Args="0">Cette ancienne archive ne contient pas les dimensions de la coque. Récupère le vaisseau dans l’espace puis redépose-le avec QH 0.2.7 avant une restitution sur une planète.</Text>
+  <Text Key="error.terrain_size" Args="0">Le vaisseau dépasse la limite de mesure du terrain. Récupère-le dans l’espace.</Text>
+  <Text Key="load.terrain_note" Args="0">Hauteur ajustée au-dessus du terrain mesuré ; nouvelle vérification après confirmation.</Text>
 </Catalog>

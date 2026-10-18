@@ -101,4 +101,8 @@ Solo diagnosi. Nessun export o rimozione.</Text>
   <Text Key="error.copy" Args="0">Copia dei file non disponibile o non valida. Conserva l'archivio per verifica.</Text>
   <Text Key="error.size_limit" Args="0">Archivio oltre i limiti: 512 MiB o 20.000 file.</Text>
   <Text Key="error.preference_write" Args="0">Impossibile salvare la lingua. La scelta attiva non cambia.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Controllo del terreno non disponibile. Aggiorna ENTRAMBI i moduli QH alla 0.2.7 e riprova. Nessuna nave creata.</Text>
+  <Text Key="error.terrain_legacy" Args="0">Questo vecchio archivio non contiene le dimensioni dello scafo. Recupera la nave nello spazio e depositala di nuovo con QH 0.2.7 prima di recuperarla su un pianeta.</Text>
+  <Text Key="error.terrain_size" Args="0">La nave supera il limite di scansione del terreno. Recuperala nello spazio.</Text>
+  <Text Key="load.terrain_note" Args="0">Altezza regolata sopra il terreno misurato; nuovo controllo dopo la conferma.</Text>
 </Catalog>

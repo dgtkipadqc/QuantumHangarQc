@@ -1,3 +1,12 @@
+# 0.2.7 VALIDATE — 2026-10-17
+
+- Measures terrain under the expanded hull footprint before retrieval and again after confirmation.
+- Stores native hull bounds and orientation; adds per-save SpawnClearanceMeters (default 5, range 1–50).
+- Space positions remain unchanged. Legacy archives without hull dimensions must first be retrieved and re-stored in space.
+- Missing, invalid or expired terrain replies refuse retrieval before allocating an entity ID; stored archive retained.
+- Preserves clickable ship/language menus and persistent language preferences.
+- Local simulated tests pass; terrain placement needs testing in the game before merging to main.
+
 > **0.2.6.2 VALIDATE : `qh:lang` ouvre la selection au clic, comme `qh:list`.**
 > [Installation et tests](docs/LANGUAGE_MENU_0.2.6.2.md). Host + State a installer ensemble.
 

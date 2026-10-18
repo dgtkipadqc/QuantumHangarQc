@@ -1,8 +1,10 @@
-> **VALIDATE 0.2.6.1 — configuration par sauvegarde / per-save settings.**
+> **0.2.7:** terrain clearance before retrieval, 5 m by default. [Update notes and old archives](docs/TERRAIN_0.2.7.md). Install both QH modules together. Terrain behavior still needs a game test.
+
+> **VALIDATE 0.2.7 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.6
+# Quantum Hangar Qc — BETA 0.2.7
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -18,7 +20,7 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-**Public BETA 0.2.6 — testing in progress.** Players and server administrators
+**Public BETA 0.2.7 — testing in progress.** Players and server administrators
 are welcome to try the mod and report their feedback.
 This `validate` version implements eight local catalogs and persistent per-player
 `qh:lang` selection. Automatic game-language detection is **BLOCKED / unverified**.
@@ -46,7 +48,7 @@ All translations are initial drafts awaiting human review. See [validation](docs
 | `qh:info:SHIP_ID` | Distance, position and ownership diagnostic |
 | `qh:mark` | Set a return point valid for five minutes |
 | `qh:load:SLOT` | Retrieve a stored ship |
-| `qh:lang` | Effective language, source and available languages |
+| `qh:lang` | Clickable language list; saved personal choice |
 | `qh:lang:CODE` | Save a personal language choice |
 | `qh:lang:auto` | Remove the choice; currently use the server default |
 

@@ -1,7 +1,7 @@
 using System;using System.IO;using System.Linq;using System.Collections.Generic;using Eleon.Modding;using QuantumHangarQc.Live;using QuantumHangarQc.State;using RecycleTests;
 class QhStateTests {
  static int checks;static void Check(bool value,string label){checks++;if(!value)throw new Exception(label);}
- class S:StubIStructure {public List<IStructure> Children=new List<IStructure>();public List<IPlayer> Passengers=new List<IPlayer>();public override List<IStructure> GetDockedVessels(){return Children;}public override List<IPlayer> GetPassengers(){return Passengers;}}
+ class S:StubIStructure {public override UnityEngine.Vector3 StructToGlobalPos(VectorInt3 p){return new UnityEngine.Vector3(p.x,p.y,p.z);}public List<IStructure> Children=new List<IStructure>();public List<IPlayer> Passengers=new List<IPlayer>();public override List<IStructure> GetDockedVessels(){return Children;}public override List<IPlayer> GetPassengers(){return Passengers;}}
  class App:StubIApplication {public string Root;public override string GetPathFor(AppFolder folder){return Root;}}
  static MarkerRequest GpsRequest(string name,DateTime now,bool activate=true){return new MarkerRequest{Token=Guid.NewGuid().ToString("N"),Name=name,Steam="76561198000000001",Player=50,Playfield="Test",X=995,Y=113,Z=-279,Activate=activate,CreatedUtc=now,ExpiresUtc=now.AddMinutes(5)};}
  static MarkerReply GpsRun(GpsBridge bridge,string dir,IPlayfield pf,MarkerRequest request,DateTime now){

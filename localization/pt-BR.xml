@@ -101,4 +101,8 @@ Somente diagnóstico. Sem exportação ou remoção.</Text>
   <Text Key="error.copy" Args="0">Cópia dos arquivos indisponível ou inválida. Guarde o arquivo para revisão.</Text>
   <Text Key="error.size_limit" Args="0">Arquivo excede limites: 512 MiB ou 20.000 arquivos.</Text>
   <Text Key="error.preference_write" Args="0">Não foi possível salvar o idioma. Sua escolha ativa não mudou.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Verificação do terreno indisponível. Atualize AMBOS os módulos QH para 0.2.7 e tente novamente. Nenhuma nave foi criada.</Text>
+  <Text Key="error.terrain_legacy" Args="0">Este arquivo antigo não contém as dimensões do casco. Recupere a nave no espaço e armazene-a novamente com QH 0.2.7 antes de recuperá-la em um planeta.</Text>
+  <Text Key="error.terrain_size" Args="0">A nave excede o limite de varredura do terreno. Recupere-a no espaço.</Text>
+  <Text Key="load.terrain_note" Args="0">Altura ajustada acima do terreno medido; nova verificação após a confirmação.</Text>
 </Catalog>

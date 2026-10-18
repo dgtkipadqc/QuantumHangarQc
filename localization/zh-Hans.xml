@@ -101,4 +101,8 @@ qh:lang:auto
   <Text Key="error.copy" Args="0">存档文件复制不可用或无效。请保留归档供检查。</Text>
   <Text Key="error.size_limit" Args="0">归档超出限制：512 MiB 或 20,000 个文件。</Text>
   <Text Key="error.preference_write" Args="0">无法保存语言偏好。当前选择保持不变。</Text>
+  <Text Key="error.terrain_unavailable" Args="0">无法检查地形。请将两个 QH 模块都更新到 0.2.7 后重试。尚未生成飞船。</Text>
+  <Text Key="error.terrain_legacy" Args="0">此旧存档没有船体尺寸。请先在太空中取出飞船，再用 QH 0.2.7 重新存入，然后才能在星球上取出。</Text>
+  <Text Key="error.terrain_size" Args="0">飞船占地范围超过地形扫描上限。请在太空中取出。</Text>
+  <Text Key="load.terrain_note" Args="0">高度已调整至测量的地形上方；确认后将再次检查。</Text>
 </Catalog>

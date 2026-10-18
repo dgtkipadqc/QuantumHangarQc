@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.6.4")]
+[assembly: AssemblyVersion("0.2.7.0")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -21,8 +21,10 @@ namespace QuantumHangarQc
 {
     public sealed class Settings {
         public int MaxShipsPerPlayer = 10;
+        public float SpawnClearanceMeters = 5;
         public string DefaultLanguage = "en";
         public void Validate() {
+            if(float.IsNaN(SpawnClearanceMeters)||float.IsInfinity(SpawnClearanceMeters)||SpawnClearanceMeters<1||SpawnClearanceMeters>50) throw new InvalidDataException("SpawnClearanceMeters must be between 1 and 50");
             if(MaxShipsPerPlayer<1 || MaxShipsPerPlayer>15) throw new InvalidDataException("MaxShipsPerPlayer must be between 1 and 15");
             if(Languages.Normalize(DefaultLanguage)==null) throw new InvalidDataException("DefaultLanguage invalid");
         }
@@ -35,6 +37,7 @@ namespace QuantumHangarQc
         public string ArchiveId, SteamId, Status, Utc, Detail;
         public string StoreStage;
         public GlobalStructureInfo Ship;
+        public Live.HullBounds Hull;
         public List<FileDigest> Files = new List<FileDigest>();
         public bool CargoVerified = false;
         public bool AutoRecoveryAllowed = false;
@@ -230,7 +233,7 @@ namespace QuantumHangarQc
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.6 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.7 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -406,7 +409,34 @@ namespace QuantumHangarQc
                 try{if(File.Exists(request))File.Delete(request);if(File.Exists(reply))File.Delete(reply);}catch(Exception e){Log("STATE_CLEANUP "+e.Message);}
             }
         }
-        async Task<PlayerInfo> LiveStorePosition(PlayerInfo expected,GlobalStructureList list,int shipId,string phase) {
+        internal int TerrainTimeout=20000;
+        async Task<PVector3> TerrainPosition(PlayerInfo player,Placement mark,Entry entry) {
+            var r=new Live.TerrainRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=mark.Playfield,X=mark.Position.x,Y=mark.Position.y,Z=mark.Position.z,Hull=entry.Hull,Clearance=settings.SpawnClearanceMeters,CreatedUtc=DateTime.UtcNow};
+            string dir=Path.Combine(logDir,"Terrain"),request=Path.Combine(dir,r.Token+".request.xml"),reply=Path.Combine(dir,r.Token+".reply.xml");
+            try {
+                Live.Transfer.Write(request,r);DateTime until=DateTime.UtcNow.AddMilliseconds(TerrainTimeout);
+                while(DateTime.UtcNow<until){
+                    if(stopped)throw Texts.Tag(new InvalidOperationException("Stopped"),"error.stopped");
+                    if(File.Exists(reply)){
+                        var a=Live.Transfer.Read<Live.TerrainReply>(reply);
+                        if(a==null||a.Token!=r.Token||a.Player!=r.Player||a.Client!=r.Client||a.Steam!=r.Steam||a.Playfield!=r.Playfield||a.CapturedUtc<r.CreatedUtc||a.CapturedUtc>DateTime.UtcNow.AddSeconds(1)||(DateTime.UtcNow-a.CapturedUtc).TotalSeconds>3)throw Texts.Tag(new InvalidDataException("Terrain response invalid"),"error.terrain_unavailable");
+                        if(!string.IsNullOrEmpty(a.Error))throw Texts.Tag(new InvalidOperationException("QH_TERRAIN "+a.Error),a.Error=="error.terrain_legacy"||a.Error=="error.terrain_size"?a.Error:"error.terrain_unavailable");
+                        var result=new PVector3{x=a.X,y=a.Y,z=a.Z};
+                        if(!Finite(result)||a.X!=r.X||a.Z!=r.Z||a.Y<r.Y||(!a.Space&&(a.Samples<=0||a.Samples>16384))||(a.Space&&(a.Y!=r.Y||a.Samples!=0)))throw Texts.Tag(new InvalidDataException("Terrain position invalid"),"error.terrain_unavailable");
+                        Log("TERRAIN_CHECK archive="+entry.ArchiveId+" samples="+a.Samples+" space="+a.Space+" marker="+PositionText(mark.Position)+" spawn="+PositionText(result)+" clearance="+settings.SpawnClearanceMeters);
+                        return result;
+                    }
+                    await Task.Delay(StatePoll);
+                }
+                throw Texts.Tag(new TimeoutException("QH_STATE terrain unavailable"),"error.terrain_unavailable");
+            } finally {try{if(File.Exists(request))File.Delete(request);if(File.Exists(reply))File.Delete(reply);}catch(Exception e){Log("TERRAIN_CLEANUP "+e.Message);}}
+        }
+        void ValidateDestination(PlayerInfo player,GlobalStructureList list,string field,PVector3 position){
+            if(!Finite(position)||player.playfield!=field||Distance(player.pos,position)<50||Distance(player.pos,position)>1000)throw Texts.Tag(new InvalidOperationException("Adjusted spawn too close or too far"),"error.mark_distance");
+            foreach(var pair in list.globalStructures.Where(k=>k.Key==field))foreach(var ship in pair.Value??new List<GlobalStructureInfo>())
+                if(Distance(ship.pos,position)<100)throw Texts.Tag(new InvalidOperationException("Obstacle at adjusted spawn"),"error.obstacle");
+        }
+        async Task<PlayerInfo> LiveStorePosition(PlayerInfo expected,GlobalStructureList list,int shipId,string phase,Entry archiveEntry=null) {
             int player=expected.entityId,client=expected.clientId;string steam=expected.steamId;
             var ship=Find(list,shipId);string sector=Playfield(list,shipId);var cached=ship.pos;
             Log("RANGE_REQUEST phase="+phase+" player="+player+" ship="+shipId+" name="+Clean(ship.name)+" listSector="+sector+" playerSector="+expected.playfield+" listPos="+PositionText(cached)+" playerInfoPos="+PositionText(expected.pos));
@@ -431,6 +461,11 @@ namespace QuantumHangarQc
                 if(state.Occupants.Count>0&&state.Pilot==0)throw Texts.Tag(new InvalidOperationException("Joueurs encore dans le vaisseau selon le playfield : "+string.Join(",",state.Occupants)),"error.occupants");
             }
             ship.pos=live.pos;ship.rot=live.rot;
+            if(archiveEntry!=null){
+                if(state.Hull==null||!state.Hull.Valid())throw Texts.Tag(new InvalidDataException("Update QH_STATE 0.2.7: hull bounds unavailable; no removal"),"error.terrain_unavailable");
+                archiveEntry.Hull=state.Hull;
+                archiveEntry.Ship.rot=new PVector3{x=state.Hull.RotX,y=state.Hull.RotY,z=state.Hull.RotZ};
+            }
             int index=list.globalStructures[sector].FindIndex(x=>x.id==shipId);list.globalStructures[sector][index]=ship;
             double distance=Distance(current.pos,live.pos);
             Log("RANGE_RESULT phase="+phase+" player="+player+" ship="+shipId+" playerSector="+current.playfield+" shipSector="+sector+" playerPos="+PositionText(current.pos)+" shipPos="+PositionText(live.pos)+" listPos="+PositionText(cached)+" cacheDeltaM="+Distance(cached,live.pos).ToString("0.0",CultureInfo.InvariantCulture)+" distanceM="+distance.ToString("0.0",CultureInfo.InvariantCulture)+" maxM=250");
@@ -454,7 +489,7 @@ namespace QuantumHangarQc
         async Task<bool> Dialog(PlayerInfo identity,string message,string positive) {
             int player=identity.entityId;
             var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,
-                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.6\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
+                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;
@@ -686,7 +721,7 @@ namespace QuantumHangarQc
                         store.Verify(e);
                         var finalPlayer=await Player(id);
                         if(finalPlayer.steamId!=sessionSteam || finalPlayer.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee avant retrait"),"error.session");
-                        var finalList=await Structures(id); finalPlayer=await LiveStorePosition(finalPlayer,finalList,value,"BEFORE_REMOVE");Validate(finalPlayer,finalList,value);
+                        var finalList=await Structures(id); finalPlayer=await LiveStorePosition(finalPlayer,finalList,value,"BEFORE_REMOVE",e);Validate(finalPlayer,finalList,value);
                         if(finalPlayer.playfield!=storeSector)throw Texts.Tag(new InvalidOperationException("Secteur change pendant l export; aucun retrait"),"error.session");
                         await CheckPlayersClear(id,storeSector,Find(finalList,value).pos,30);
                         await Task.Run(()=> { CompareSource(e); store.Verify(e); });
@@ -707,25 +742,31 @@ namespace QuantumHangarQc
                 Placement mark; lock(gate) { if(!placements.TryGetValue(sessionSteam,out mark)) throw Texts.Tag(new InvalidOperationException("Choisis d abord une zone libre avec qh:mark"),"error.mark_missing"); }
                 ValidateMark(p,await Structures(id),mark);
                 await Task.Run(()=>store.Verify(entry));
-                string destination=mark.Position.x.ToString("F0",CultureInfo.InvariantCulture)+", "+mark.Position.y.ToString("F0",CultureInfo.InvariantCulture)+", "+mark.Position.z.ToString("F0",CultureInfo.InvariantCulture);
-                if(!await Dialog(p,T(p,"load.confirm.body",entry.Ship.name,value,mark.Playfield,destination),T(p,"button.load"))) return;
+                var spawn=await TerrainPosition(p,mark,entry);
+                string destination=PositionText(spawn);
+                if(!await Dialog(p,T(p,"load.confirm.body",entry.Ship.name,value,mark.Playfield,destination)+"\n\n"+T(p,"load.terrain_note"),T(p,"button.load"))) return;
                 var again=await Player(id); if(again.steamId!=sessionSteam||again.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee"),"error.session");
                 var now=await Structures(id); ValidateMark(again,now,mark);
-                await CheckPlayersClear(id,mark.Playfield,mark.Position,50);
+                // Re-sample after confirmation: never trust a terrain preview held in an open dialog.
+                spawn=await TerrainPosition(again,mark,entry);
+                again=await Player(id);
+                now=await Structures(id);ValidateMark(again,now,mark);
+                ValidateDestination(again,now,mark.Playfield,spawn);
+                await CheckPlayersClear(id,mark.Playfield,spawn,50);
                 entry=store.At(value,sessionSteam); if(entry.ArchiveId!=archive || entry.Status!="STORED") throw Texts.Tag(new InvalidOperationException("L archive a change"),"error.archive");
                 if(Contains(now,entry.ShipId)) throw Texts.Tag(new InvalidOperationException("Original encore present dans le monde : restitution refusee"),"error.original_present");
                 await Task.Run(()=>store.Verify(entry));
                 var newId=(Id)await Request(CmdId.Request_NewEntityId,null,CmdId.Event_NewEntityId,id);
                 if(newId.id<=0||Contains(now,newId.id)) throw Texts.Tag(new InvalidDataException("Nouvel ID invalide ou deja utilise"),"error.spawn");
-                entry.SpawnedId=newId.id;entry.DestinationPlayfield=mark.Playfield;entry.DestinationPos=mark.Position;
+                entry.SpawnedId=newId.id;entry.DestinationPlayfield=mark.Playfield;entry.DestinationPos=spawn;
                 entry.Status="RESTORING";entry.Detail="ID et destination reserves. Ne jamais relancer automatiquement une apparition.";store.Save(entry);
                 try {
                     string dest=Path.Combine(saveDir,"Shared",newId.id.ToString(CultureInfo.InvariantCulture));
                     if(Directory.Exists(dest)) throw Texts.Tag(new IOException("Dossier destination deja present : "+newId.id),"error.spawn");
                     await Task.Run(()=>RestoreFiles(entry,dest));
-                    Log("SPAWN_REQUEST archive="+archive+" newId="+newId.id+" playfield="+mark.Playfield+" at="+destination);
+                    Log("SPAWN_REQUEST archive="+archive+" newId="+newId.id+" playfield="+mark.Playfield+" at="+PositionText(spawn));
                     await Request(CmdId.Request_Entity_Spawn,new EntitySpawnInfo {
-                        forceEntityId=newId.id,playfield=mark.Playfield,pos=mark.Position,rot=entry.Ship.rot,
+                        forceEntityId=newId.id,playfield=mark.Playfield,pos=spawn,rot=entry.Ship.rot,
                         name=entry.Ship.name,type=entry.Ship.type,entityTypeName="",factionGroup=1,factionId=again.entityId,
                         exportedEntityDat=Path.Combine(store.DirectoryFor(entry),"Export.dat")
                     },CmdId.Event_Ok,id);
@@ -783,7 +824,7 @@ namespace QuantumHangarQc
                     }
                     await Task.Delay(StatePoll);
                 }
-                throw Texts.Tag(new TimeoutException("Pont GPS sans reponse : verifier QuantumHangarQcState 0.2.6"),"error.gps");
+                throw Texts.Tag(new TimeoutException("Pont GPS sans reponse : verifier QuantumHangarQcState 0.2.7"),"error.gps");
             }finally {if(File.Exists(request))File.Delete(request);if(File.Exists(reply))File.Delete(reply);}
         }
         async Task Marker(Placement mark,bool activate) {
@@ -833,7 +874,7 @@ namespace QuantumHangarQc
             if(!(Distance(p.pos,mark.Position)>=50) || !(Distance(p.pos,mark.Position)<=1000)) throw Texts.Tag(new InvalidOperationException("Reste entre 50 et 1000 m du point de sortie"),"error.mark_distance");
             foreach(var pair in l.globalStructures.Where(k=>k.Key==mark.Playfield)) foreach(var ship in pair.Value??new List<GlobalStructureInfo>())
                 if(!(Distance(ship.pos,mark.Position)>=100)) throw Texts.Tag(new InvalidOperationException("Une structure est a moins de 100 m du point : choisir un autre point"),"error.obstacle");
-            // Centre distances are only a coarse check. Terrain and full hull bounds are NOT exposed here.
+            // Centre distances remain coarse obstacle checks; terrain is sampled separately by QH_STATE.
         }
         void CompareSource(Entry e) {
             string source=Path.Combine(saveDir,"Shared",e.ShipId.ToString(CultureInfo.InvariantCulture));

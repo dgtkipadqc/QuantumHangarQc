@@ -101,4 +101,8 @@ Nur Diagnose. Kein Export oder Entfernen.</Text>
   <Text Key="error.copy" Args="0">Dateikopie fehlt oder ist ungültig. Archiv zur Prüfung aufbewahren.</Text>
   <Text Key="error.size_limit" Args="0">Archiv überschreitet Grenzen: 512 MiB oder 20.000 Dateien.</Text>
   <Text Key="error.preference_write" Args="0">Sprachauswahl konnte nicht gespeichert werden. Aktive Auswahl bleibt unverändert.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Geländeprüfung nicht verfügbar. BEIDE QH-Module auf 0.2.7 aktualisieren und erneut versuchen. Kein Schiff erzeugt.</Text>
+  <Text Key="error.terrain_legacy" Args="0">Dieses alte Archiv enthält keine Rumpfabmessungen. Schiff im Weltraum abrufen und mit QH 0.2.7 erneut einlagern, bevor es auf einem Planeten abgerufen wird.</Text>
+  <Text Key="error.terrain_size" Args="0">Schiffsfläche überschreitet das Limit der Geländeprüfung. Im Weltraum abrufen.</Text>
+  <Text Key="load.terrain_note" Args="0">Höhe über dem gemessenen Gelände angepasst; erneute Prüfung nach Bestätigung.</Text>
 </Catalog>

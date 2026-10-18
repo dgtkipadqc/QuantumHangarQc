@@ -101,4 +101,8 @@ Diagnostic only. No export or removal.</Text>
   <Text Key="error.copy" Args="0">Save-file copy unavailable or invalid. Preserve the archive for review.</Text>
   <Text Key="error.size_limit" Args="0">Archive exceeds limits: 512 MiB or 20,000 files.</Text>
   <Text Key="error.preference_write" Args="0">Language preference could not be saved. Your active choice is unchanged.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Terrain check unavailable. Update BOTH QH modules to 0.2.7 and retry. No ship was spawned.</Text>
+  <Text Key="error.terrain_legacy" Args="0">This old archive has no hull dimensions. Retrieve it in space, then store it again with QH 0.2.7 before retrieving it on a planet.</Text>
+  <Text Key="error.terrain_size" Args="0">Ship footprint exceeds the terrain scan limit. Retrieve it in space.</Text>
+  <Text Key="load.terrain_note" Args="0">Height adjusted above sampled terrain; checked again after confirmation.</Text>
 </Catalog>
