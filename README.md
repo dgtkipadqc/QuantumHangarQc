@@ -1,3 +1,5 @@
+> **Download:** [Complete QH 0.2.7.2 package from main](binaries/QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip) — existing ModLoader required. [Installation and known limitations](binaries/README.md).
+
 > **0.2.7.2 validate candidate:** fixes planet height calculation and displays **between 30 and 50 meters** explicitly. Items previously reported missing have since reappeared in the player test; the timing/cause is not established. Ship ID still changes. [Update notes](docs/TERRAIN_0.2.7.2.md).
 
 

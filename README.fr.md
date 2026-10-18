@@ -1,3 +1,5 @@
+> **Téléchargement :** [ZIP complet QH 0.2.7.2 de main](binaries/QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip) — ModLoader existant requis. [Installation et limites connues](binaries/README.md).
+
 > **Candidat 0.2.7.2 sur validate :** calcul de hauteur sur planète corrigé et distance écrite **entre 30 et 50 mètres**. Les objets signalés manquants sont réapparus dans l’essai du joueur ; délai et cause non établis. L’ID change encore. [Notes de mise à jour](docs/TERRAIN_0.2.7.2.md).
 
 

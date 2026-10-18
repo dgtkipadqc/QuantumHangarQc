@@ -22,3 +22,6 @@ dedicated.yaml
 *.pem
 __pycache__/
 .vs/
+
+# Published QH runtime packages
+!binaries/*.zip
