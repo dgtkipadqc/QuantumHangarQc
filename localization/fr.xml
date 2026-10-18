@@ -33,19 +33,19 @@ qh:load:SLOT
 qh:lang
 qh:lang:auto
 
-Accessible à tous les joueurs. CV/SV/HV privés appartenant à ton personnage. Alimentation OFF, cockpit quitté, personne à bord et aucun vaisseau arrimé. Reste à 250 m maximum du centre API du vaisseau. Pour sortir : qh:mark, éloigne-toi de 50 à 1000 m, puis qh:load:SLOT. Repère valable 5 minutes. Pas d'aperçu F2.</Text>
+Accessible à tous les joueurs. CV/SV/HV privés appartenant à ton personnage. Alimentation OFF, cockpit quitté, personne à bord et aucun vaisseau arrimé. Reste à 250 m maximum du centre API du vaisseau. Pour sortir : qh:mark, éloigne-toi de 30 à 50 m, puis qh:load:SLOT. Repère valable 5 minutes. Pas d'aperçu F2.</Text>
   <Text Key="store.confirm.body" Args="4">Stocker {0} (ID {1}) à la place {2}/{3} ?
 
 Le vaisseau et ses fichiers seront archivés, puis retirés du monde. Ferme les accès logistiques et arrête les scripts modifiant les coffres. Personne ne doit rester à bord.</Text>
   <Text Key="store.retry" Args="0">Reprendre la copie échouée. L'ancienne tentative sera conservée.</Text>
-  <Text Key="store.success" Args="1">Vaisseau stocké à la place {0}. Utilise qh:mark, éloigne-toi d'au moins 50 m, puis qh:load:{0}.</Text>
+  <Text Key="store.success" Args="1">Vaisseau stocké à la place {0}. Utilise qh:mark, éloigne-toi de 30 à 50 m, puis qh:load:{0}.</Text>
   <Text Key="load.confirm.body" Args="4">Restituer {0} — place {1} ?
 Secteur : {2}
 Position : {3}
 
 Le vaisseau apparaîtra au repère avec son orientation sauvegardée. Vérifie l'espace libre, le sol et les obstacles. Pas d'aperçu F2. Compare les coffres après la sortie.</Text>
   <Text Key="load.success" Args="1">Vaisseau restitué, ID {0}. Compare TOUS les coffres, réservoirs et appareils avec le départ. Archive de récupération conservée.</Text>
-  <Text Key="mark.success" Args="0">Point de sortie mémorisé pour 5 minutes. Éloigne-toi de 50 à 1000 m, puis qh:load:SLOT (1–15).</Text>
+  <Text Key="mark.success" Args="0">Point de sortie mémorisé pour 5 minutes. Éloigne-toi de 30 à 50 m, puis qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">Repère GPS envoyé.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS indisponible ; le point de sortie reste utilisable.</Text>
   <Text Key="info.body" Args="12">Vaisseau {0} : {1}
@@ -95,7 +95,7 @@ Diagnostic uniquement. Aucun export ni retrait.</Text>
   <Text Key="error.players_near" Args="1">Éloigne tous les joueurs, toi compris, d'au moins {0} m du vaisseau ou du point de sortie.</Text>
   <Text Key="error.gps" Args="0">Pont GPS indisponible ou invalide. Vérifie le module State.</Text>
   <Text Key="error.mark_expired" Args="0">Repère périmé ou session/secteur changé. Refais qh:mark.</Text>
-  <Text Key="error.mark_distance" Args="0">Reste entre 50 et 1000 m du point de sortie.</Text>
+  <Text Key="error.mark_distance" Args="0">Reste entre 30 et 50 m du point de sortie.</Text>
   <Text Key="error.obstacle" Args="0">Une structure est à moins de 100 m du point. Choisis un autre point.</Text>
   <Text Key="error.source_changed" Args="0">Les fichiers du vaisseau ont changé pendant la copie ou avant le retrait. Dépôt refusé ; conserve le journal.</Text>
   <Text Key="error.copy" Args="0">Copie des fichiers indisponible ou invalide. Conserve l'archive pour vérification.</Text>

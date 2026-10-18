@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.7.0")]
+[assembly: AssemblyVersion("0.2.7.1")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -21,10 +21,10 @@ namespace QuantumHangarQc
 {
     public sealed class Settings {
         public int MaxShipsPerPlayer = 10;
-        public float SpawnClearanceMeters = 5;
+        public float SpawnClearanceMeters = 0.5f;
         public string DefaultLanguage = "en";
         public void Validate() {
-            if(float.IsNaN(SpawnClearanceMeters)||float.IsInfinity(SpawnClearanceMeters)||SpawnClearanceMeters<1||SpawnClearanceMeters>50) throw new InvalidDataException("SpawnClearanceMeters must be between 1 and 50");
+            if(float.IsNaN(SpawnClearanceMeters)||float.IsInfinity(SpawnClearanceMeters)||SpawnClearanceMeters<0.25f||SpawnClearanceMeters>50) throw new InvalidDataException("SpawnClearanceMeters must be between 0.25 and 50");
             if(MaxShipsPerPlayer<1 || MaxShipsPerPlayer>15) throw new InvalidDataException("MaxShipsPerPlayer must be between 1 and 15");
             if(Languages.Normalize(DefaultLanguage)==null) throw new InvalidDataException("DefaultLanguage invalid");
         }
@@ -233,7 +233,7 @@ namespace QuantumHangarQc
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.7 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.7.1 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -432,7 +432,7 @@ namespace QuantumHangarQc
             } finally {try{if(File.Exists(request))File.Delete(request);if(File.Exists(reply))File.Delete(reply);}catch(Exception e){Log("TERRAIN_CLEANUP "+e.Message);}}
         }
         void ValidateDestination(PlayerInfo player,GlobalStructureList list,string field,PVector3 position){
-            if(!Finite(position)||player.playfield!=field||Distance(player.pos,position)<50||Distance(player.pos,position)>1000)throw Texts.Tag(new InvalidOperationException("Adjusted spawn too close or too far"),"error.mark_distance");
+            if(!Finite(position)||player.playfield!=field||Distance(player.pos,position)<30||Distance(player.pos,position)>1000)throw Texts.Tag(new InvalidOperationException("Adjusted spawn too close or too far"),"error.mark_distance");
             foreach(var pair in list.globalStructures.Where(k=>k.Key==field))foreach(var ship in pair.Value??new List<GlobalStructureInfo>())
                 if(Distance(ship.pos,position)<100)throw Texts.Tag(new InvalidOperationException("Obstacle at adjusted spawn"),"error.obstacle");
         }
@@ -489,7 +489,7 @@ namespace QuantumHangarQc
         async Task<bool> Dialog(PlayerInfo identity,string message,string positive) {
             int player=identity.entityId;
             var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,
-                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
+                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7.1\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;
@@ -752,7 +752,7 @@ namespace QuantumHangarQc
                 again=await Player(id);
                 now=await Structures(id);ValidateMark(again,now,mark);
                 ValidateDestination(again,now,mark.Playfield,spawn);
-                await CheckPlayersClear(id,mark.Playfield,spawn,50);
+                await CheckPlayersClear(id,mark.Playfield,spawn,30);
                 entry=store.At(value,sessionSteam); if(entry.ArchiveId!=archive || entry.Status!="STORED") throw Texts.Tag(new InvalidOperationException("L archive a change"),"error.archive");
                 if(Contains(now,entry.ShipId)) throw Texts.Tag(new InvalidOperationException("Original encore present dans le monde : restitution refusee"),"error.original_present");
                 await Task.Run(()=>store.Verify(entry));
@@ -871,7 +871,7 @@ namespace QuantumHangarQc
         void ValidateMark(PlayerInfo p,GlobalStructureList l,Placement mark) {
             if(mark.SteamId!=p.steamId||mark.ClientId!=p.clientId||mark.PlayerId!=p.entityId||mark.Playfield!=p.playfield||DateTime.UtcNow-mark.Created>TimeSpan.FromMinutes(5))
                 throw Texts.Tag(new InvalidOperationException("Point expire ou session/secteur change : refaire qh:mark"),"error.mark_expired");
-            if(!(Distance(p.pos,mark.Position)>=50) || !(Distance(p.pos,mark.Position)<=1000)) throw Texts.Tag(new InvalidOperationException("Reste entre 50 et 1000 m du point de sortie"),"error.mark_distance");
+            if(!(Distance(p.pos,mark.Position)>=30) || !(Distance(p.pos,mark.Position)<=50)) throw Texts.Tag(new InvalidOperationException("Reste entre 30 et 50 m du point de sortie"),"error.mark_distance");
             foreach(var pair in l.globalStructures.Where(k=>k.Key==mark.Playfield)) foreach(var ship in pair.Value??new List<GlobalStructureInfo>())
                 if(!(Distance(ship.pos,mark.Position)>=100)) throw Texts.Tag(new InvalidOperationException("Une structure est a moins de 100 m du point : choisir un autre point"),"error.obstacle");
             // Centre distances remain coarse obstacle checks; terrain is sampled separately by QH_STATE.

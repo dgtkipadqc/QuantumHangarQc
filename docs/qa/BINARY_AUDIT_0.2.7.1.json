@@ -1,0 +1,32 @@
+{
+  "host": {
+    "version": "0.2.7.1",
+    "sha256": "d32d426e3d489e9fe781c289fde36fc7b6b92c60a8cf788ff8c5f0edd851ab7a",
+    "references": [
+      "mscorlib",
+      "Mif",
+      "System.Core",
+      "System",
+      "System.Xml"
+    ],
+    "microsoft_reference_assemblies": "Microsoft.NETFramework.ReferenceAssemblies.net472 1.0.3",
+    "compiler": "Mono mcs with -noconfig -nostdlib+",
+    "windows_startup": "NOT_RUN",
+    "real_game_terrain": "NOT_RUN"
+  },
+  "state": {
+    "version": "0.2.7.1",
+    "sha256": "57b177be2a511575d3b9be4f5bdcdf397e623e1ce34ce6a5b362d93569e3e5eb",
+    "references": [
+      "ModApi",
+      "mscorlib",
+      "System.Core",
+      "System",
+      "System.Xml"
+    ],
+    "microsoft_reference_assemblies": "Microsoft.NETFramework.ReferenceAssemblies.net472 1.0.3",
+    "compiler": "Mono mcs with -noconfig -nostdlib+",
+    "windows_startup": "NOT_RUN",
+    "real_game_terrain": "NOT_RUN"
+  }
+}

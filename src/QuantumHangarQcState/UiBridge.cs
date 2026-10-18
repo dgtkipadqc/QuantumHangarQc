@@ -28,7 +28,7 @@ namespace QuantumHangarQc.State {
     int key;lock(gate){key=++serial;if(key<=0){serial=1;key=1;}while(pending.ContainsKey(key))key=++serial;pending.Add(key,item);}
     try {
      // One shared callback dispatches by customValue; simultaneous players cannot overwrite each other's handler.
-     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.7",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=true,ButtonTexts=new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
+     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.7.1",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=true,ButtonTexts=new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
      if(!shown){lock(gate)pending.Remove(key);log("QH_UI SHOW_REJECTED player="+r.Player+" purpose="+r.Purpose);Reply(item,null,true,"ui.unavailable");}
      else {Transfer.Write(Path.Combine(directory,r.Token+".opened.xml"),new HangarUiReply{Token=r.Token,Player=r.Player,Steam=r.Steam,Client=r.Client,CapturedUtc=now});log("QH_UI OPEN player="+r.Player+" token="+r.Token);}
     } catch(Exception e){lock(gate)pending.Remove(key);log("QH_UI SHOW_EXCEPTION "+e.GetType().Name+": "+e.Message);Reply(item,null,true,"ui.unavailable");}

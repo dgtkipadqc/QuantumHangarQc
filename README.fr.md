@@ -1,10 +1,11 @@
-> **0.2.7 :** garde au sol avant restitution, 5 m par défaut. [Mise à jour et anciennes archives](docs/TERRAIN_0.2.7.md). Installer les deux modules QH ensemble. Le placement reste à tester en jeu.
+> **Candidat 0.2.7.1 — vaisseaux de test vides uniquement.** Sortie à 30–50 m de `qh:mark` ; marge au sol de 0,5 m par défaut. **La perte des objets des conteneurs signalée en 0.2.7 reste non résolue. Ne pas fusionner sur main pour le moment.** [Mise à jour et essais](docs/TERRAIN_0.2.7.1.md).
 
-> **VALIDATE 0.2.7 — configuration par sauvegarde / per-save settings.**
+
+> **VALIDATE 0.2.7.1 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.7
+# Quantum Hangar Qc — BETA 0.2.7.1
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -20,7 +21,7 @@ votre prochaine aventure.
 
 ## État actuel
 
-**BETA publique 0.2.7 — en cours de test.** Joueurs et administrateurs de
+**BETA publique 0.2.7.1 — en cours de test.** Joueurs et administrateurs de
 serveurs sont invités à essayer le mod et à partager leurs retours.
 Cette version de `validate` contient huit catalogues locaux et le choix individuel
 mémorisé `qh:lang`. La détection automatique de la langue du jeu reste **BLOQUÉE / non vérifiée**.
@@ -45,7 +46,7 @@ restent à tester en jeu. Les huit traductions initiales sont **à relire**.
 Sans `/` devant les commandes. Pour déposer : vaisseau privé appartenant au
 personnage, alimentation OFF, cockpit quitté, personne à bord, aucun vaisseau
 arrimé, distance maximale de 250 m par rapport à la position API du vaisseau.
-Pour sortir : `qh:mark` dans une zone libre, puis s'éloigner de **50 à 1000 m**
+Pour sortir : `qh:mark` dans une zone libre, puis s'éloigner de **30 à 50 m**
 dans le même secteur et lancer `qh:load:PLACE`. Confirmer dans le dialogue.
 
 Les données du hangar sont liées à l'identité Steam. Le mod archive les fichiers

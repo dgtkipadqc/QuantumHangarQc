@@ -15,14 +15,15 @@ Start with `qh:help`. Your personal hangar holds ten ships.
 
 1. Choose clear space large enough for the entire ship, away from obstacles.
 2. Send `qh:mark`; the return point is valid for five minutes.
-3. Move 50–1000 m away, staying in the same playfield.
+3. Move 30–50 m away, staying in the same playfield.
 4. Send `qh:load:SLOT`, or select the ship from a working clickable list.
 5. Confirm and wait for completion. Inspect the ship and cargo afterward.
 
 The marker is a visual aid. Its display/removal is beta functionality.
 STORED means available. QUARANTINE means ask a server administrator to inspect
 the logs before attempting recovery. Never delete archive files to free a slot.
-Use a test ship and test cargo for initial beta validation.
+Use an empty test ship for 0.2.7.1 placement validation. Container item loss
+reported in 0.2.7 is unresolved; do not store valuable cargo.
 
 The package defaults to English. Use `qh:lang:fr` (or `qh:lang fr`) for
 French, `qh:lang:en` for English, and `qh:lang` to check the effective choice.

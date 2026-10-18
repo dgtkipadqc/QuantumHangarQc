@@ -86,5 +86,5 @@ terrain_tests=compile("terrain_tests",out/"terrain","TerrainTests.exe",[repo/"sr
 run("terrain",[mono,str(terrain_tests),str(out/"terrain_worlds")])
 
 ref_evidence=[dict(name=f.name,sha256=hashlib.sha256(f.read_bytes()).hexdigest()) for f in dict.fromkeys(host_refs+state_refs)]
-(out/'results.json').write_text(json.dumps(dict(version='0.2.7',tests=records,references=ref_evidence,game_tests='NOT_RUN',windows_startup='NOT_RUN',simulated_state_runtime='net8.0' if args.state_dotnet else 'Mono'),indent=2)+'\n')
+(out/'results.json').write_text(json.dumps(dict(version='0.2.7.1',tests=records,references=ref_evidence,game_tests='NOT_RUN',windows_startup='NOT_RUN',simulated_state_runtime='net8.0' if args.state_dotnet else 'Mono'),indent=2)+'\n')
 print('All local checks passed. Windows/game checks NOT_RUN.')

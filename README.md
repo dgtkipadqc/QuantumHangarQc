@@ -1,10 +1,11 @@
-> **0.2.7:** terrain clearance before retrieval, 5 m by default. [Update notes and old archives](docs/TERRAIN_0.2.7.md). Install both QH modules together. Terrain behavior still needs a game test.
+> **0.2.7.1 candidate — empty test ships only.** Retrieval requires 30–50 m from `qh:mark`; default ground clearance is 0.5 m. **Container item loss reported in 0.2.7 is unresolved. Do not merge to main yet.** [Update and test notes](docs/TERRAIN_0.2.7.1.md).
 
-> **VALIDATE 0.2.7 — configuration par sauvegarde / per-save settings.**
+
+> **VALIDATE 0.2.7.1 — configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.7
+# Quantum Hangar Qc — BETA 0.2.7.1
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -20,7 +21,7 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-**Public BETA 0.2.7 — testing in progress.** Players and server administrators
+**Public BETA 0.2.7.1 — testing in progress.** Players and server administrators
 are welcome to try the mod and report their feedback.
 This `validate` version implements eight local catalogs and persistent per-player
 `qh:lang` selection. Automatic game-language detection is **BLOCKED / unverified**.
@@ -54,7 +55,7 @@ All translations are initial drafts awaiting human review. See [validation](docs
 
 Use the commands without a leading slash. Before storage: power OFF, cockpit
 empty, no occupants or docked ships, private ownership, within 250 m of the
-ship's API position. For retrieval, mark a clear location and move **50–1000 m**
+ship's API position. For retrieval, mark a clear location and move **30–50 m**
 away, in the same playfield, before loading. Follow the in-game confirmation.
 
 ## Install and build

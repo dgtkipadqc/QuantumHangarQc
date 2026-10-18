@@ -1,0 +1,41 @@
+{
+  "version": "0.2.7.1",
+  "tests": [
+    {
+      "name": "Host",
+      "assertions": 688,
+      "result": "PASS"
+    },
+    {
+      "name": "Terrain",
+      "assertions": 24,
+      "result": "PASS"
+    },
+    {
+      "name": "LanguageMenu",
+      "assertions": 175,
+      "result": "PASS"
+    },
+    {
+      "name": "Localization",
+      "assertions": 1316,
+      "result": "PASS"
+    },
+    {
+      "name": "Config",
+      "assertions": 56,
+      "result": "PASS"
+    }
+  ],
+  "method": "Compiled production code with simulated APIs and local files; native test doubles excluded from shipped DLLs",
+  "live_game_terrain": "NOT_RUN",
+  "windows_startup": "NOT_RUN",
+  "container_loss": "UNRESOLVED_USER_REPORT_ON_0.2.7",
+  "tanks": "USER_REPORT_PRESERVED_ON_0.2.7",
+  "test_runner_notes": [
+    "The former 60 m GPS fixture was updated to 40 m for the new rule.",
+    "A fake terrain responder race was corrected: count each request token once and publish state before the reply.",
+    "An earlier run completed assertions but Mono failed during timer-thread shutdown; final run status recorded separately."
+  ],
+  "final_host_exit_code": 0
+}

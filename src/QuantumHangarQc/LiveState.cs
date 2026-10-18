@@ -28,7 +28,7 @@ namespace QuantumHangarQc.Live {
   public bool Done {get;private set;}
   public TerrainScan(TerrainRequest r,string kind,Func<float,float,float> getHeight){
    request=r;height=getHeight;Reply=new TerrainReply{Token=r.Token,Steam=r.Steam,Playfield=r.Playfield,Player=r.Player,Client=r.Client,X=r.X,Y=r.Y,Z=r.Z};
-   if(!new[]{r.X,r.Y,r.Z,r.Clearance}.TrueForAllFinite()||r.Clearance<1||r.Clearance>50)throw new InvalidDataException("error.terrain_unavailable");
+   if(!new[]{r.X,r.Y,r.Z,r.Clearance}.TrueForAllFinite()||r.Clearance<0.25f||r.Clearance>50)throw new InvalidDataException("error.terrain_unavailable");
    if(string.Equals(kind,"Space",StringComparison.OrdinalIgnoreCase)){Reply.Space=true;Finish();return;}
    if(!string.Equals(kind,"Planet",StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("error.terrain_unavailable");
    if(r.Hull==null)throw new InvalidDataException("error.terrain_legacy");

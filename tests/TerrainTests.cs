@@ -32,9 +32,12 @@ class TerrainTests {
   r.Clearance=0;Bad(()=>Run(r,"Planet",(x,z)=>0),"clearance zero rejected");r.Clearance=float.NaN;Bad(()=>Run(r,"Planet",(x,z)=>0),"NaN config rejected");
   r=Request();r.Hull.MinX=r.Hull.MinZ=-1024;r.Hull.MaxX=r.Hull.MaxZ=1024;Bad(()=>Run(r,"Planet",(x,z)=>0),"oversize scan rejected");
   r=Request();r.Hull.MinX=float.NaN;Bad(()=>Run(r,"Planet",(x,z)=>0),"invalid bounds rejected");
+  r=Request();r.Clearance=0.5f;a=Run(r,"Planet",(x,z)=>10);Check(a.Y+r.Hull.MinY==10.5f,"bottom edge only half a metre above flat ground");
+  r.Clearance=0.25f;a=Run(r,"Planet",(x,z)=>10);Check(a.Y+r.Hull.MinY==10.25f,"minimum clearance accepted");
+  r.Clearance=0.24f;Bad(()=>Run(r,"Planet",(x,z)=>0),"clearance below minimum rejected");
   r=Request();int calls=0;var scan=new TerrainScan(r,"Planet",(x,z)=>{calls++;return 0;});scan.Step(7);Check(calls==7&&!scan.Done,"work budget bounded");
   while(!scan.Done)scan.Step(7);Check(calls==121,"no duplicate or skipped grid samples");
-  var h=TerrainBridge.CaptureHull(new Ship());Check(h.MinX==-4&&h.MaxX==10&&h.MinY==-14&&h.MaxY==8&&h.MinZ==-6&&h.MaxZ==12,"native scale, rotation and one-block padding included");
+  var h=TerrainBridge.CaptureHull(new Ship());Check(h.MinX==-3&&h.MaxX==9&&h.MinY==-13&&h.MaxY==7&&h.MinZ==-5&&h.MaxZ==11,"native scale, rotation and half-block edges included");
   Check(h.RotX==90&&h.RotY==0,"native quaternion converted to Euler angles");
   string dir=args[0];Directory.CreateDirectory(dir);r=Request();r.Hull.MinX=r.Hull.MinZ=-40;r.Hull.MaxX=r.Hull.MaxZ=40;
   string request=Path.Combine(dir,r.Token+".request.xml"),reply=Path.Combine(dir,r.Token+".reply.xml");Transfer.Write(request,r);

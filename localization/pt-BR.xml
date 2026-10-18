@@ -33,19 +33,19 @@ qh:load:SLOT
 qh:lang
 qh:lang:auto
 
-Disponível para todos. Somente CV/SV/HV privados do seu personagem. Energia OFF, saia do cockpit, sem passageiros ou naves acopladas. Fique a até 250 m do centro da nave pela API. Retirada: qh:mark, afaste-se 50–1000 m e use qh:load:SLOT. Marcador válido por 5 minutos. Sem prévia F2.</Text>
+Disponível para todos. Somente CV/SV/HV privados do seu personagem. Energia OFF, saia do cockpit, sem passageiros ou naves acopladas. Fique a até 250 m do centro da nave pela API. Retirada: qh:mark, afaste-se 30–50 m e use qh:load:SLOT. Marcador válido por 5 minutos. Sem prévia F2.</Text>
   <Text Key="store.confirm.body" Args="4">Armazenar {0} (ID {1}) na vaga {2}/{3}?
 
 A nave e os arquivos serão arquivados, depois a nave será removida do mundo. Feche a logística e pare scripts que alteram a carga. Ninguém pode ficar a bordo.</Text>
   <Text Key="store.retry" Args="0">Repetir a cópia falha. A tentativa anterior será mantida.</Text>
-  <Text Key="store.success" Args="1">Nave armazenada na vaga {0}. Use qh:mark, afaste-se pelo menos 50 m e use qh:load:{0}.</Text>
+  <Text Key="store.success" Args="1">Nave armazenada na vaga {0}. Use qh:mark, afaste-se de 30 a 50 m e use qh:load:{0}.</Text>
   <Text Key="load.confirm.body" Args="4">Retirar {0} da vaga {1}?
 Setor: {2}
 Posição: {3}
 
 A nave aparecerá no marcador com a orientação salva. Verifique o espaço livre de terreno e obstáculos. Sem prévia F2. Compare a carga após retirar.</Text>
   <Text Key="load.success" Args="1">Nave retirada, ID {0}. Compare TODA a carga, tanques e dispositivos com o original. Arquivo de recuperação mantido.</Text>
-  <Text Key="mark.success" Args="0">Ponto de retirada salvo por 5 minutos. Afaste-se 50–1000 m e use qh:load:SLOT (1–15).</Text>
+  <Text Key="mark.success" Args="0">Ponto de retirada salvo por 5 minutos. Afaste-se 30–50 m e use qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">Marcador GPS enviado.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS indisponível; o ponto de retirada continua funcionando.</Text>
   <Text Key="info.body" Args="12">Nave {0}: {1}
@@ -95,7 +95,7 @@ Somente diagnóstico. Sem exportação ou remoção.</Text>
   <Text Key="error.players_near" Args="1">Afaste todos os jogadores, inclusive você, pelo menos {0} m da nave ou do ponto de retirada.</Text>
   <Text Key="error.gps" Args="0">Ponte GPS indisponível ou inválida. Verifique o módulo State.</Text>
   <Text Key="error.mark_expired" Args="0">Marcador expirado ou sessão/setor alterado. Use qh:mark novamente.</Text>
-  <Text Key="error.mark_distance" Args="0">Fique a 50–1000 m do ponto de retirada.</Text>
+  <Text Key="error.mark_distance" Args="0">Fique a 30–50 m do ponto de retirada.</Text>
   <Text Key="error.obstacle" Args="0">Há uma estrutura a menos de 100 m. Escolha outro ponto.</Text>
   <Text Key="error.source_changed" Args="0">Arquivos da nave alterados durante a cópia ou antes da remoção. Armazenamento recusado; guarde o log.</Text>
   <Text Key="error.copy" Args="0">Cópia dos arquivos indisponível ou inválida. Guarde o arquivo para revisão.</Text>

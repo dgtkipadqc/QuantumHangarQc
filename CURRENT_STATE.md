@@ -1,12 +1,13 @@
-# Current state — 0.2.7 validate — 2026-10-17
+# Current state — 0.2.7.1 validate candidate — 2026-10-18
 
-- Target branch: validate. Merge to main remains a separate action after the server test.
-- Both components: assembly 0.2.7.0. Native State YAML: 0.2.7.
-- Planet retrieval samples terrain under the expanded native hull bounds; configurable 5 m clearance and a second scan after confirmation.
-- New archives save hull bounds/orientation before removal. Old archives without bounds remain retrievable in space; re-store with 0.2.7 for subsequent planet retrieval.
-- Missing/stale/invalid terrain results refuse retrieval before allocating an entity ID. No guessed-height fallback.
-- Clickable ship/language menus and persisted per-Steam language preferences retained, including compatibility with omitted native SteamId. Host session authentication still applies.
-- Local simulated checks: 620 Host, 21 terrain, 175 language menus, 1316 localization, 56 configuration assertions passed.
-- Real-game terrain placement, physics and cargo are not validated by those tests. Manual language selection was reported working in-game before this change.
-- English remains the default for new configurations; existing server and player language settings are preserved. Automatic detection of the game's language is not implemented.
-- Read [0.2.7 installation, migration and limitations](docs/TERRAIN_0.2.7.md).
+- Target branch: validate. Empty test ships only; do not merge into main while container loss is unresolved.
+- Both components and State YAML: 0.2.7.1.
+- Retrieval requires 30–50 m from qh:mark, including endpoints; rechecked after confirmation.
+- Default ground clearance is 0.5 m (allowed 0.25–50). Explicit existing configuration is preserved.
+- New hull captures use half-block edges; old archived geometry is unchanged. Physics may still settle or tip an unpowered ship.
+- Container item loss was reported on 0.2.7 and is NOT fixed here. Oxygen/fuel/pentaxid tanks were reported preserved in the player's test. Actual game cargo is not validated by simulated tests.
+- File-copy method comparison across older ZIPs found no removed copy mechanism; the precise loss stage and recoverability require the affected archive and log.
+- Ship ID still changes on retrieval. No cargo replay or ID reuse is implemented.
+- Clickable lists, persistent language preferences and English default remain. Automatic game-language detection is not implemented.
+- Local checks: 688 Host, 24 terrain, 175 menus, 1316 localization and 56 configuration assertions. See QA results for runner details and limitations.
+- [Installation and empty-ship test](docs/TERRAIN_0.2.7.1.md).

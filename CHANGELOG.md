@@ -1,3 +1,12 @@
+# 0.2.7.1 VALIDATE candidate — 2026-10-18
+
+- Retrieval now requires the requesting player to be 30–50 m from qh:mark, checked again after confirmation. Spawn proximity checks use a 30 m minimum.
+- Default SpawnClearanceMeters reduced from 5 to 0.5 m; accepts 0.25–50 m. Explicit existing settings are preserved.
+- Newly captured hull bounds include half-block edges instead of a whole-block expansion. Previously archived bounds remain unchanged.
+- Container item loss reported on 0.2.7 remains unresolved. Tank oxygen/fuel/pentaxid were reported preserved in the same player test.
+- Empty test ships only. This candidate is not ready to merge into main. Ship ID still changes on retrieval.
+- See [installation and validation](docs/TERRAIN_0.2.7.1.md).
+
 # 0.2.7 VALIDATE — 2026-10-17
 
 - Measures terrain under the expanded hull footprint before retrieval and again after confirmation.

@@ -43,14 +43,16 @@ class FakeApi : ModGameAPI {
             QuantumHangarQc.Live.Transfer.Write(reply,new QuantumHangarQc.Live.HangarUiReply{Token=UiBadToken?"wrong":r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Slot=row==null?0:row.Slot,ArchiveId=UiBadArchive?"wrong":row==null?null:row.ArchiveId,Cancelled=UiCancel||row==null,CapturedUtc=DateTime.UtcNow});
         }
     }
+    readonly HashSet<string> terrainReplied=new HashSet<string>();
     public bool NoTerrain,BadTerrainToken;public string TerrainError;public int TerrainReplies;public float TerrainLift;public Action AfterTerrain;
     public void ReplyTerrain(){
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","Terrain");if(NoTerrain||!Directory.Exists(dir))return;
         foreach(string path in Directory.GetFiles(dir,"*.request.xml")){
             QuantumHangarQc.Live.TerrainRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.TerrainRequest>(path);}catch(FileNotFoundException){continue;}
-            string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
-            QuantumHangarQc.Live.Transfer.Write(reply,new QuantumHangarQc.Live.TerrainReply{Token=BadTerrainToken?"wrong":r.Token,Steam=r.Steam,Playfield=r.Playfield,Player=r.Player,Client=r.Client,X=r.X,Y=r.Y+TerrainLift,Z=r.Z,Space=TerrainLift==0,Samples=TerrainLift==0?0:25,Error=TerrainError,CapturedUtc=DateTime.UtcNow});
+            string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply)||!terrainReplied.Add(r.Token))continue;
+            var answer=new QuantumHangarQc.Live.TerrainReply{Token=BadTerrainToken?"wrong":r.Token,Steam=r.Steam,Playfield=r.Playfield,Player=r.Player,Client=r.Client,X=r.X,Y=r.Y+TerrainLift,Z=r.Z,Space=TerrainLift==0,Samples=TerrainLift==0?0:25,Error=TerrainError,CapturedUtc=DateTime.UtcNow};
             TerrainReplies++;if(AfterTerrain!=null)AfterTerrain();
+            QuantumHangarQc.Live.Transfer.Write(reply,answer);
         }
     }
     public void ReplyState() {
@@ -58,7 +60,7 @@ class FakeApi : ModGameAPI {
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","LiveState");if(NoState||!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
             QuantumHangarQc.Live.StateRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.StateRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
-            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.7",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
+            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.7.1",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
             QuantumHangarQc.Live.Transfer.Write(reply,state);
         }
     }
@@ -176,7 +178,7 @@ class Tests {
         a.Mod.Game_Event(CmdId.Event_ChatMessage,0,new ChatInfo {playerId=a.P.entityId,msg=command});
     }
     static void Run(FakeApi a,string command) {Start(a,command);Pump(a);}
-    static void Mark(FakeApi a) { a.P.pos=new PVector3{x=200};Run(a,"qh:mark");a.P.pos=new PVector3{x=140}; }
+    static void Mark(FakeApi a) { a.P.pos=new PVector3{x=200};Run(a,"qh:mark");a.P.pos=new PVector3{x=160}; }
     static void Restart(FakeApi a) { a.Mod.Game_Exit();a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root); }
     static void CopyTree(string source,string destination) {
         Directory.CreateDirectory(destination);
@@ -247,7 +249,7 @@ class Tests {
     }
     static void PlayerBetaTests() {
         var a=New();Run(a,"qh:help");
-        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.7")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
+        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.7.1")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
         Run(a,"qh:store:200:11");Assert.That(!a.Calls.Contains(CmdId.Request_Entity_Export),"eleventh slot unavailable");
         Run(a,"qh:store:200:10");Assert.That(a.Store().At(10,a.P.steamId).Status=="STORED","player slot ten");
         a.P.pos=new PVector3{x=250.25f,y=-125.5f,z=88.75f};Run(a,"qh:mark");
@@ -255,7 +257,7 @@ class Tests {
         Assert.That(a.GpsRequests.Count==1&&a.GpsRequests[0].Activate,"native cleanup armed first");
         a.Mod.GpsNow=()=>DateTime.UtcNow.AddSeconds(20);for(int i=0;i<10;i++)a.Mod.Game_Update();
         Assert.That(a.ConsoleCommands.Count==1,"no repeated marker add");
-        a.P.pos=new PVector3{x=310.25f,y=-125.5f,z=88.75f};a.DialogAnswer=1;Run(a,"qh:load:10");
+        a.P.pos=new PVector3{x=290.25f,y=-125.5f,z=88.75f};a.DialogAnswer=1;Run(a,"qh:load:10");
         Assert.That(!a.Calls.Contains(CmdId.Request_Entity_Spawn)&&a.GpsRequests.All(r=>r.Activate),"cancel keeps GPS and stored ship");
         a.DialogAnswer=0;Run(a,"qh:load:10");
         Assert.That(a.Ships.Any(x=>x.id==900)&&a.Store().List(a.P.steamId).Count==0,"restoration succeeds");
@@ -298,11 +300,22 @@ class Tests {
         Assert.Throws(()=>new Settings{SpawnClearanceMeters=0}.Validate(),"zero clearance rejected");
         Assert.Throws(()=>new Settings{SpawnClearanceMeters=51}.Validate(),"excessive clearance rejected");
     }
+    static void MarkRangeRegressions(){
+        foreach(float metres in new[]{29.9f,30f,40f,50f,50.1f}){
+            var a=New();Run(a,"qh:store:200");Mark(a);a.P.pos=new PVector3{x=200-metres};Run(a,"qh:load:1");
+            Assert.That(a.Calls.Contains(CmdId.Request_Entity_Spawn)==(metres>=30&&metres<=50),"marker range boundary "+metres);a.Mod.Game_Exit();
+        }
+        var moved=New();Run(moved,"qh:store:200");Mark(moved);moved.BeforeDialog=()=>moved.P.pos=new PVector3{x=149};Run(moved,"qh:load:1");
+        Assert.That(!moved.Calls.Contains(CmdId.Request_Entity_Spawn)&&moved.Store().At(1,moved.P.steamId).Status=="STORED","moving beyond 50m during confirmation refuses retrieval");moved.Mod.Game_Exit();
+        new Settings{SpawnClearanceMeters=0.25f}.Validate();
+        Assert.That(new Settings().SpawnClearanceMeters==0.5f,"default ground clearance 0.5m");
+        Assert.Throws(()=>new Settings{SpawnClearanceMeters=0.24f}.Validate(),"clearance below 0.25m rejected");
+    }
     static void Main(string[] args) {
         root=Path.GetFullPath(args[0]);Directory.CreateDirectory(root);
         foreach(var mode in new[]{"success","cancel","bad-token","bad-archive","session","changed","no-mark","confirm-cancel"}) {
             var ui=New();Run(ui,"qh:store:200");
-            if(mode!="no-mark"){Run(ui,"qh:mark");ui.P.pos=new PVector3{x=100};}
+            if(mode!="no-mark"){Run(ui,"qh:mark");ui.P.pos=new PVector3{x=40};}
             ui.UiEnabled=true;ui.UiCancel=mode=="cancel";ui.UiBadToken=mode=="bad-token";ui.UiBadArchive=mode=="bad-archive";ui.UiChangeSession=mode=="session";ui.UiChangeStatus=mode=="changed";
             if(mode=="confirm-cancel")ui.DialogAnswer=1;
             Run(ui,"qh:list");
@@ -499,7 +512,7 @@ class Tests {
         Mark(resetForeign);Run(resetForeign,"qh:load:1");
         Assert.That(!resetForeign.Calls.Contains(CmdId.Request_Entity_Spawn) && resetForeign.Store().List("76561198000000001").Count==1,"different Steam cannot recover another account after reset");
         resetForeign.Mod.Game_Exit();
-        PlayerBetaTests();TerrainRegressions();
+        PlayerBetaTests();TerrainRegressions();MarkRangeRegressions();
         if(args.Length>1) QuarantineRegression(Path.GetFullPath(args[1]));
         Console.WriteLine("PASS "+Assert.Count+" assertions. Real game export contents, cargo, terrain, GUI and placement NOT simulated.");
     }

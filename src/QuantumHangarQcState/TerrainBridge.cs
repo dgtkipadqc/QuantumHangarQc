@@ -19,11 +19,13 @@ namespace QuantumHangarQc.State {
    var convert=typeof(IStructure).GetMethod("StructToGlobalPos");
    var h=new HullBounds{MinX=float.PositiveInfinity,MinY=float.PositiveInfinity,MinZ=float.PositiveInfinity,MaxX=float.NegativeInfinity,MaxY=float.NegativeInfinity,MaxZ=float.NegativeInfinity,RotX=Axis(rotation,"x"),RotY=Axis(rotation,"y"),RotZ=Axis(rotation,"z")};
    for(int i=0;i<8;i++){
-    // Expand by one whole block on every axis before conversion. This includes
-    // block edges even on rotated CV/SV/HV hulls, without assuming block scale.
+    // Interpolate to half a block beyond the extreme block centres.
+    // This covers block edges without adding a whole extra block of air.
     var cell=new VectorInt3((i&1)==0?checked(min.x-1):checked(max.x+1),(i&2)==0?checked(min.y-1):checked(max.y+1),(i&4)==0?checked(min.z-1):checked(max.z+1));
-    object point=convert.Invoke(s,new object[]{cell});
-    float x=Axis(point,"x")-Axis(position,"x"),y=Axis(point,"y")-Axis(position,"y"),z=Axis(point,"z")-Axis(position,"z");
+    object outer=convert.Invoke(s,new object[]{cell});
+    var innerCell=new VectorInt3((i&1)==0?min.x:max.x,(i&2)==0?min.y:max.y,(i&4)==0?min.z:max.z);
+    object inner=convert.Invoke(s,new object[]{innerCell});
+    float x=(Axis(outer,"x")+Axis(inner,"x"))/2-Axis(position,"x"),y=(Axis(outer,"y")+Axis(inner,"y"))/2-Axis(position,"y"),z=(Axis(outer,"z")+Axis(inner,"z"))/2-Axis(position,"z");
     if(!new[]{x,y,z}.TrueForAllFinite())throw new InvalidDataException("Hull conversion invalid");
     h.MinX=Math.Min(h.MinX,x);h.MinY=Math.Min(h.MinY,y);h.MinZ=Math.Min(h.MinZ,z);
     h.MaxX=Math.Max(h.MaxX,x);h.MaxY=Math.Max(h.MaxY,y);h.MaxZ=Math.Max(h.MaxZ,z);

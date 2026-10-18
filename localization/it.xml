@@ -33,19 +33,19 @@ qh:load:SLOT
 qh:lang
 qh:lang:auto
 
-Per tutti i giocatori. Solo CV/SV/HV privati del tuo personaggio. Alimentazione OFF, esci dalla cabina, nessun passeggero o nave attraccata. Entro 250 m dal centro API della nave. Recupero: qh:mark, allontanati di 50–1000 m, poi qh:load:SLOT. Indicatore valido 5 minuti. Nessuna anteprima F2.</Text>
+Per tutti i giocatori. Solo CV/SV/HV privati del tuo personaggio. Alimentazione OFF, esci dalla cabina, nessun passeggero o nave attraccata. Entro 250 m dal centro API della nave. Recupero: qh:mark, allontanati di 30–50 m, poi qh:load:SLOT. Indicatore valido 5 minuti. Nessuna anteprima F2.</Text>
   <Text Key="store.confirm.body" Args="4">Depositare {0} (ID {1}) nel posto {2}/{3}?
 
 Nave e file saranno archiviati, poi la nave sarà rimossa dal mondo. Chiudi la logistica e ferma gli script del carico. Nessuno deve restare a bordo.</Text>
   <Text Key="store.retry" Args="0">Riprendi la copia fallita. Il tentativo precedente sarà conservato.</Text>
-  <Text Key="store.success" Args="1">Nave depositata nel posto {0}. Usa qh:mark, allontanati di almeno 50 m, poi qh:load:{0}.</Text>
+  <Text Key="store.success" Args="1">Nave depositata nel posto {0}. Usa qh:mark, allontanati di 30–50 m, poi qh:load:{0}.</Text>
   <Text Key="load.confirm.body" Args="4">Recuperare {0} dal posto {1}?
 Settore: {2}
 Posizione: {3}
 
 La nave apparirà al punto segnato con l'orientamento salvato. Verifica lo spazio da terreno e ostacoli. Nessuna anteprima F2. Confronta il carico dopo il recupero.</Text>
   <Text Key="load.success" Args="1">Nave recuperata, ID {0}. Confronta TUTTO il carico, i serbatoi e i dispositivi con l'originale. Archivio di recupero conservato.</Text>
-  <Text Key="mark.success" Args="0">Punto di recupero salvato per 5 minuti. Allontanati di 50–1000 m, poi qh:load:SLOT (1–15).</Text>
+  <Text Key="mark.success" Args="0">Punto di recupero salvato per 5 minuti. Allontanati di 30–50 m, poi qh:load:SLOT (1–15).</Text>
   <Text Key="mark.gps_sent" Args="0">Indicatore GPS inviato.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS non disponibile; il punto di recupero funziona comunque.</Text>
   <Text Key="info.body" Args="12">Nave {0}: {1}
@@ -95,7 +95,7 @@ Solo diagnosi. Nessun export o rimozione.</Text>
   <Text Key="error.players_near" Args="1">Allontana tutti i giocatori, te compreso, di almeno {0} m dalla nave o dal punto di recupero.</Text>
   <Text Key="error.gps" Args="0">Bridge GPS non disponibile o non valido. Controlla il modulo State.</Text>
   <Text Key="error.mark_expired" Args="0">Indicatore scaduto o sessione/settore cambiati. Ripeti qh:mark.</Text>
-  <Text Key="error.mark_distance" Args="0">Resta a 50–1000 m dal punto di recupero.</Text>
+  <Text Key="error.mark_distance" Args="0">Resta a 30–50 m dal punto di recupero.</Text>
   <Text Key="error.obstacle" Args="0">Una struttura è a meno di 100 m. Scegli un altro punto.</Text>
   <Text Key="error.source_changed" Args="0">File della nave cambiati durante la copia o prima della rimozione. Deposito rifiutato; conserva il log.</Text>
   <Text Key="error.copy" Args="0">Copia dei file non disponibile o non valida. Conserva l'archivio per verifica.</Text>

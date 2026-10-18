@@ -14,7 +14,7 @@ p.add_argument('--commit',required=True)
 a=p.parse_args()
 if not re.fullmatch('[0-9a-f]{40}',a.commit):raise SystemExit('Exact commit SHA required')
 repo=Path(__file__).resolve().parents[1]
-audit=json.loads((repo/'docs/qa/BINARY_AUDIT_0.2.7.json').read_text())
+audit=json.loads((repo/'docs/qa/BINARY_AUDIT_0.2.7.1.json').read_text())
 files={}
 for kind,folder,name,target in [('host','host','QuantumHangarQc.dll','ModLoader/MODs/QuantumHangarQc'),('state','state','QuantumHangarQcState.dll','QuantumHangarQcState')]:
     binary=a.binaries/folder/name
@@ -23,9 +23,9 @@ for kind,folder,name,target in [('host','host','QuantumHangarQc.dll','ModLoader/
     for catalog in sorted((repo/'localization').glob('*.xml')):files[target+'/Languages/'+catalog.name]=catalog.read_bytes()
 files['QuantumHangarQcState/QuantumHangarQcState_Info.yaml']=(repo/'config/QuantumHangarQcState_Info.yaml').read_bytes()
 prefix='ModLoader/MODs/QuantumHangarQc/'
-files[prefix+'TEST_VERSION.json']=json.dumps({'version':'0.2.7','branch':'validate','commit':a.commit,'binary_audit':audit,'windows_startup':'NOT_RUN','real_game':'NOT_RUN','automatic_language':'BLOCKED'},indent=2).encode()+b'\n'
-files[prefix+'UPDATE_README_FR_EN.txt']=(repo/'docs/TERRAIN_0.2.7.md').read_bytes()
-files[prefix+'VALIDATION_0.2.7.md']=(repo/'docs/TERRAIN_0.2.7.md').read_bytes()
+files[prefix+'TEST_VERSION.json']=json.dumps({'version':'0.2.7.1','branch':'validate','commit':a.commit,'binary_audit':audit,'windows_startup':'NOT_RUN','real_game':'NOT_RUN','empty_ship_test_only':True,'container_loss':'UNRESOLVED_USER_REPORT_ON_0.2.7','automatic_language':'BLOCKED'},indent=2).encode()+b'\n'
+files[prefix+'UPDATE_README_FR_EN.txt']=(repo/'docs/TERRAIN_0.2.7.1.md').read_bytes()
+files[prefix+'VALIDATION_0.2.7.1.md']=(repo/'docs/TERRAIN_0.2.7.1.md').read_bytes()
 a.output.parent.mkdir(parents=True,exist_ok=True)
 files={'Content/Mods/'+name:data for name,data in files.items()}
 files['Content/Mods/'+prefix+'SHA256SUMS.txt']=''.join(hashlib.sha256(data).hexdigest()+'  '+path+'\n' for path,data in sorted(files.items())).encode()
