@@ -1,3 +1,5 @@
+> **Correctif 0.2.8.1 sur validate :** [ZIP complet](binaries/QuantumHangarQc_0.2.8.1_COMPLET.zip) · [Installation FR/EN](docs/COMPLETE_0.2.8.1.md). Vérification native après sortie et libération prudente des places en quarantaine via `qh:list`. Aucun délai entre opérations ajouté.
+
 > **Paquet complet QH 0.2.8 :** [Télécharger le ZIP](binaries/QuantumHangarQc_0.2.8_COMPLET.zip) — ModLoader existant requis. [Installation FR/EN](docs/COMPLETE_0.2.8.md).
 
 > **0.2.8 sur validate — candidat de test :** [ZIP UPDATE ONLY](binaries/QuantumHangarQc_0.2.8_UPDATE_ONLY.zip), base 0.2.7.2, confirmations cliquables et `qh:mark` à 30 mètres devant toi. [Installation et validation](docs/REBUILD_0.2.8.md).
@@ -12,7 +14,7 @@
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.8
+# Quantum Hangar Qc — BETA 0.2.8.1
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 

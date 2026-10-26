@@ -20,6 +20,8 @@ class FakeApi : ModGameAPI {
     public PVector3? LivePosition;public bool WrongPositionId,RejectPosition;public Action AfterPosition;public string ListSector;
     public bool? LivePower;public int? LivePilot,LiveDockedTo;public bool NoState,WrongStateToken,WrongStateSteam,OldState;public List<int> LiveOccupants=new List<int>();
     public bool NoMarker,FailMarkerAdd;
+    public bool GlobalRestoredStatsOnly;public int RestoreUnreadyReplies,RestoreStateReplies;public Action AfterRestoreState;
+
     public List<string> ConsoleCommands=new List<string>();
     public List<QuantumHangarQc.Live.MarkerRequest> GpsRequests=new List<QuantumHangarQc.Live.MarkerRequest>();
     public void ReplyGps() {
@@ -81,8 +83,12 @@ class FakeApi : ModGameAPI {
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","LiveState");if(NoState||!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
             QuantumHangarQc.Live.StateRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.StateRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
-            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.8",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
+            var native=r.Entity==Ship.id?Ship:Ships.SingleOrDefault(x=>x.id==r.Entity);
+            bool restored=r.Entity!=Ship.id;
+            if(restored)RestoreStateReplies++;
+            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.8",PlayersSeen=0,RequesterSeen=false,Ready=!restored||RestoreStateReplies>RestoreUnreadyReplies,Powered=LivePower??native.powered,Pilot=LivePilot??native.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(native.id)).Select(x=>x.id).FirstOrDefault()),Docked=native.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=native.factionGroup,OwnerId=native.factionId,Type=native.type,BlockCount=restored&&GlobalRestoredStatsOnly?Ship.cntBlocks:native.cntBlocks,DeviceCount=native.cntDevices};
             QuantumHangarQc.Live.Transfer.Write(reply,state);
+            if(restored&&AfterRestoreState!=null)AfterRestoreState();
         }
     }
     GlobalStructureList listCache;
@@ -156,7 +162,7 @@ class FakeApi : ModGameAPI {
             Assert.That(spawn.exportedEntityDat.EndsWith("Export.dat")&&string.IsNullOrEmpty(spawn.prefabName),"native archive, no factory/blueprint fallback");
             Assert.That(spawn.factionGroup==1&&spawn.factionId==P.entityId,"restored private owner");
             Assert.That(File.ReadAllText(Path.Combine(Root,"Shared",spawn.forceEntityId.ToString(),"0.area"))=="test bytes: chest A slot0=123x15; chest B slot2=456x9","saved bytes preserved (NOT engine cargo test)");
-            Ships.Add(new GlobalStructureInfo {id=spawn.forceEntityId,type=spawn.type,factionGroup=spawn.factionGroup,factionId=spawn.factionId,name=spawn.name,pos=spawn.pos,rot=spawn.rot,cntBlocks=BadRestoredStats?1:Ship.cntBlocks,cntDevices=Ship.cntDevices});
+            Ships.Add(new GlobalStructureInfo {id=spawn.forceEntityId,type=spawn.type,factionGroup=spawn.factionGroup,factionId=spawn.factionId,name=spawn.name,pos=spawn.pos,rot=spawn.rot,cntBlocks=BadRestoredStats||GlobalRestoredStatsOnly?1:Ship.cntBlocks,cntDevices=Ship.cntDevices});
             if(!DropSpawnAck) Mod.Game_Event(CmdId.Event_Ok,seq,null);
         }
         else if(command==CmdId.Request_ConsoleCommand) {
@@ -182,7 +188,7 @@ class Tests {
         File.WriteAllText(Path.Combine(a.Root,"Shared","200","0.area"),"test bytes: chest A slot0=123x15; chest B slot2=456x9");
         // Baseline regression expectations are French; choose it explicitly.
         new QuantumHangarQc.Localization.Preferences(Path.Combine(a.Root,"Mods","QuantumHangarQc","Preferences"),null).Set(a.P.steamId,"fr");
-        a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root);return a;
+        a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,RestorePoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root);return a;
     }
     static void Pump(FakeApi a,int max=2500) {
         DateTime until=DateTime.UtcNow.AddMilliseconds(max);
@@ -200,7 +206,7 @@ class Tests {
     }
     static void Run(FakeApi a,string command) {Start(a,command);Pump(a);}
     static void Mark(FakeApi a) { a.P.pos=new PVector3{x=170};a.P.rot=new PVector3{y=90};Run(a,"qh:mark");a.P.pos=new PVector3{x=160}; }
-    static void Restart(FakeApi a) { a.Mod.Game_Exit();a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root); }
+    static void Restart(FakeApi a) { a.Mod.Game_Exit();a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,RestorePoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root); }
     static void CopyTree(string source,string destination) {
         Directory.CreateDirectory(destination);
         foreach(var f in Directory.GetFiles(source)) File.Copy(f,Path.Combine(destination,Path.GetFileName(f)),true);

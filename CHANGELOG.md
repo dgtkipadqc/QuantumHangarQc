@@ -1,3 +1,10 @@
+# 0.2.8.1 — validate candidate
+
+- Compare native structure counts at both storage and restore; require two consecutive ready snapshots with bounded polling.
+- Reconcile one already-spawned quarantine per qh:list in the current sector after identity, lineage, archive hash and native checks. Preserve the entire archive in Retired; never replay spawn or alter the live ship.
+- Log expected/actual restore counters. No cooldown added. Cargo contents remain outside automated verification.
+- Complete QH package and regression coverage; actual server testing pending.
+
 # 0.2.8 VALIDATE candidate — 2026-10-26
 
 - Rebuilt from the 0.2.7.2 production baseline; native store/retrieve confirmation selectively carried over from 0.2.7.3.

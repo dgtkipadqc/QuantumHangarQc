@@ -42,3 +42,5 @@ test("TerrainTests",[repo/"src/QuantumHangarQc/LiveState.cs",repo/"src/QuantumHa
 test("ConfigTests",host+[tests,repo/"tests/ConfigTests.cs"],"ConfigTests",[],extra=(hostref,deps/"loader/ModLoader/Host/ModExtenderCommunication.dll"))
 
 test("MarkerTests",host+[tests,repo/"tests/MarkerTests.cs"],"MarkerTests",[])
+
+test("RestoreTests",host+[tests,repo/"tests/RestoreTests.cs"],"RestoreTests",[])

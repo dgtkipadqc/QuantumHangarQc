@@ -1,3 +1,9 @@
+# QH 0.2.8.1 — correctif de quarantaine
+
+[ZIP complet](./QuantumHangarQc_0.2.8.1_COMPLET.zip) · [SHA-256](./QuantumHangarQc_0.2.8.1_COMPLET.zip.sha256) · [Installation FR/EN](../docs/COMPLETE_0.2.8.1.md)
+
+ModLoader existant requis. Remplacer les deux modules ensemble. Vérification native après sortie ; qh:list peut libérer une place bloquée si le vaisseau sorti est confirmé, avec copie de récupération conservée. Aucun nouveau délai entre opérations. Candidat sur validate, test en jeu requis.
+
 # QH 0.2.8 — paquet complet
 
 [Télécharger le ZIP complet](./QuantumHangarQc_0.2.8_COMPLET.zip) · [SHA-256](./QuantumHangarQc_0.2.8_COMPLET.zip.sha256) · [Installation FR/EN](../docs/COMPLETE_0.2.8.md)

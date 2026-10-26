@@ -1,3 +1,5 @@
+> **0.2.8.1 fix on validate:** [Complete ZIP](binaries/QuantumHangarQc_0.2.8.1_COMPLET.zip) · [FR/EN installation](docs/COMPLETE_0.2.8.1.md). Native post-spawn checks and conservative quarantine reconciliation via `qh:list`. No new operation cooldown.
+
 > **Complete QH 0.2.8 package:** [Download ZIP](binaries/QuantumHangarQc_0.2.8_COMPLET.zip) — existing ModLoader required. [Installation FR/EN](docs/COMPLETE_0.2.8.md).
 
 > **0.2.8 on validate — test candidate:** [UPDATE ONLY ZIP](binaries/QuantumHangarQc_0.2.8_UPDATE_ONLY.zip), rebuilt from 0.2.7.2 with native confirmation buttons and `qh:mark` 30 meters ahead. [Installation and validation](docs/REBUILD_0.2.8.md).
@@ -12,7 +14,7 @@
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.8
+# Quantum Hangar Qc — BETA 0.2.8.1
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -28,7 +30,7 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-**Public BETA 0.2.8 — testing in progress.** Players and server administrators
+**Public BETA 0.2.8.1 — testing in progress.** Players and server administrators
 are welcome to try the mod and report their feedback.
 This `validate` version implements eight local catalogs and persistent per-player
 `qh:lang` selection. Automatic game-language detection is **BLOCKED / unverified**.
