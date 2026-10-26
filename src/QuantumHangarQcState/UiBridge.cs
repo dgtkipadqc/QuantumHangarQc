@@ -24,11 +24,14 @@ namespace QuantumHangarQc.State {
     // Preserve 0.2.5 compatibility while refusing absent players and known mismatches.
     if(player==null||(!string.IsNullOrEmpty(player.SteamId)&&player.SteamId!=r.Steam)){log("QH_UI SESSION_REJECT player="+r.Player);Reply(item,null,true,"error.session");continue;}
     if(string.IsNullOrEmpty(player.SteamId))log("QH_UI IDENTITY_HOST player="+r.Player);
-    if((r.Purpose=="language"?(r.Protocol!=2&&r.Protocol!=3):(!string.IsNullOrEmpty(r.Purpose)||(r.Protocol!=0&&r.Protocol!=2)))||r.Rows==null||r.Rows.Count>15||r.Rows.Any(x=>!ValidRow(x))||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){log("QH_UI REJECT protocol="+r.Protocol+" purpose="+r.Purpose);Reply(item,null,true,"ui.invalid_request");continue;}
+    bool confirmation=r.Purpose=="confirm";
+    bool validPurpose=confirmation?r.Protocol==4&&!string.IsNullOrWhiteSpace(r.Message)&&r.Message.Length<=8192&&!string.IsNullOrWhiteSpace(r.Positive)&&r.Positive.Length<=128:
+     r.Purpose=="language"?(r.Protocol==2||r.Protocol==3):string.IsNullOrEmpty(r.Purpose)&&(r.Protocol==0||r.Protocol==2);
+    if(!validPurpose||r.Rows==null||(confirmation&&r.Rows.Count!=0)||r.Rows.Count>15||r.Rows.Any(x=>!ValidRow(x))||r.Rows.Select(x=>x.Slot).Distinct().Count()!=r.Rows.Count){log("QH_UI REJECT protocol="+r.Protocol+" purpose="+r.Purpose);Reply(item,null,true,"ui.invalid_request");continue;}
     int key;lock(gate){key=++serial;if(key<=0){serial=1;key=1;}while(pending.ContainsKey(key))key=++serial;pending.Add(key,item);}
     try {
      // One shared callback dispatches by customValue; simultaneous players cannot overwrite each other's handler.
-     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.7.2",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=true,ButtonTexts=new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
+     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.7.3",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=!confirmation,ButtonTexts=confirmation?new[]{r.Positive,Texts.Render(r.Language,"button.cancel")}:new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=confirmation?1:0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
      if(!shown){lock(gate)pending.Remove(key);log("QH_UI SHOW_REJECTED player="+r.Player+" purpose="+r.Purpose);Reply(item,null,true,"ui.unavailable");}
      else {Transfer.Write(Path.Combine(directory,r.Token+".opened.xml"),new HangarUiReply{Token=r.Token,Player=r.Player,Steam=r.Steam,Client=r.Client,CapturedUtc=now});log("QH_UI OPEN player="+r.Player+" token="+r.Token);}
     } catch(Exception e){lock(gate)pending.Remove(key);log("QH_UI SHOW_EXCEPTION "+e.GetType().Name+": "+e.Message);Reply(item,null,true,"ui.unavailable");}
@@ -42,6 +45,11 @@ namespace QuantumHangarQc.State {
    Pending p;lock(gate){if(!pending.TryGetValue(custom,out p)||p.Request.Player!=player)return;pending.Remove(custom);}
    if(!File.Exists(p.File)||(DateTime.UtcNow-p.Request.CreatedUtc).TotalSeconds>95)return;
    try {
+    if(p.Request.Purpose=="confirm"&&p.Request.Protocol==4) {
+     bool confirmed=button==0&&string.IsNullOrEmpty(link);
+     Transfer.Write(p.Reply,new HangarUiReply{Token=p.Request.Token,Player=p.Request.Player,Client=p.Request.Client,Steam=p.Request.Steam,Confirmed=confirmed,Cancelled=!confirmed,CapturedUtc=DateTime.UtcNow});
+     log("QH_UI CONFIRM player="+player+" confirmed="+confirmed);return;
+    }
     if(p.Request.Purpose=="language"&&p.Request.Protocol==3) {
      string code=button==-1?HangarUiRules.SelectLanguage(p.Request,link):null;
      Transfer.Write(p.Reply,new HangarUiReply{Token=p.Request.Token,Player=p.Request.Player,Client=p.Request.Client,Steam=p.Request.Steam,SelectedLanguage=code,Cancelled=code==null,CapturedUtc=DateTime.UtcNow});

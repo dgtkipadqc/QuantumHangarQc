@@ -85,6 +85,7 @@ Diagnostic uniquement. Aucun export ni retrait.</Text>
   <Text Key="error.distance" Args="0">Reste à 250 m maximum du centre API du vaisseau. Utilise qh:info:ID pour les positions.</Text>
   <Text Key="error.ship_powered" Args="0">L'alimentation est encore ALLUMÉE. Éteins le vaisseau, puis réessaie.</Text>
   <Text Key="error.pilot" Args="0">Le cockpit est encore occupé. Quitte-le, puis réessaie.</Text>
+  <Text Key="error.confirmation" Args="0">Confirmation indisponible ou expirée. Aucune opération commencée. Demande à l’administrateur de vérifier les deux modules QH, puis réessaie ta commande.</Text>
   <Text Key="error.ui" Args="0">Sélection indisponible ou périmée. Refais qh:list ou utilise qh:load:SLOT.</Text>
   <Text Key="error.syntax" Args="0">Commande invalide. Utilise qh:help pour les commandes et qh:lang pour les langues.</Text>
   <Text Key="error.busy" Args="0">Une opération sur ton hangar ou ce vaisseau est déjà ouverte.</Text>

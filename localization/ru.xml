@@ -85,6 +85,7 @@ ID пилота: {11}
   <Text Key="error.distance" Args="0">Будь не далее 250 м от центра корабля по API. Проверь позиции через qh:info:ID.</Text>
   <Text Key="error.ship_powered" Args="0">Питание ещё ВКЛ. Выключи корабль и повтори.</Text>
   <Text Key="error.pilot" Args="0">Кабина ещё занята. Покинь её и повтори.</Text>
+  <Text Key="error.confirmation" Args="0">Подтверждение недоступно или срок ожидания истёк. Операция не начата. Попросите администратора проверить оба модуля QH, затем повторите команду.</Text>
   <Text Key="error.ui" Args="0">Выбор недоступен или устарел. Повтори qh:list или используй qh:load:SLOT.</Text>
   <Text Key="error.syntax" Args="0">Неверная команда. Команды: qh:help, языки: qh:lang.</Text>
   <Text Key="error.busy" Args="0">Операция с твоим ангаром или кораблём уже открыта.</Text>

@@ -1,3 +1,5 @@
+> **0.2.7.3 validate update:** [Download UPDATE_ONLY](binaries/QuantumHangarQc_0.2.7.3_CONFIRMATION_UPDATE_ONLY.zip) — native storage/retrieval confirmation and a lighter initial check. Replace both QH DLLs. [Installation and test status](docs/CONFIRMATION_0.2.7.3.md).
+
 > **Download:** [Complete QH 0.2.7.2 package from main](binaries/QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip) — existing ModLoader required. [Installation and known limitations](binaries/README.md).
 
 > **0.2.7.2 validate candidate:** fixes planet height calculation and displays **between 30 and 50 meters** explicitly. Items previously reported missing have since reappeared in the player test; the timing/cause is not established. Ship ID still changes. [Update notes](docs/TERRAIN_0.2.7.2.md).
@@ -8,7 +10,7 @@
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.7.2
+# Quantum Hangar Qc — BETA 0.2.7.3
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -24,7 +26,7 @@ Store a ship, choose a return location, and retrieve it when you need it.
 
 ## Current status
 
-**Public BETA 0.2.7.2 — testing in progress.** Players and server administrators
+**Public BETA 0.2.7.3 — testing in progress.** Players and server administrators
 are welcome to try the mod and report their feedback.
 This `validate` version implements eight local catalogs and persistent per-player
 `qh:lang` selection. Automatic game-language detection is **BLOCKED / unverified**.

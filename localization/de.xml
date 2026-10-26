@@ -85,6 +85,7 @@ Nur Diagnose. Kein Export oder Entfernen.</Text>
   <Text Key="error.distance" Args="0">Höchstens 250 m vom API-Mittelpunkt des Schiffs entfernt bleiben. Positionen mit qh:info:ID prüfen.</Text>
   <Text Key="error.ship_powered" Args="0">Strom ist noch AN. Schiff ausschalten und erneut versuchen.</Text>
   <Text Key="error.pilot" Args="0">Cockpit noch besetzt. Cockpit verlassen und erneut versuchen.</Text>
+  <Text Key="error.confirmation" Args="0">Bestätigung nicht verfügbar oder abgelaufen. Es wurde kein Vorgang gestartet. Bitte den Administrator, beide QH-Module zu prüfen, und wiederhole dann den Befehl.</Text>
   <Text Key="error.ui" Args="0">Schiffsauswahl fehlt oder ist ungültig. qh:list erneut oder qh:load:SLOT verwenden.</Text>
   <Text Key="error.syntax" Args="0">Ungültiger Befehl. qh:help für Befehle und qh:lang für Sprachen verwenden.</Text>
   <Text Key="error.busy" Args="0">Ein Vorgang für deinen Hangar oder dieses Schiff ist bereits offen.</Text>

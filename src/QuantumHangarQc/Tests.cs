@@ -32,11 +32,32 @@ class FakeApi : ModGameAPI {
         }
     }
     public bool UiEnabled,UiCancel,UiBadToken,UiBadArchive,UiChangeSession,UiChangeStatus;
+    public bool NativeConfirmEnabled=true;
+    public QuantumHangarQc.Live.HangarUiRequest HeldConfirmation;
+    public int Confirmations;
+    readonly HashSet<string> confirmations=new HashSet<string>();
+    public void AnswerConfirmation(bool confirmed) {
+        var r=HeldConfirmation;
+        QuantumHangarQc.Live.Transfer.Write(Path.Combine(Root,"Mods","QuantumHangarQc","HangarUI",r.Token+".reply.xml"),new QuantumHangarQc.Live.HangarUiReply{Token=r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Confirmed=confirmed,Cancelled=!confirmed,CapturedUtc=DateTime.UtcNow});
+    }
     public int UiSelections; readonly HashSet<string> uiReplied=new HashSet<string>();
     public void ReplyUi() {
-        string dir=Path.Combine(Root,"Mods","QuantumHangarQc","HangarUI");if(!UiEnabled||!Directory.Exists(dir))return;
+        string dir=Path.Combine(Root,"Mods","QuantumHangarQc","HangarUI");if(!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
-            QuantumHangarQc.Live.HangarUiRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.HangarUiRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply)||!uiReplied.Add(r.Token))continue;
+            QuantumHangarQc.Live.HangarUiRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.HangarUiRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");
+            if(r.Purpose=="confirm") {
+                if(!NativeConfirmEnabled||!confirmations.Add(r.Token))continue;
+                HeldConfirmation=r;Confirmations++;
+                HeldDialog=new DialogBoxData{Id=r.Player,MsgText=r.Message,PosButtonText=r.Positive};
+                if(BeforeDialog!=null)BeforeDialog();
+                if(RejectDialog)QuantumHangarQc.Live.Transfer.Write(reply,new QuantumHangarQc.Live.HangarUiReply{Token=r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Cancelled=true,Error="ui.unavailable",CapturedUtc=DateTime.UtcNow});
+                else {
+                    QuantumHangarQc.Live.Transfer.Write(Path.Combine(dir,r.Token+".opened.xml"),new QuantumHangarQc.Live.HangarUiReply{Token=r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,CapturedUtc=DateTime.UtcNow});
+                    if(!HoldDialogs)AnswerConfirmation(DialogAnswer==0);
+                }
+                continue;
+            }
+            if(!UiEnabled||File.Exists(reply)||!uiReplied.Add(r.Token))continue;
             var row=r.Rows.FirstOrDefault(x=>x.Status=="STORED");UiSelections++;
             if(UiChangeSession)P.clientId++;
             if(UiChangeStatus&&row!=null){var e=Store().At(row.Slot,P.steamId);e.Status="QUARANTINE";Store().Save(e);}
@@ -60,7 +81,7 @@ class FakeApi : ModGameAPI {
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","LiveState");if(NoState||!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
             QuantumHangarQc.Live.StateRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.StateRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
-            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.7.2",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
+            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.7.3",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
             QuantumHangarQc.Live.Transfer.Write(reply,state);
         }
     }
@@ -169,8 +190,8 @@ class Tests {
         throw new Exception("test pump timeout");
     }
     static void WaitDialog(FakeApi a) {
-        ushort previous=a.HeldSeq;DateTime until=DateTime.UtcNow.AddSeconds(1);
-        while(DateTime.UtcNow<until){a.ReplyState();a.Mod.Game_Update();if(a.HeldSeq!=previous)return;Thread.Sleep(1);}throw new Exception("dialog wait failed");
+        ushort previous=a.HeldSeq;int native=a.Confirmations;DateTime until=DateTime.UtcNow.AddSeconds(1);
+        while(DateTime.UtcNow<until){a.ReplyState();a.Mod.Game_Update();if(a.HeldSeq!=previous||a.Confirmations!=native)return;Thread.Sleep(1);}throw new Exception("dialog wait failed");
     }
     static void Start(FakeApi a,string command) {
         var field=typeof(HangarMod).GetField("lastCommand",BindingFlags.Instance|BindingFlags.NonPublic);
@@ -249,7 +270,7 @@ class Tests {
     }
     static void PlayerBetaTests() {
         var a=New();Run(a,"qh:help");
-        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.7.2")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
+        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.7.3")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
         Run(a,"qh:store:200:11");Assert.That(!a.Calls.Contains(CmdId.Request_Entity_Export),"eleventh slot unavailable");
         Run(a,"qh:store:200:10");Assert.That(a.Store().At(10,a.P.steamId).Status=="STORED","player slot ten");
         a.P.pos=new PVector3{x=250.25f,y=-125.5f,z=88.75f};Run(a,"qh:mark");
@@ -337,10 +358,10 @@ class Tests {
         var close=New();close.P.pos=new PVector3{x=75};Run(close,"qh:store:200");Assert.That(!close.Calls.Contains(CmdId.Request_Entity_Export),"nearby player blocks store");close.Mod.Game_Exit();
         var changed=New();changed.BeforeDialog=()=>changed.Ship.factionId=999;Run(changed,"qh:store:200");Assert.That(!changed.Calls.Contains(CmdId.Request_Entity_Export),"ownership rechecked after click");changed.Mod.Game_Exit();
         var reject=New();reject.RejectDialog=true;Run(reject,"qh:store:200");Assert.That(!reject.Calls.Contains(CmdId.Request_Entity_Destroy),"rejected dialog not confirmed");reject.Mod.Game_Exit();
-        var spoof=New();spoof.HoldDialogs=true;Start(spoof,"qh:store:200");WaitDialog(spoof);
+        var spoof=New();spoof.HoldDialogs=true;Start(spoof,"qh:help");WaitDialog(spoof);
         ushort stale=spoof.HeldSeq;spoof.Mod.Game_Event(CmdId.Event_DialogButtonIndex,stale,new IdAndIntValue{Id=999,Value=0});
         Pump(spoof);Assert.That(!spoof.Calls.Contains(CmdId.Request_Entity_Export),"other player's reply ignored; timeout no export");
-        Start(spoof,"qh:store:200");WaitDialog(spoof);Assert.That(spoof.HeldSeq!=stale,"dialog sequence not reused");
+        Start(spoof,"qh:help");WaitDialog(spoof);Assert.That(spoof.HeldSeq!=stale,"dialog sequence not reused");
         spoof.Mod.Game_Event(CmdId.Event_DialogButtonIndex,stale,new IdAndIntValue{Id=50,Value=0});
         Assert.That(!spoof.Calls.Contains(CmdId.Request_Entity_Export),"late old click cannot confirm new operation");
         spoof.Mod.Game_Event(CmdId.Event_DialogButtonIndex,spoof.HeldSeq,new IdAndIntValue{Id=50,Value=1});Pump(spoof);spoof.Mod.Game_Exit();
@@ -365,8 +386,8 @@ class Tests {
         var full=New();for(int i=0;i<10;i++)full.Store().Reserve(new GlobalStructureInfo{id=1000+i,name="Capacity test"},full.P.steamId);
         Run(full,"qh:store:200");Assert.That(!full.Calls.Contains(CmdId.Request_Entity_Export)&&full.Store().List("76561198000000001").Count==10,"11th reservation refused including unfinished operations");full.Mod.Game_Exit();
         var concurrent=New();concurrent.HoldDialogs=true;Start(concurrent,"qh:store:200");WaitDialog(concurrent);
-        Start(concurrent,"qh:store:200");concurrent.Mod.Game_Update();Assert.That(concurrent.Calls.Count(c=>c==CmdId.Request_ShowDialog_SinglePlayer)==1,"double command yields one dialog");
-        concurrent.Mod.Game_Event(CmdId.Event_DialogButtonIndex,concurrent.HeldSeq,new IdAndIntValue{Id=50,Value=1});Pump(concurrent);concurrent.Mod.Game_Exit();
+        Start(concurrent,"qh:store:200");concurrent.Mod.Game_Update();Assert.That(concurrent.Confirmations==1,"double command yields one native confirmation");
+        concurrent.AnswerConfirmation(false);Pump(concurrent);concurrent.Mod.Game_Exit();
         string[] parsed;
         Assert.That(HangarMod.TryParseCommand("qh:store:10006:3",out parsed)&&parsed.SequenceEqual(new[]{"qh:store","10006","3"}),"user syntax and explicit slot parsed");
         Assert.That(HangarMod.TryParseCommand("QH:STORE 10006 15",out parsed)&&parsed[2]=="15","space alias and case-insensitive commands");

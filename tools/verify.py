@@ -78,6 +78,11 @@ ui_tests=compile('ui_tests',state_dir,'UiTests.exe',state+[repo/'src/QuantumHang
 run('ui_regression',state_run(ui_tests,out/'ui_worlds'))
 locale_tests=compile('locale_tests',host_dir,'LocaleTests.exe',host+[repo/'tests/LocaleTests.cs',repo/'src/QuantumHangarQc/Tests.cs'],host_refs,True,'LocaleTests')
 run('localization',[mono,str(locale_tests),str(repo/'localization'),str(out/'locale_worlds')])
+native_ui_sources=host+[repo/'src/QuantumHangarQc/Tests.cs',repo/'src/QuantumHangarQcState/UiBridge.cs',repo/'tests/LanguageMenuTests.cs',repo/'tests/fixtures/LegacyHangarUi.cs',repo/'tests/fixtures/LegacyUiBridge.cs']
+language_tests=compile('language_menu_tests',host_dir,'LanguageMenuTests.exe',native_ui_sources,host_refs,True,'LanguageMenuTests')
+run('language_menu',[mono,str(language_tests),str(out/'language_menu_worlds')])
+confirmation_tests=compile('confirmation_tests',host_dir,'ConfirmationTests.exe',native_ui_sources+[repo/'tests/ConfirmationTests.cs'],host_refs,True,'ConfirmationTests')
+run('confirmation',[mono,str(confirmation_tests),str(out/'confirmation_worlds')])
 fallback_tests=compile('fallback_tests',host_dir,'FallbackTests.exe',[shared,repo/'src/QuantumHangarQc/LiveState.cs',repo/'tests/FallbackTests.cs'],refs,True,'FallbackTests')
 run('fallback_cache',[mono,str(fallback_tests),str(repo/'localization'),str(out/'fallback_worlds')])
 compile('native_chat_probe',state_dir,'NativeChatProbe.dll',[repo/'experiments/NativeChatProbe.cs'],state_refs)
@@ -86,5 +91,5 @@ terrain_tests=compile("terrain_tests",out/"terrain","TerrainTests.exe",[repo/"sr
 run("terrain",[mono,str(terrain_tests),str(out/"terrain_worlds")])
 
 ref_evidence=[dict(name=f.name,sha256=hashlib.sha256(f.read_bytes()).hexdigest()) for f in dict.fromkeys(host_refs+state_refs)]
-(out/'results.json').write_text(json.dumps(dict(version='0.2.7.2',tests=records,references=ref_evidence,game_tests='NOT_RUN',windows_startup='NOT_RUN',simulated_state_runtime='net8.0' if args.state_dotnet else 'Mono'),indent=2)+'\n')
+(out/'results.json').write_text(json.dumps(dict(version='0.2.7.3',tests=records,references=ref_evidence,game_tests='NOT_RUN',windows_startup='NOT_RUN',simulated_state_runtime='net8.0' if args.state_dotnet else 'Mono'),indent=2)+'\n')
 print('All local checks passed. Windows/game checks NOT_RUN.')

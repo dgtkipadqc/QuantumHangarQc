@@ -85,6 +85,7 @@ qh:lang:auto
   <Text Key="error.distance" Args="0">距飞船 API 中心不得超过 250 米。使用 qh:info:ID 检查位置。</Text>
   <Text Key="error.ship_powered" Args="0">电源仍开启。关闭飞船电源后重试。</Text>
   <Text Key="error.pilot" Args="0">驾驶舱仍有人。离开驾驶舱后重试。</Text>
+  <Text Key="error.confirmation" Args="0">确认不可用或已超时，未开始任何操作。请管理员检查两个 QH 模块，然后重试命令。</Text>
   <Text Key="error.ui" Args="0">飞船选择不可用或已失效。请重新使用 qh:list 或 qh:load:SLOT。</Text>
   <Text Key="error.syntax" Args="0">无效命令。命令帮助使用 qh:help，语言选择使用 qh:lang。</Text>
   <Text Key="error.busy" Args="0">你的机库或此飞船已有正在进行的事务。</Text>

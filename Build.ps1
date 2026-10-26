@@ -51,6 +51,6 @@ foreach ($output in @($hostOutput,$stateOutput)) {
     New-Item -ItemType Directory -Path $languages -Force | Out-Null
     Copy-Item -Path (Join-Path $PSScriptRoot 'localization\*.xml') -Destination $languages -Force
 }
-Write-Host "QH BETA 0.2.7.2 built / compile: $dist"
+Write-Host "QH BETA 0.2.7.3 built / compile: $dist"
 Write-Host 'Build only. Read docs/INSTALLATION_FR_EN.md before installation.'
 Write-Host 'Compilation uniquement. Lire la documentation avant installation.'

@@ -1,3 +1,12 @@
+# 0.2.7.3 VALIDATE candidate — 2026-10-26
+
+- Storage/retrieval confirmations use the native dialog bridge already used by clickable lists, avoiding the legacy dialog request that timed out in the inspected attempts.
+- Explicit buttons only: Escape cancels; Enter, links, stale/foreign callbacks and replayed replies cannot confirm.
+- Skip the usual pre-confirmation structure refresh for a known ship in the same sector; live position/state checks remain. Mandatory post-confirmation, pre-removal and absence refreshes remain.
+- Add a translated confirmation-specific failure message and correlation logs. Update both QH components together.
+- Local regressions pass; real-server validation is still required. Cargo, terrain and ship-ID behavior unchanged.
+- [Update instructions and evidence](docs/CONFIRMATION_0.2.7.3.md).
+
 # 0.2.7.2 VALIDATE candidate — 2026-10-18
 
 - English marker/store/help messages spell out "between 30 and 50 meters"; other catalogs replace the compact dash range with words.

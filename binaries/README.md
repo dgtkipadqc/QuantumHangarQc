@@ -1,3 +1,11 @@
+# Correctif QH 0.2.7.3 — validate
+
+[Télécharger UPDATE_ONLY](./QuantumHangarQc_0.2.7.3_CONFIRMATION_UPDATE_ONLY.zip) · [SHA-256](./QuantumHangarQc_0.2.7.3_CONFIRMATION_UPDATE_ONLY.zip.sha256) · [Installation FR/EN](../docs/CONFIRMATION_0.2.7.3.md)
+
+Pour une installation QH existante : deux DLL 0.2.7.3, catalogues et YAML State. Confirmation du rangement et de la sortie via le pont natif ; une requête coûteuse retirée de l'aperçu habituel. Les contrôles avant retrait sont conservés. Arrêter serveur, playfields et Host, puis fusionner Content. Les fichiers de configuration actifs et les archives ne sont pas inclus.
+
+Tests locaux simulés réussis ; affichage dans le jeu et démarrage Windows à valider. Hauteur et ID inchangés.
+
 # Binaires QH — série 0.2.7
 
 [Télécharger le ZIP complet QH 0.2.7.2](./QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip) · [SHA-256](./QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip.sha256)

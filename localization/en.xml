@@ -85,6 +85,7 @@ Diagnostic only. No export or removal.</Text>
   <Text Key="error.distance" Args="0">Stay within 250 m of the ship's API center. Use qh:info:ID to check positions.</Text>
   <Text Key="error.ship_powered" Args="0">Power is still ON. Turn the ship OFF, then retry.</Text>
   <Text Key="error.pilot" Args="0">Cockpit still occupied. Leave the cockpit, then retry.</Text>
+  <Text Key="error.confirmation" Args="0">Confirmation unavailable or expired. Nothing was started. Ask the administrator to check both QH modules, then retry your command.</Text>
   <Text Key="error.ui" Args="0">Ship selection unavailable or no longer valid. Use qh:list again or qh:load:SLOT.</Text>
   <Text Key="error.syntax" Args="0">Invalid command. Use qh:help for commands and qh:lang for languages.</Text>
   <Text Key="error.busy" Args="0">A transaction on your hangar or this ship is already open.</Text>

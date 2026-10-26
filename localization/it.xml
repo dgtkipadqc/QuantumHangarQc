@@ -85,6 +85,7 @@ Solo diagnosi. Nessun export o rimozione.</Text>
   <Text Key="error.distance" Args="0">Resta entro 250 m dal centro API della nave. Controlla con qh:info:ID.</Text>
   <Text Key="error.ship_powered" Args="0">Alimentazione ancora accesa. Spegni la nave e riprova.</Text>
   <Text Key="error.pilot" Args="0">Cabina ancora occupata. Esci e riprova.</Text>
+  <Text Key="error.confirmation" Args="0">Conferma non disponibile o scaduta. Nessuna operazione avviata. Chiedi all’amministratore di controllare entrambi i moduli QH, poi riprova il comando.</Text>
   <Text Key="error.ui" Args="0">Selezione non disponibile o scaduta. Ripeti qh:list o usa qh:load:SLOT.</Text>
   <Text Key="error.syntax" Args="0">Comando non valido. Usa qh:help per i comandi e qh:lang per le lingue.</Text>
   <Text Key="error.busy" Args="0">Un'operazione sul tuo hangar o questa nave è già aperta.</Text>

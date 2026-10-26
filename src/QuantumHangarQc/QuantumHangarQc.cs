@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.7.2")]
+[assembly: AssemblyVersion("0.2.7.3")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -233,7 +233,7 @@ namespace QuantumHangarQc
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.7.2 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.7.3 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -344,9 +344,12 @@ namespace QuantumHangarQc
             if(p.entityId!=id || p.clientId<0 || !ulong.TryParse(p.steamId,out steam) || steam==0 || p.steamId!=steam.ToString(CultureInfo.InvariantCulture)) throw Texts.Tag(new InvalidOperationException("Identite joueur invalide"),"error.identity");
             return p;
         }
-        async Task<GlobalStructureList> Structures(int player) {
+        async Task<GlobalStructureList> Structures(int player,bool refresh=true) {
             await structureGate.WaitAsync();
             try {
+                // Preview is a hint only: native position/state is checked below.
+                // Keep mandatory refreshes after confirmation and before/after removal.
+                if(!refresh)return await ReadStructures(player);
                 bool knownHost=hostStructureResponses;
                 // Native Update can return the refreshed list itself. Use it directly;
                 // a separate List request can return an older ModHost cache.
@@ -489,10 +492,19 @@ namespace QuantumHangarQc
         async Task<bool> Dialog(PlayerInfo identity,string message,string positive) {
             int player=identity.entityId;
             var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,
-                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7.2\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
+                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7.3\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;
+        async Task<bool> Confirm(PlayerInfo player,string message,string positive) {
+            var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Purpose="confirm",Protocol=4,Message=message,Positive=positive,CreatedUtc=DateTime.UtcNow};
+            Log("CONFIRM_REQUEST player="+player.entityId+" token="+r.Token);
+            Live.HangarUiReply answer;
+            try { answer=await ChooseUi(r); }
+            catch(Exception ex) {throw Texts.Tag(new InvalidOperationException("Confirmation native indisponible : "+ex.Message,ex),"error.confirmation");}
+            Log("CONFIRM_RESULT player="+player.entityId+" token="+r.Token+" confirmed="+(!answer.Cancelled&&answer.Confirmed));
+            return !answer.Cancelled&&answer.Confirmed;
+        }
         async Task<Live.HangarUiReply> ChooseShip(PlayerInfo player,List<Entry> entries) {
             var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Capacity=store.Capacity,Protocol=2,CreatedUtc=DateTime.UtcNow};
             for(int slot=1;slot<=Math.Max(store.Capacity,entries.Count==0?0:entries.Max(e=>e.PersonalSlot));slot++) {
@@ -511,6 +523,10 @@ namespace QuantumHangarQc
                         var a=Live.Transfer.Read<Live.HangarUiReply>(reply);
                         if(a.Token!=r.Token||a.Player!=r.Player||a.Client!=r.Client||a.Steam!=r.Steam||a.CapturedUtc<r.CreatedUtc.AddSeconds(-1)||a.CapturedUtc>DateTime.UtcNow.AddSeconds(1))throw Texts.Tag(new InvalidDataException("Reponse de selection non correspondante"),"error.ui");
                         if(!string.IsNullOrEmpty(a.Error))throw Texts.Tag(new InvalidOperationException(a.Error),"error.ui");
+                        if(r.Purpose=="confirm") {
+                            if(!a.Cancelled&&!a.Confirmed)throw Texts.Tag(new InvalidDataException("Confirmation explicite absente"),"error.ui");
+                            return a;
+                        }
                         if(!a.Cancelled&&r.Purpose=="language"&&r.Protocol==2) {
                             var row=r.Rows.SingleOrDefault(x=>x.Slot==a.Slot&&x.ArchiveId==a.ArchiveId&&x.Status=="STORED");
                             if(row==null)throw Texts.Tag(new InvalidDataException("Language row mismatch"),"error.ui");
@@ -524,6 +540,7 @@ namespace QuantumHangarQc
                     if(!File.Exists(opened)&&(DateTime.UtcNow-start).TotalMilliseconds>UiOpenTimeout)throw Texts.Tag(new TimeoutException("Composant de liste cliquable sans reponse"),"error.ui");
                     await Task.Delay(50);
                 }
+                if(!stopped&&r.Purpose=="confirm")throw Texts.Tag(new TimeoutException("Delai de confirmation native depasse; aucune action"),"error.confirmation");
                 return new Live.HangarUiReply{Cancelled=true};
             } finally {foreach(string f in new[]{request,reply,opened})try{if(File.Exists(f))File.Delete(f);}catch(IOException){}}
         }
@@ -674,7 +691,10 @@ namespace QuantumHangarQc
 
                 if(cmd=="qh:store") {
                     if(requestedSlot>store.Capacity) throw Texts.Tag(new InvalidOperationException("Place hors limite configuree"),"error.slot_range",store.Capacity);
-                    var l=await Structures(id);p=await LiveStorePosition(p,l,value,"PREVIEW");
+                    var l=await Structures(id,false);
+                    // A stale cache must not hide a newly created or moved ship.
+                    if(!Contains(l,value)||Playfield(l,value)!=p.playfield)l=await Structures(id);
+                    p=await LiveStorePosition(p,l,value,"PREVIEW");
                     if(p.steamId!=sessionSteam||p.clientId!=sessionClient)throw Texts.Tag(new InvalidOperationException("Session changee pendant la preparation"),"error.session");
                     Validate(p,l,value);
                     string storeSector=p.playfield;
@@ -691,7 +711,7 @@ namespace QuantumHangarQc
                     if(entries.Any(existing=>existing.ShipId==value)) throw Texts.Tag(new InvalidOperationException("Ce vaisseau possede deja une transaction dans ton hangar"),"error.duplicate");
                     if(requestedSlot>0&&entries.Any(existing=>existing.PersonalSlot==requestedSlot)) throw Texts.Tag(new InvalidOperationException("Place "+requestedSlot+" occupee : choisis une place libre"),"error.slot_occupied");
                     int selectedSlot=requestedSlot>0?requestedSlot:Enumerable.Range(1,store.Capacity).First(x=>!entries.Any(existing=>existing.PersonalSlot==x));
-                    if(!await Dialog(p,(retry==null?"":T(p,"store.retry")+"\n\n")+T(p,"store.confirm.body",ship.name,ship.id,selectedSlot,store.Capacity),T(p,"button.store"))) { Log("CANCEL store player="+id); return; }
+                    if(!await Confirm(p,(retry==null?"":T(p,"store.retry")+"\n\n")+T(p,"store.confirm.body",ship.name,ship.id,selectedSlot,store.Capacity),T(p,"button.store"))) { Log("CANCEL store player="+id); return; }
                     var fresh=await Player(id); if(fresh.steamId!=sessionSteam||fresh.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee"),"error.session");
                     l=await Structures(id); fresh=await LiveStorePosition(fresh,l,value,"CONFIRM");Validate(fresh,l,value);
                     if(fresh.playfield!=storeSector)throw Texts.Tag(new InvalidOperationException("Secteur change pendant la confirmation; relance le depot dans le secteur actuel"),"error.session");
@@ -744,7 +764,7 @@ namespace QuantumHangarQc
                 await Task.Run(()=>store.Verify(entry));
                 var spawn=await TerrainPosition(p,mark,entry);
                 string destination=PositionText(spawn);
-                if(!await Dialog(p,T(p,"load.confirm.body",entry.Ship.name,value,mark.Playfield,destination)+"\n\n"+T(p,"load.terrain_note"),T(p,"button.load"))) return;
+                if(!await Confirm(p,T(p,"load.confirm.body",entry.Ship.name,value,mark.Playfield,destination)+"\n\n"+T(p,"load.terrain_note"),T(p,"button.load"))) return;
                 var again=await Player(id); if(again.steamId!=sessionSteam||again.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee"),"error.session");
                 var now=await Structures(id); ValidateMark(again,now,mark);
                 // Re-sample after confirmation: never trust a terrain preview held in an open dialog.

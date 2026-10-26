@@ -85,6 +85,7 @@ Somente diagnóstico. Sem exportação ou remoção.</Text>
   <Text Key="error.distance" Args="0">Fique a até 250 m do centro da nave pela API. Confira com qh:info:ID.</Text>
   <Text Key="error.ship_powered" Args="0">A energia ainda está ligada. Desligue a nave e tente novamente.</Text>
   <Text Key="error.pilot" Args="0">Cockpit ainda ocupado. Saia e tente novamente.</Text>
+  <Text Key="error.confirmation" Args="0">Confirmação indisponível ou expirada. Nenhuma operação foi iniciada. Peça ao administrador para verificar os dois módulos QH e tente o comando novamente.</Text>
   <Text Key="error.ui" Args="0">Seleção indisponível ou inválida. Use qh:list novamente ou qh:load:SLOT.</Text>
   <Text Key="error.syntax" Args="0">Comando inválido. Use qh:help para comandos e qh:lang para idiomas.</Text>
   <Text Key="error.busy" Args="0">Já existe uma operação no seu hangar ou nesta nave.</Text>
