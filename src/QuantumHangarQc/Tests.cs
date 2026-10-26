@@ -81,7 +81,7 @@ class FakeApi : ModGameAPI {
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","LiveState");if(NoState||!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
             QuantumHangarQc.Live.StateRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.StateRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
-            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.7.3",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
+            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.8",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
             QuantumHangarQc.Live.Transfer.Write(reply,state);
         }
     }
@@ -199,7 +199,7 @@ class Tests {
         a.Mod.Game_Event(CmdId.Event_ChatMessage,0,new ChatInfo {playerId=a.P.entityId,msg=command});
     }
     static void Run(FakeApi a,string command) {Start(a,command);Pump(a);}
-    static void Mark(FakeApi a) { a.P.pos=new PVector3{x=200};Run(a,"qh:mark");a.P.pos=new PVector3{x=160}; }
+    static void Mark(FakeApi a) { a.P.pos=new PVector3{x=170};a.P.rot=new PVector3{y=90};Run(a,"qh:mark");a.P.pos=new PVector3{x=160}; }
     static void Restart(FakeApi a) { a.Mod.Game_Exit();a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root); }
     static void CopyTree(string source,string destination) {
         Directory.CreateDirectory(destination);
@@ -270,10 +270,10 @@ class Tests {
     }
     static void PlayerBetaTests() {
         var a=New();Run(a,"qh:help");
-        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.7.3")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
+        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.8")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
         Run(a,"qh:store:200:11");Assert.That(!a.Calls.Contains(CmdId.Request_Entity_Export),"eleventh slot unavailable");
         Run(a,"qh:store:200:10");Assert.That(a.Store().At(10,a.P.steamId).Status=="STORED","player slot ten");
-        a.P.pos=new PVector3{x=250.25f,y=-125.5f,z=88.75f};Run(a,"qh:mark");
+        a.P.pos=new PVector3{x=220.25f,y=-125.5f,z=88.75f};a.P.rot=new PVector3{y=90};Run(a,"qh:mark");
         Assert.That(a.ConsoleCommands.Count==1&&a.ConsoleCommands[0].EndsWith("pos=250,-126,89 W expire=300'"),"single GPS created after cleanup handshake");
         Assert.That(a.GpsRequests.Count==1&&a.GpsRequests[0].Activate,"native cleanup armed first");
         a.Mod.GpsNow=()=>DateTime.UtcNow.AddSeconds(20);for(int i=0;i<10;i++)a.Mod.Game_Update();

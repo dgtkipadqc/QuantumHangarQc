@@ -1,3 +1,13 @@
+# 0.2.8 VALIDATE candidate — 2026-10-26
+
+- Rebuilt from the 0.2.7.2 production baseline; native store/retrieve confirmation selectively carried over from 0.2.7.3.
+- Restores the 0.2.7.2 fresh preview and subsequent structure-refresh order; no cache-only preview optimization.
+- Source-change refusals identify affected files in local logs without weakening hash checks or changing recovery/copy behavior.
+- qh:mark now creates a fixed point 30 meters ahead on the horizontal player heading. Player can retrieve while stationary. Terrain/obstacle checks retained; retrieval-only 1 cm coordinate-rounding tolerance. Eight catalogs updated.
+- Marker diagnostics record point, current distance, age and session match; reported real-game marker error remains unidentified.
+- Clickable ship/language lists, language persistence, settings, terrain placement and archive format retained.
+- Compiled against real game and net472 references; simulated regression results in docs/qa/RESULTS_0.2.8.json. Windows/game testing still pending on validate.
+
 # 0.2.7.3 VALIDATE candidate — 2026-10-26
 
 - Storage/retrieval confirmations use the native dialog bridge already used by clickable lists, avoiding the legacy dialog request that timed out in the inspected attempts.

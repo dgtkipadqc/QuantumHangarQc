@@ -1,16 +1,16 @@
-> **Correctif 0.2.7.3 sur validate :** [Télécharger UPDATE_ONLY](binaries/QuantumHangarQc_0.2.7.3_CONFIRMATION_UPDATE_ONLY.zip) — confirmation native du rangement et de la sortie, vérification initiale allégée. Remplacer les deux DLL QH. [Installation et état des tests](docs/CONFIRMATION_0.2.7.3.md).
+> **0.2.8 sur validate — candidat de test :** [ZIP UPDATE ONLY](binaries/QuantumHangarQc_0.2.8_UPDATE_ONLY.zip), base 0.2.7.2, confirmations cliquables et `qh:mark` à 30 mètres devant toi. [Installation et validation](docs/REBUILD_0.2.8.md).
 
 > **Téléchargement :** [ZIP complet QH 0.2.7.2 de main](binaries/QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip) — ModLoader existant requis. [Installation et limites connues](binaries/README.md).
 
-> **Candidat 0.2.7.2 sur validate :** calcul de hauteur sur planète corrigé et distance écrite **entre 30 et 50 mètres**. Les objets signalés manquants sont réapparus dans l’essai du joueur ; délai et cause non établis. L’ID change encore. [Notes de mise à jour](docs/TERRAIN_0.2.7.2.md).
+> **Historique 0.2.7.2 :** calcul de hauteur sur planète corrigé et distance écrite **entre 30 et 50 mètres**. Les objets signalés manquants sont réapparus dans l’essai du joueur ; délai et cause non établis. L’ID change encore. [Notes de mise à jour](docs/TERRAIN_0.2.7.2.md).
 
 
 
-> **VALIDATE 0.2.7.2 — configuration par sauvegarde / per-save settings.**
+> **Configuration par sauvegarde / per-save settings.**
 > [Réglages et validation / Settings and validation](docs/CONFIGURATION_PAR_SAUVEGARDE.md).
 > La limite de 10 indiquée ci-dessous est désormais la valeur par défaut.
 
-# Quantum Hangar Qc — BETA 0.2.7.3
+# Quantum Hangar Qc — BETA 0.2.8
 
 ![Quantum Hangar Qc](assets/QH_Banniere_BETA.jpg)
 
@@ -26,7 +26,7 @@ votre prochaine aventure.
 
 ## État actuel
 
-**BETA publique 0.2.7.3 — en cours de test.** Joueurs et administrateurs de
+**BETA publique 0.2.8 — en cours de test.** Joueurs et administrateurs de
 serveurs sont invités à essayer le mod et à partager leurs retours.
 Cette version de `validate` contient huit catalogues locaux et le choix individuel
 mémorisé `qh:lang`. La détection automatique de la langue du jeu reste **BLOQUÉE / non vérifiée**.

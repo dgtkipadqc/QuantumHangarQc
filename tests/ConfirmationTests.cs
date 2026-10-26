@@ -31,7 +31,7 @@ class ConfirmationTests {
  static void Main(string[] args){
   root=args[0];Directory.CreateDirectory(root);
   var normal=New();normal.Open("qh:store:200");
-  Check(normal.Api.Calls.Count(x=>x==CmdId.Request_GlobalStructure_Update)==0,"known ship preview avoids expensive structure refresh");
+  Check(normal.Api.Calls.Count(x=>x==CmdId.Request_GlobalStructure_Update)==1,"0.2.7.2 fresh preview retained");
   Check(!normal.Api.Calls.Contains(CmdId.Request_ShowDialog_SinglePlayer),"store does not use broken legacy dialog API");
   Check(normal.App.Dialog.ButtonTexts.Length==2&&normal.App.Dialog.ButtonTexts[0]=="Confirm storage"&&normal.App.Dialog.ButtonTexts[1]=="Cancel","translated explicit confirmation buttons");
   Check(normal.App.Dialog.ButtonIdxForEsc==1&&normal.App.Dialog.ButtonIdxForEnter==-1&&!normal.App.Dialog.CloseOnLinkClick,"escape cancels and enter/link cannot confirm");
@@ -40,7 +40,7 @@ class ConfirmationTests {
   normal.App.Click(0);normal.App.Click(0);normal.Finish();
   Check(normal.Api.Store().At(1,normal.Api.P.steamId).Status=="STORED","native click completes store");
   Check(normal.Api.Calls.Count(x=>x==CmdId.Request_Entity_Export)==1&&normal.Api.Calls.Count(x=>x==CmdId.Request_Entity_Destroy)==1,"duplicate click cannot duplicate transaction");
-  Check(normal.Api.Calls.Count(x=>x==CmdId.Request_GlobalStructure_Update)==3,"fresh checks retained after confirmation, before removal and for absence");
+  Check(normal.Api.Calls.Count(x=>x==CmdId.Request_GlobalStructure_Update)==4,"0.2.7.2 preview, confirmation, before-removal and absence refreshes retained");
   Check(Directory.GetFiles(normal.Dir).Length==0,"UI files cleaned");
   normal.Api.P.pos=new PVector3{x=200};normal.Start("qh:mark");normal.Finish();normal.Api.P.pos=new PVector3{x=160};normal.Open("qh:load:1");Check(normal.App.Dialog.ButtonTexts[0]=="Confirm retrieval","retrieval uses native confirmation too");normal.App.Click(0);normal.Finish();
   Check(normal.Api.Ships.Count(x=>x.id==900)==1&&!normal.Api.Calls.Contains(CmdId.Request_ShowDialog_SinglePlayer),"store and retrieve succeed with legacy dialogs unavailable");normal.Api.Mod.Game_Exit();
@@ -59,6 +59,30 @@ class ConfirmationTests {
   }
   foreach(string mode in new[]{"missing","legacy","rejected"}){
    var c=New();c.BridgeEnabled=mode!="missing";c.Legacy=mode=="legacy";c.App.Reject=mode=="rejected";c.Start("qh:store:200");c.Finish();Check(c.Api.Logs.Any(x=>x.Contains("code=error.confirmation")),"confirmation failure has actionable diagnostic: "+mode);c.NoMutation("unavailable bridge cannot confirm: "+mode);
+  }
+  // A ship edited before storage is valid. Later writes must still block removal.
+  var edited=New();string changed="edited warp drive before storage";
+  File.WriteAllText(Path.Combine(edited.Api.Root,"Shared","200","0.area"),changed);
+  edited.Open("qh:store:200");edited.App.Click(0);edited.Finish();
+  var entry=edited.Api.Store().At(1,edited.Api.P.steamId);
+  Check(entry.Status=="STORED"&&File.ReadAllText(Path.Combine(edited.Api.Store().DirectoryFor(entry),"Shared","0.area"))==changed,"pre-existing ship edit archived unchanged");edited.Api.Mod.Game_Exit();
+  foreach(string mode in new[]{"content","added","missing","timestamp"}) {
+   var c=New();int positions=0;string file=Path.Combine(c.Api.Root,"Shared","200","0.area");
+   c.Api.AfterPosition=()=>{if(++positions!=3)return;
+    if(mode=="content")File.AppendAllText(file,"changed after copy");
+    if(mode=="added")File.WriteAllText(Path.Combine(Path.GetDirectoryName(file),"ents.dat"),"new file");
+    if(mode=="missing")File.Delete(file);
+    if(mode=="timestamp")File.SetLastWriteTimeUtc(file,DateTime.UtcNow.AddMinutes(1));
+   };
+   c.Open("qh:store:200");c.App.Click(0);c.Finish();var e=c.Api.Store().At(1,c.Api.P.steamId);
+   if(mode=="timestamp")Check(e.Status=="STORED","timestamp alone does not block an unchanged copy");
+   else {
+    Check(e.Status=="QUARANTINE"&&e.StoreStage=="ARCHIVED","source change quarantines before removal: "+mode);
+    Check(!c.Api.Calls.Contains(CmdId.Request_Entity_Destroy)&&c.Api.Ships.Any(x=>x.id==200),"source change never deletes ship: "+mode);
+    Check(c.Api.Logs.Any(x=>x.Contains("SOURCE_CHANGED")&&x.Contains("reason="+mode)&&x.Contains("file="+(mode=="added"?"ents.dat":"0.area"))),"specific changed file logged: "+mode);
+    Check(e.Files.All(f=>File.Exists(Path.Combine(c.Api.Store().DirectoryFor(e),f.Path))&&Disk.Hash(Path.Combine(c.Api.Store().DirectoryFor(e),f.Path))==f.Sha256),"quarantined recovery bytes match manifest: "+mode);
+   }
+   c.Api.Mod.Game_Exit();
   }
   // Shared native callback must dispatch by custom value as well as player.
   var multi=New();var r1=new HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=50,Client=7,Steam=multi.Api.P.steamId,Playfield=multi.Field.Name,Language="en",Purpose="confirm",Protocol=4,Message="First ship",Positive="Store",CreatedUtc=DateTime.UtcNow};

@@ -1,11 +1,12 @@
-# Current state — 0.2.7.3 validate candidate — 2026-10-26
+# Current state — 0.2.8 validate candidate — 2026-10-26
 
-- Both components and State YAML: 0.2.7.3. Target branch: validate; real-game confirmation test pending.
-- Storage and retrieval confirmations use the same native UI bridge as clickable ship/language menus, with explicit confirmation and cancellation.
-- Known-ship preview avoids one expensive structure refresh. Fresh live state and all final checks remain required.
-- Confirmation failures report error.confirmation before export/removal. Both DLLs must be updated together.
-- 729 Host, 1332 localization, 175 language-menu and 99 confirmation assertions pass against simulated APIs and local files. Production assemblies compiled against real game and Microsoft net472 references.
-- Windows/server startup and in-game UI rendering: NOT_RUN.
-- Terrain height remains a known issue requiring real-game diagnosis. Ship ID still changes on retrieval. Cargo/tank copy code unchanged.
-- Existing saved language choices and per-save settings retained.
-- [Installation and validation](docs/CONFIRMATION_0.2.7.3.md).
+- Production baseline: main 0.2.7.2 (`173d2e9426718ceef626e67a3b86ce71e983538b`). Reference ZIP DLL hashes match published 0.2.7.2 audit.
+- Native explicit confirmation from 0.2.7.3 added for storage/retrieval. Legacy informational dialogs unchanged.
+- All structure refreshes follow 0.2.7.2; cache-only preview optimization excluded.
+- Source comparison now logs the affected relative file and mismatch type. Copy, hash refusal, archive status, recovery and removal rules unchanged.
+- Both components: 0.2.8 (CLR 0.2.8.0). Existing settings and archives retained. Update both modules together.
+- Automated simulated tests and binary audit: [results](docs/qa/RESULTS_0.2.8.json).
+- qh:mark now places a fixed point 30 meters ahead using horizontal PlayerInfo heading; no backward movement needed. Retrieval bounds allow 1 cm float rounding, storage thresholds unchanged.
+- Marker refusal reported; exact message not yet provided. MARK_SET/MARK_CHECK/DESTINATION_CHECK diagnostics added. The new forward-point flow is simulated successfully; exact earlier marker error remains unidentified.
+- Real Windows/server startup, UI and cargo restoration: NOT_RUN. Heartbeat loss and engine file-write causes remain unproven. Terrain height remains to validate; ship ID still changes.
+- [Installation / rollback / test scope](docs/REBUILD_0.2.8.md).
