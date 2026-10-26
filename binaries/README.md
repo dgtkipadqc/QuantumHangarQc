@@ -1,3 +1,9 @@
+# QH 0.2.8 — paquet complet
+
+[Télécharger le ZIP complet](./QuantumHangarQc_0.2.8_COMPLET.zip) · [SHA-256](./QuantumHangarQc_0.2.8_COMPLET.zip.sha256) · [Installation FR/EN](../docs/COMPLETE_0.2.8.md)
+
+Tous les fichiers QH 0.2.8, exemples et documentation. ModLoader existant requis. Mêmes DLL que UPDATE ONLY ; aucun changement de comportement supplémentaire. Candidat sur validate, essai en jeu requis.
+
 # QH 0.2.8 — UPDATE ONLY sur validate
 
 [Télécharger 0.2.8 UPDATE ONLY](./QuantumHangarQc_0.2.8_UPDATE_ONLY.zip) · [SHA-256](./QuantumHangarQc_0.2.8_UPDATE_ONLY.zip.sha256) · [Installation et tests](../docs/REBUILD_0.2.8.md)

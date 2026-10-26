@@ -1,3 +1,5 @@
+> **Paquet complet QH 0.2.8 :** [Télécharger le ZIP](binaries/QuantumHangarQc_0.2.8_COMPLET.zip) — ModLoader existant requis. [Installation FR/EN](docs/COMPLETE_0.2.8.md).
+
 > **0.2.8 sur validate — candidat de test :** [ZIP UPDATE ONLY](binaries/QuantumHangarQc_0.2.8_UPDATE_ONLY.zip), base 0.2.7.2, confirmations cliquables et `qh:mark` à 30 mètres devant toi. [Installation et validation](docs/REBUILD_0.2.8.md).
 
 > **Téléchargement :** [ZIP complet QH 0.2.7.2 de main](binaries/QuantumHangarQc_0.2.7.2_COMPLET_MAIN.zip) — ModLoader existant requis. [Installation et limites connues](binaries/README.md).
