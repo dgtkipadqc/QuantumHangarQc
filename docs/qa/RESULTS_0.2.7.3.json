@@ -1,0 +1,45 @@
+{
+  "version": "0.2.7.3",
+  "source_base": "173d2e9426718ceef626e67a3b86ce71e983538b",
+  "method": "Real Host and native UiBridge with simulated API and local filesystem; production DLLs use real external game references",
+  "tests": [
+    {
+      "name": "HostTests",
+      "assertions": 729,
+      "result": "PASS"
+    },
+    {
+      "name": "LocaleTests",
+      "assertions": 1332,
+      "result": "PASS"
+    },
+    {
+      "name": "LanguageMenuTests",
+      "assertions": 175,
+      "result": "PASS"
+    },
+    {
+      "name": "ConfirmationTests",
+      "assertions": 99,
+      "result": "PASS"
+    }
+  ],
+  "compiler": "Mono mcs 6.8.0.105; -noconfig -nostdlib+; Microsoft.NETFramework.ReferenceAssemblies.net472 1.0.3",
+  "windows_startup": "NOT_RUN",
+  "real_server": "NOT_RUN",
+  "production_dlls": {
+    "QuantumHangarQc": {
+      "sha256": "e95dccc673ed4e7cfddec28c0b48bdc2d75cb41e64d4313db439cbc94c505995",
+      "version": "0.2.7.3"
+    },
+    "QuantumHangarQcState": {
+      "sha256": "6ad06852dbfc68fe754f2cff8148f7ff65a475f769bfd91f1766ba25d1c2b8c3",
+      "version": "0.2.7.3"
+    }
+  },
+  "references": {
+    "loader/ModLoader/Host/Mif.dll": "0a2cc0e535923807d32f5c1831e14b1b04659b51d8be9f470d0e2e796ca51e08",
+    "native/Mif.dll": "0a2cc0e535923807d32f5c1831e14b1b04659b51d8be9f470d0e2e796ca51e08",
+    "native/ModApi.dll": "841d3b98c90d4202246287d5327282917a19f05adbcf954ed5ecdfb509d26445"
+  }
+}

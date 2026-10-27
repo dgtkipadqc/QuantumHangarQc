@@ -20,23 +20,48 @@ class FakeApi : ModGameAPI {
     public PVector3? LivePosition;public bool WrongPositionId,RejectPosition;public Action AfterPosition;public string ListSector;
     public bool? LivePower;public int? LivePilot,LiveDockedTo;public bool NoState,WrongStateToken,WrongStateSteam,OldState;public List<int> LiveOccupants=new List<int>();
     public bool NoMarker,FailMarkerAdd;
+    public bool GlobalRestoredStatsOnly;public int RestoreUnreadyReplies,RestoreStateReplies;public Action AfterRestoreState;
+
     public List<string> ConsoleCommands=new List<string>();
     public List<QuantumHangarQc.Live.MarkerRequest> GpsRequests=new List<QuantumHangarQc.Live.MarkerRequest>();
+    readonly HashSet<string> gpsReplied=new HashSet<string>(),stateReplied=new HashSet<string>();
     public void ReplyGps() {
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","MapMarkers");if(!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")){
             QuantumHangarQc.Live.MarkerRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.MarkerRequest>(file);}catch(FileNotFoundException){continue;}
             string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
+            if(!gpsReplied.Add(r.Token))continue;
             GpsRequests.Add(r);
             QuantumHangarQc.Live.Transfer.Write(reply,new QuantumHangarQc.Live.MarkerReply{Token=r.Token,Name=r.Name,Steam=r.Steam,Player=r.Player,Activate=r.Activate,Success=!NoMarker,Error=NoMarker?"Pont indisponible":null});
         }
     }
     public bool UiEnabled,UiCancel,UiBadToken,UiBadArchive,UiChangeSession,UiChangeStatus;
+    public bool NativeConfirmEnabled=true;
+    public QuantumHangarQc.Live.HangarUiRequest HeldConfirmation;
+    public int Confirmations;
+    readonly HashSet<string> confirmations=new HashSet<string>();
+    public void AnswerConfirmation(bool confirmed) {
+        var r=HeldConfirmation;
+        QuantumHangarQc.Live.Transfer.Write(Path.Combine(Root,"Mods","QuantumHangarQc","HangarUI",r.Token+".reply.xml"),new QuantumHangarQc.Live.HangarUiReply{Token=r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Confirmed=confirmed,Cancelled=!confirmed,CapturedUtc=DateTime.UtcNow});
+    }
     public int UiSelections; readonly HashSet<string> uiReplied=new HashSet<string>();
     public void ReplyUi() {
-        string dir=Path.Combine(Root,"Mods","QuantumHangarQc","HangarUI");if(!UiEnabled||!Directory.Exists(dir))return;
+        string dir=Path.Combine(Root,"Mods","QuantumHangarQc","HangarUI");if(!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
-            QuantumHangarQc.Live.HangarUiRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.HangarUiRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply)||!uiReplied.Add(r.Token))continue;
+            QuantumHangarQc.Live.HangarUiRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.HangarUiRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");
+            if(r.Purpose=="confirm") {
+                if(!NativeConfirmEnabled||!confirmations.Add(r.Token))continue;
+                HeldConfirmation=r;Confirmations++;
+                HeldDialog=new DialogBoxData{Id=r.Player,MsgText=r.Message,PosButtonText=r.Positive};
+                if(BeforeDialog!=null)BeforeDialog();
+                if(RejectDialog)QuantumHangarQc.Live.Transfer.Write(reply,new QuantumHangarQc.Live.HangarUiReply{Token=r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Cancelled=true,Error="ui.unavailable",CapturedUtc=DateTime.UtcNow});
+                else {
+                    QuantumHangarQc.Live.Transfer.Write(Path.Combine(dir,r.Token+".opened.xml"),new QuantumHangarQc.Live.HangarUiReply{Token=r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,CapturedUtc=DateTime.UtcNow});
+                    if(!HoldDialogs)AnswerConfirmation(DialogAnswer==0);
+                }
+                continue;
+            }
+            if(!UiEnabled||File.Exists(reply)||!uiReplied.Add(r.Token))continue;
             var row=r.Rows.FirstOrDefault(x=>x.Status=="STORED");UiSelections++;
             if(UiChangeSession)P.clientId++;
             if(UiChangeStatus&&row!=null){var e=Store().At(row.Slot,P.steamId);e.Status="QUARANTINE";Store().Save(e);}
@@ -55,13 +80,32 @@ class FakeApi : ModGameAPI {
             QuantumHangarQc.Live.Transfer.Write(reply,answer);
         }
     }
+    public bool NoSector,SectorWrongToken,SectorIncomplete,SectorInvalid;public int SectorReplies;public Action<QuantumHangarQc.Live.SectorReply> AfterSector;
+    readonly HashSet<string> sectorReplied=new HashSet<string>();
+    public void ReplySector(){
+        string dir=Path.Combine(Root,"Mods","QuantumHangarQc","SectorState");if(NoSector||NoState||!Directory.Exists(dir))return;
+        foreach(var file in Directory.GetFiles(dir,"*.request.xml")){
+            QuantumHangarQc.Live.SectorRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.SectorRequest>(file);}catch(FileNotFoundException){continue;}
+            if(!sectorReplied.Add(r.Token))continue;
+            int idx=Ships.FindIndex(x=>x.id==Ship.id);if(idx>=0)Ships[idx]=Ship;
+            var a=new QuantumHangarQc.Live.SectorReply{Token=SectorWrongToken?"wrong":r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Playfield=r.Playfield,Protocol=1,Complete=!SectorIncomplete,CapturedUtc=DateTime.UtcNow};
+            if(ListSector==null||ListSector==r.Playfield)a.Entities=Ships.Select(e=>new QuantumHangarQc.Live.SectorEntity{Id=e.id,Name=e.name??"",Type=e.type,OwnerGroup=e.factionGroup,OwnerId=e.factionId,Blocks=e.cntBlocks,Devices=e.cntDevices,Powered=e.powered,Pilot=e.pilotId,X=e.pos.x,Y=e.pos.y,Z=e.pos.z,RX=e.rot.x,RY=e.rot.y,RZ=e.rot.z,Docked=e.dockedShips??new List<int>()}).ToList();
+            if(SectorInvalid)a.Entities=null;SectorReplies++;if(AfterSector!=null)AfterSector(a);
+            QuantumHangarQc.Live.Transfer.Write(Path.Combine(dir,r.Token+".reply.xml"),a);
+        }
+    }
     public void ReplyState() {
-        ReplyGps();ReplyUi();ReplyTerrain();
+        ReplyGps();ReplyUi();ReplyTerrain();ReplySector();
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","LiveState");if(NoState||!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
             QuantumHangarQc.Live.StateRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.StateRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
-            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.7.2",PlayersSeen=0,RequesterSeen=false,Ready=true,Powered=LivePower??Ship.powered,Pilot=LivePilot??Ship.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(Ship.id)).Select(x=>x.id).FirstOrDefault()),Docked=Ship.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=Ship.factionGroup,OwnerId=Ship.factionId,Type=Ship.type,BlockCount=Ship.cntBlocks,DeviceCount=Ship.cntDevices};
+            if(!stateReplied.Add(r.Token))continue;
+            var native=r.Entity==Ship.id?Ship:Ships.SingleOrDefault(x=>x.id==r.Entity);
+            bool restored=r.Entity!=Ship.id;
+            if(restored)RestoreStateReplies++;
+            var state=new QuantumHangarQc.Live.StateReply{Token=WrongStateToken?"wrong":r.Token,Entity=r.Entity,Player=r.Player,Steam=WrongStateSteam?"wrong":r.Steam,Playfield=r.Playfield,CapturedUtc=OldState?DateTime.UtcNow.AddMinutes(-1):DateTime.UtcNow,Hull=new QuantumHangarQc.Live.HullBounds{MinX=-5,MinY=-2,MinZ=-8,MaxX=5,MaxY=4,MaxZ=8},ObserverVersion="0.2.8",PlayersSeen=0,RequesterSeen=false,Ready=!restored||RestoreStateReplies>RestoreUnreadyReplies,Powered=LivePower??native.powered,Pilot=LivePilot??native.pilotId,DockedTo=LiveDockedTo??(Ships.Where(x=>x.dockedShips!=null&&x.dockedShips.Contains(native.id)).Select(x=>x.id).FirstOrDefault()),Docked=native.dockedShips??new List<int>(),Occupants=LiveOccupants,OwnerGroup=native.factionGroup,OwnerId=native.factionId,Type=native.type,BlockCount=restored&&GlobalRestoredStatsOnly?Ship.cntBlocks:native.cntBlocks,DeviceCount=native.cntDevices};
             QuantumHangarQc.Live.Transfer.Write(reply,state);
+            if(restored&&AfterRestoreState!=null)AfterRestoreState();
         }
     }
     GlobalStructureList listCache;
@@ -135,7 +179,7 @@ class FakeApi : ModGameAPI {
             Assert.That(spawn.exportedEntityDat.EndsWith("Export.dat")&&string.IsNullOrEmpty(spawn.prefabName),"native archive, no factory/blueprint fallback");
             Assert.That(spawn.factionGroup==1&&spawn.factionId==P.entityId,"restored private owner");
             Assert.That(File.ReadAllText(Path.Combine(Root,"Shared",spawn.forceEntityId.ToString(),"0.area"))=="test bytes: chest A slot0=123x15; chest B slot2=456x9","saved bytes preserved (NOT engine cargo test)");
-            Ships.Add(new GlobalStructureInfo {id=spawn.forceEntityId,type=spawn.type,factionGroup=spawn.factionGroup,factionId=spawn.factionId,name=spawn.name,pos=spawn.pos,rot=spawn.rot,cntBlocks=BadRestoredStats?1:Ship.cntBlocks,cntDevices=Ship.cntDevices});
+            Ships.Add(new GlobalStructureInfo {id=spawn.forceEntityId,type=spawn.type,factionGroup=spawn.factionGroup,factionId=spawn.factionId,name=spawn.name,pos=spawn.pos,rot=spawn.rot,cntBlocks=BadRestoredStats||GlobalRestoredStatsOnly?1:Ship.cntBlocks,cntDevices=Ship.cntDevices});
             if(!DropSpawnAck) Mod.Game_Event(CmdId.Event_Ok,seq,null);
         }
         else if(command==CmdId.Request_ConsoleCommand) {
@@ -161,7 +205,7 @@ class Tests {
         File.WriteAllText(Path.Combine(a.Root,"Shared","200","0.area"),"test bytes: chest A slot0=123x15; chest B slot2=456x9");
         // Baseline regression expectations are French; choose it explicitly.
         new QuantumHangarQc.Localization.Preferences(Path.Combine(a.Root,"Mods","QuantumHangarQc","Preferences"),null).Set(a.P.steamId,"fr");
-        a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root);return a;
+        a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,RestorePoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root);return a;
     }
     static void Pump(FakeApi a,int max=2500) {
         DateTime until=DateTime.UtcNow.AddMilliseconds(max);
@@ -169,8 +213,8 @@ class Tests {
         throw new Exception("test pump timeout");
     }
     static void WaitDialog(FakeApi a) {
-        ushort previous=a.HeldSeq;DateTime until=DateTime.UtcNow.AddSeconds(1);
-        while(DateTime.UtcNow<until){a.ReplyState();a.Mod.Game_Update();if(a.HeldSeq!=previous)return;Thread.Sleep(1);}throw new Exception("dialog wait failed");
+        ushort previous=a.HeldSeq;int native=a.Confirmations;DateTime until=DateTime.UtcNow.AddSeconds(1);
+        while(DateTime.UtcNow<until){a.ReplyState();a.Mod.Game_Update();if(a.HeldSeq!=previous||a.Confirmations!=native)return;Thread.Sleep(1);}throw new Exception("dialog wait failed");
     }
     static void Start(FakeApi a,string command) {
         var field=typeof(HangarMod).GetField("lastCommand",BindingFlags.Instance|BindingFlags.NonPublic);
@@ -178,8 +222,8 @@ class Tests {
         a.Mod.Game_Event(CmdId.Event_ChatMessage,0,new ChatInfo {playerId=a.P.entityId,msg=command});
     }
     static void Run(FakeApi a,string command) {Start(a,command);Pump(a);}
-    static void Mark(FakeApi a) { a.P.pos=new PVector3{x=200};Run(a,"qh:mark");a.P.pos=new PVector3{x=160}; }
-    static void Restart(FakeApi a) { a.Mod.Game_Exit();a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root); }
+    static void Mark(FakeApi a) { a.P.pos=new PVector3{x=170};a.P.rot=new PVector3{y=90};Run(a,"qh:mark");a.P.pos=new PVector3{x=160}; }
+    static void Restart(FakeApi a) { a.Mod.Game_Exit();a.Mod=new HangarMod {RequestTimeout=120,DialogTimeout=200,ExportPoll=2,RestorePoll=2,StateTimeout=180,TerrainTimeout=180,StatePoll=2,UiOpenTimeout=80,UiTimeout=600};a.Mod.StartAt(a,a.Root); }
     static void CopyTree(string source,string destination) {
         Directory.CreateDirectory(destination);
         foreach(var f in Directory.GetFiles(source)) File.Copy(f,Path.Combine(destination,Path.GetFileName(f)),true);
@@ -249,10 +293,10 @@ class Tests {
     }
     static void PlayerBetaTests() {
         var a=New();Run(a,"qh:help");
-        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.7.2")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
+        Assert.That(a.HeldDialog.MsgText.Contains("BETA 0.2.8")&&!a.HeldDialog.MsgText.Contains("TEST")&&a.HeldDialog.MsgText.Contains("10 places"),"ordinary player beta help");
         Run(a,"qh:store:200:11");Assert.That(!a.Calls.Contains(CmdId.Request_Entity_Export),"eleventh slot unavailable");
         Run(a,"qh:store:200:10");Assert.That(a.Store().At(10,a.P.steamId).Status=="STORED","player slot ten");
-        a.P.pos=new PVector3{x=250.25f,y=-125.5f,z=88.75f};Run(a,"qh:mark");
+        a.P.pos=new PVector3{x=220.25f,y=-125.5f,z=88.75f};a.P.rot=new PVector3{y=90};Run(a,"qh:mark");
         Assert.That(a.ConsoleCommands.Count==1&&a.ConsoleCommands[0].EndsWith("pos=250,-126,89 W expire=300'"),"single GPS created after cleanup handshake");
         Assert.That(a.GpsRequests.Count==1&&a.GpsRequests[0].Activate,"native cleanup armed first");
         a.Mod.GpsNow=()=>DateTime.UtcNow.AddSeconds(20);for(int i=0;i<10;i++)a.Mod.Game_Update();
@@ -337,10 +381,10 @@ class Tests {
         var close=New();close.P.pos=new PVector3{x=75};Run(close,"qh:store:200");Assert.That(!close.Calls.Contains(CmdId.Request_Entity_Export),"nearby player blocks store");close.Mod.Game_Exit();
         var changed=New();changed.BeforeDialog=()=>changed.Ship.factionId=999;Run(changed,"qh:store:200");Assert.That(!changed.Calls.Contains(CmdId.Request_Entity_Export),"ownership rechecked after click");changed.Mod.Game_Exit();
         var reject=New();reject.RejectDialog=true;Run(reject,"qh:store:200");Assert.That(!reject.Calls.Contains(CmdId.Request_Entity_Destroy),"rejected dialog not confirmed");reject.Mod.Game_Exit();
-        var spoof=New();spoof.HoldDialogs=true;Start(spoof,"qh:store:200");WaitDialog(spoof);
+        var spoof=New();spoof.HoldDialogs=true;Start(spoof,"qh:help");WaitDialog(spoof);
         ushort stale=spoof.HeldSeq;spoof.Mod.Game_Event(CmdId.Event_DialogButtonIndex,stale,new IdAndIntValue{Id=999,Value=0});
         Pump(spoof);Assert.That(!spoof.Calls.Contains(CmdId.Request_Entity_Export),"other player's reply ignored; timeout no export");
-        Start(spoof,"qh:store:200");WaitDialog(spoof);Assert.That(spoof.HeldSeq!=stale,"dialog sequence not reused");
+        Start(spoof,"qh:help");WaitDialog(spoof);Assert.That(spoof.HeldSeq!=stale,"dialog sequence not reused");
         spoof.Mod.Game_Event(CmdId.Event_DialogButtonIndex,stale,new IdAndIntValue{Id=50,Value=0});
         Assert.That(!spoof.Calls.Contains(CmdId.Request_Entity_Export),"late old click cannot confirm new operation");
         spoof.Mod.Game_Event(CmdId.Event_DialogButtonIndex,spoof.HeldSeq,new IdAndIntValue{Id=50,Value=1});Pump(spoof);spoof.Mod.Game_Exit();
@@ -365,8 +409,8 @@ class Tests {
         var full=New();for(int i=0;i<10;i++)full.Store().Reserve(new GlobalStructureInfo{id=1000+i,name="Capacity test"},full.P.steamId);
         Run(full,"qh:store:200");Assert.That(!full.Calls.Contains(CmdId.Request_Entity_Export)&&full.Store().List("76561198000000001").Count==10,"11th reservation refused including unfinished operations");full.Mod.Game_Exit();
         var concurrent=New();concurrent.HoldDialogs=true;Start(concurrent,"qh:store:200");WaitDialog(concurrent);
-        Start(concurrent,"qh:store:200");concurrent.Mod.Game_Update();Assert.That(concurrent.Calls.Count(c=>c==CmdId.Request_ShowDialog_SinglePlayer)==1,"double command yields one dialog");
-        concurrent.Mod.Game_Event(CmdId.Event_DialogButtonIndex,concurrent.HeldSeq,new IdAndIntValue{Id=50,Value=1});Pump(concurrent);concurrent.Mod.Game_Exit();
+        Start(concurrent,"qh:store:200");concurrent.Mod.Game_Update();Assert.That(concurrent.Confirmations==1,"double command yields one native confirmation");
+        concurrent.AnswerConfirmation(false);Pump(concurrent);concurrent.Mod.Game_Exit();
         string[] parsed;
         Assert.That(HangarMod.TryParseCommand("qh:store:10006:3",out parsed)&&parsed.SequenceEqual(new[]{"qh:store","10006","3"}),"user syntax and explicit slot parsed");
         Assert.That(HangarMod.TryParseCommand("QH:STORE 10006 15",out parsed)&&parsed[2]=="15","space alias and case-insensitive commands");
@@ -407,7 +451,7 @@ class Tests {
         Mark(legacy);Run(legacy,"qh:load:3");Assert.That(!legacy.Calls.Contains(CmdId.Request_Entity_Spawn),"legacy quarantine cannot spawn");legacy.Mod.Game_Exit();
         var bridge=New();bridge.HostResponses=true;bridge.NoNoticeAck=true;Run(bridge,"qh:store:200:4");
         Assert.That(bridge.Store().At(4,bridge.P.steamId).Status=="STORED","host echoed request response permits deposit");
-        Assert.That(bridge.Calls.Contains(CmdId.Request_GlobalStructure_Update),"host cache refresh requested");
+        Assert.That(!bridge.Calls.Contains(CmdId.Request_GlobalStructure_Update)&&bridge.SectorReplies>=4,"native sector replaces blocking refresh");
         Mark(bridge);Run(bridge,"qh:load:4");
         Assert.That(bridge.Ships.Any(s=>s.id==900)&&bridge.Store().List(bridge.P.steamId).Count==0,"host echoed responses permit restore");
         Thread.Sleep(220);bridge.Mod.Game_Update();
@@ -418,24 +462,24 @@ class Tests {
         Assert.That(!badPayload.Calls.Contains(CmdId.Request_Entity_Export),"wrong payload cannot authorize export");badPayload.Mod.Game_Exit();
         var nativeUpdate=New();nativeUpdate.HostResponses=true;nativeUpdate.StandardUpdateAck=true;
         Run(nativeUpdate,"qh:store:200:5");
-        Assert.That(nativeUpdate.MissingUpdateParameters==0,"refresh contains PString current playfield");
-        Assert.That(nativeUpdate.Store().At(5,nativeUpdate.P.steamId).Status=="STORED","standard Event_Ok refresh permits deposit");
+        Assert.That(nativeUpdate.MissingUpdateParameters==0,"no blocking refresh parameters used");
+        Assert.That(nativeUpdate.Store().At(5,nativeUpdate.P.steamId).Status=="STORED","native sector permits deposit");
         Mark(nativeUpdate);Run(nativeUpdate,"qh:load:5");
-        Assert.That(nativeUpdate.Ships.Any(s=>s.id==900),"standard Event_Ok refresh permits restore");nativeUpdate.Mod.Game_Exit();
-        var refusal=New();refusal.HostResponses=true;refusal.RejectUpdate=true;Run(refusal,"qh:store:200");
-        Assert.That(!refusal.Calls.Contains(CmdId.Request_Entity_Export)&&refusal.Store().List(refusal.P.steamId).Count==0,"API refresh error stops before archive/export");refusal.Mod.Game_Exit();
-        var falseAck=New();falseAck.HostResponses=true;falseAck.InvalidUpdateAck=true;Run(falseAck,"qh:store:200");
-        Assert.That(!falseAck.Calls.Contains(CmdId.Request_Entity_Export),"false refresh response cannot authorize deposit");falseAck.Mod.Game_Exit();
+        Assert.That(nativeUpdate.Ships.Any(s=>s.id==900),"native sector permits restore");nativeUpdate.Mod.Game_Exit();
+        var refusal=New();refusal.HostResponses=true;refusal.SectorIncomplete=true;Run(refusal,"qh:store:200");
+        Assert.That(!refusal.Calls.Contains(CmdId.Request_Entity_Export)&&refusal.Store().List(refusal.P.steamId).Count==0,"incomplete sector stops before archive/export");refusal.Mod.Game_Exit();
+        var falseAck=New();falseAck.HostResponses=true;falseAck.SectorInvalid=true;Run(falseAck,"qh:store:200");
+        Assert.That(!falseAck.Calls.Contains(CmdId.Request_Entity_Export),"invalid sector cannot authorize deposit");falseAck.Mod.Game_Exit();
         var observed=New();observed.HostResponses=true;observed.ListUpdateReply=true;observed.KeepListCache=true;
         Run(observed,"qh:store:200:6");
-        Assert.That(observed.Store().At(6,observed.P.steamId).Status=="STORED","server log protocol Update -> Event_GlobalStructure_List permits deposit");
-        Assert.That(observed.Calls.Count(c=>c==CmdId.Request_GlobalStructure_List)==1,"fresh update list used directly, stale host cache never re-read");
+        Assert.That(observed.Store().At(6,observed.P.steamId).Status=="STORED","native sector permits deposit with stale global cache");
+        Assert.That(observed.SectorReplies>=4&&!observed.Calls.Contains(CmdId.Request_GlobalStructure_Update),"fresh sector overrides stale host cache without blocking update");
         Mark(observed);Run(observed,"qh:load:6");
         Assert.That(observed.Ships.Any(s=>s.id==900)&&observed.Store().List(observed.P.steamId).Count==0,"observed protocol restores with stale initial cache");observed.Mod.Game_Exit();
-        var badUpdateSeq=New();badUpdateSeq.HostResponses=true;badUpdateSeq.ListUpdateReply=true;badUpdateSeq.WrongUpdateSequence=true;
-        Run(badUpdateSeq,"qh:store:200");Assert.That(!badUpdateSeq.Calls.Contains(CmdId.Request_Entity_Export),"unrelated update list cannot authorize export");badUpdateSeq.Mod.Game_Exit();
-        var badUpdateList=New();badUpdateList.HostResponses=true;badUpdateList.ListUpdateReply=true;badUpdateList.MalformedUpdateList=true;
-        Run(badUpdateList,"qh:store:200");Assert.That(!badUpdateList.Calls.Contains(CmdId.Request_Entity_Export),"missing structure dictionary cannot authorize export");badUpdateList.Mod.Game_Exit();
+        var badUpdateSeq=New();badUpdateSeq.HostResponses=true;badUpdateSeq.ListUpdateReply=true;badUpdateSeq.SectorWrongToken=true;
+        Run(badUpdateSeq,"qh:store:200");Assert.That(!badUpdateSeq.Calls.Contains(CmdId.Request_Entity_Export),"unrelated sector response cannot authorize export");badUpdateSeq.Mod.Game_Exit();
+        var badUpdateList=New();badUpdateList.HostResponses=true;badUpdateList.ListUpdateReply=true;badUpdateList.SectorInvalid=true;
+        Run(badUpdateList,"qh:store:200");Assert.That(!badUpdateList.Calls.Contains(CmdId.Request_Entity_Export),"missing sector entities cannot authorize export");badUpdateList.Mod.Game_Exit();
         var shared=New();
         using(var writer=new FileStream(Path.Combine(shared.Root,"Shared","200","0.area"),FileMode.Open,FileAccess.ReadWrite,FileShare.Read)) {
             Run(shared,"qh:store:200:7");
@@ -490,7 +534,7 @@ class Tests {
         var realPower=New();realPower.LivePower=true;Run(realPower,"qh:store:200");Assert.That(!realPower.Calls.Contains(CmdId.Request_Entity_Export)&&realPower.Logs.Any(x=>x.Contains("ALLUMEE")),"live powered ship refused despite cached off state");realPower.Mod.Game_Exit();
         var realPilot=New();realPilot.LivePilot=88;Run(realPilot,"qh:store:200");Assert.That(!realPilot.Calls.Contains(CmdId.Request_Entity_Export)&&realPilot.Logs.Any(x=>x.Contains("pilote ID 88")),"live pilot refused despite cached empty cockpit");realPilot.Mod.Game_Exit();
         var occupiedLive=New();occupiedLive.LiveOccupants.Add(99);Run(occupiedLive,"qh:store:200");Assert.That(!occupiedLive.Calls.Contains(CmdId.Request_Entity_Export),"live occupant blocks export");occupiedLive.Mod.Game_Exit();
-        var missingState=New();missingState.NoState=true;Run(missingState,"qh:store:200");Assert.That(!missingState.Calls.Contains(CmdId.Request_Entity_Export)&&missingState.Logs.Any(x=>x.Contains("Etat en direct indisponible")),"missing helper fails closed");missingState.Mod.Game_Exit();
+        var missingState=New();missingState.NoState=true;Run(missingState,"qh:store:200");Assert.That(!missingState.Calls.Contains(CmdId.Request_Entity_Export)&&missingState.Logs.Any(x=>x.Contains("code=error.live_state")),"missing helper fails closed");missingState.Mod.Game_Exit();
         var mismatchedState=New();mismatchedState.WrongStateToken=true;Run(mismatchedState,"qh:store:200");Assert.That(!mismatchedState.Calls.Contains(CmdId.Request_Entity_Export),"wrong state token cannot authorize export");mismatchedState.Mod.Game_Exit();
         var oldState=New();oldState.OldState=true;Run(oldState,"qh:store:200");Assert.That(!oldState.Calls.Contains(CmdId.Request_Entity_Export),"expired state cannot authorize export");oldState.Mod.Game_Exit();
         var stateChanged=New();stateChanged.BeforeDialog=()=>stateChanged.LivePower=true;Run(stateChanged,"qh:store:200");Assert.That(!stateChanged.Calls.Contains(CmdId.Request_Entity_Export),"power switched on while dialog open blocks export");stateChanged.Mod.Game_Exit();

@@ -1,0 +1,132 @@
+{
+  "version": "0.2.8",
+  "source_baseline": "173d2e9426718ceef626e67a3b86ce71e983538b",
+  "production_dlls": {
+    "QuantumHangarQc": {
+      "version": "0.2.8.0",
+      "sha256": "d8419f74a7819b4623bb197b03a2395a26da8a4641148a8a7d7cda5facd9bc89",
+      "references": [
+        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "Mif, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      ],
+      "framework": ".NETFramework,Version=v4.7.2"
+    },
+    "QuantumHangarQcState": {
+      "version": "0.2.8.0",
+      "sha256": "1fde040c5701385d63ad476894e64048f2b52f2428d4c130fe957561d9b57d95",
+      "references": [
+        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "ModApi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      ],
+      "framework": ".NETFramework,Version=v4.7.2"
+    }
+  },
+  "simulated_assertions": {
+    "HostTests": 725,
+    "LocaleTests": 1348,
+    "LanguageMenuTests": 175,
+    "ConfirmationTests": 123,
+    "TerrainTests": 27,
+    "ConfigTests": 56,
+    "MarkerTests": 69
+  },
+  "total_simulated_assertions": 2523,
+  "tests": [
+    {
+      "name": "compile_QuantumHangarQc",
+      "passed": true
+    },
+    {
+      "name": "compile_QuantumHangarQcState",
+      "passed": true
+    },
+    {
+      "name": "compile_HostTests",
+      "passed": true
+    },
+    {
+      "name": "HostTests",
+      "passed": true
+    },
+    {
+      "name": "compile_LocaleTests",
+      "passed": true
+    },
+    {
+      "name": "LocaleTests",
+      "passed": true
+    },
+    {
+      "name": "compile_LanguageMenuTests",
+      "passed": true
+    },
+    {
+      "name": "LanguageMenuTests",
+      "passed": true
+    },
+    {
+      "name": "compile_ConfirmationTests",
+      "passed": true
+    },
+    {
+      "name": "ConfirmationTests",
+      "passed": true
+    },
+    {
+      "name": "compile_TerrainTests",
+      "passed": true
+    },
+    {
+      "name": "TerrainTests",
+      "passed": true
+    },
+    {
+      "name": "compile_ConfigTests",
+      "passed": true
+    },
+    {
+      "name": "ConfigTests",
+      "passed": true
+    },
+    {
+      "name": "compile_MarkerTests",
+      "passed": true
+    },
+    {
+      "name": "MarkerTests",
+      "passed": true
+    }
+  ],
+  "baseline_comparison": {
+    "async Task<GlobalStructureList> Structures(": "IDENTICAL_TO_0.2.7.2",
+    "void CaptureFiles(": "IDENTICAL_TO_0.2.7.2",
+    "void RestoreFiles(": "IDENTICAL_TO_0.2.7.2",
+    "async Task<GlobalStructureList> WaitPresence(": "IDENTICAL_TO_0.2.7.2",
+    "async Task<PVector3> TerrainPosition(": "IDENTICAL_TO_0.2.7.2",
+    "void ValidateMark(": "ONLY diagnostic logs and 0.01m retrieval rounding tolerance changed",
+    "void ValidateDestination(": "ONLY diagnostic logs and 0.01m retrieval rounding tolerance changed",
+    "store transaction": "IDENTICAL_TO_0.2.7.2 except confirmation transport",
+    "retrieve transaction": "ONLY confirmation transport and retrieval-only 0.01m rounding tolerance changed",
+    "player exclusion": "Default/store tolerance remains zero; only retrieval opts into 0.01m",
+    "src/QuantumHangarQc/LiveState.cs": "IDENTICAL_TO_0.2.7.2",
+    "src/QuantumHangarQcState/LiveState.cs": "IDENTICAL_TO_0.2.7.2",
+    "src/QuantumHangarQcState/TerrainBridge.cs": "IDENTICAL_TO_0.2.7.2",
+    "src/QuantumHangarQcState/GpsBridge.cs": "IDENTICAL_TO_0.2.7.2",
+    "src/QuantumHangarQc/ActiveSavePath.cs": "IDENTICAL_TO_0.2.7.2",
+    "src/Shared/Localization.cs": "IDENTICAL_TO_0.2.7.2",
+    "config/Configuration.example.xml": "IDENTICAL_TO_0.2.7.2"
+  },
+  "windows_startup": "NOT_RUN",
+  "real_game": "NOT_RUN",
+  "marker_issue": "FORWARD_30M_IMPLEMENTED; PREVIOUS_ERROR_UNIDENTIFIED",
+  "game_heading_validation": "NOT_RUN",
+  "heartbeat_root_cause": "UNCONFIRMED",
+  "source_changed_root_cause": "UNCONFIRMED",
+  "cargo_engine_roundtrip": "NOT_RUN"
+}

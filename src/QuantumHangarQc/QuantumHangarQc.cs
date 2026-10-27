@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.7.2")]
+[assembly: AssemblyVersion("0.2.8.2")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -141,7 +141,7 @@ namespace QuantumHangarQc
             if((e.Status!="STORED" && e.Status!="EXPORTED_UNVERIFIED") || e.Files.Count==0) throw Texts.Tag(new InvalidOperationException("Export incomplet : "+e.Status),"error.archive");
             VerifyFiles(e);
         }
-        void VerifyFiles(Entry e) {
+        internal void VerifyFiles(Entry e) {
             string dir=DirectoryFor(e);
             if(e.Files.Count(f=>f.Path=="Export.dat" && f.Bytes>0)!=1 || !e.Files.Any(f=>f.Path.StartsWith("Shared"+Path.DirectorySeparatorChar,StringComparison.Ordinal))) throw Texts.Tag(new InvalidDataException("Archive native incomplete"),"error.archive");
             foreach(var f in e.Files) {
@@ -218,9 +218,9 @@ namespace QuantumHangarQc
         readonly Dictionary<ushort,DateTime> gpsReuseAfter=new Dictionary<ushort,DateTime>();
         ushort gpsSequence=1000;
         readonly SemaphoreSlim structureGate=new SemaphoreSlim(1,1);
-        bool hostStructureResponses;
         ushort sequence=43000; bool stopped; FileStream instanceLock;
         internal int RequestTimeout=20000, DialogTimeout=60000, ExportPoll=1000, StateTimeout=8000, StatePoll=100;
+        internal int RestorePoll=500;
         internal void StartAt(ModGameAPI a,string save) {
             api=a; saveDir=Path.GetFullPath(save);
             if(!Directory.Exists(saveDir)) throw Texts.Tag(new DirectoryNotFoundException("Sauvegarde introuvable : "+saveDir),"error.unexpected");
@@ -233,7 +233,7 @@ namespace QuantumHangarQc
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.7.2 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.8.2 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -300,18 +300,11 @@ namespace QuantumHangarQc
                 // ModHost's DB bridge echoes Request_GlobalStructure_List, not Event_GlobalStructure_List.
                 // Match ONLY this read response, with the exact outstanding sequence and payload type.
                 bool hostList=p.Command==CmdId.Request_GlobalStructure_List && kind==CmdId.Request_GlobalStructure_List && data is GlobalStructureList;
-                bool updatedList=p.Command==CmdId.Request_GlobalStructure_Update &&
-                    kind==CmdId.Event_GlobalStructure_List && data is GlobalStructureList &&
-                    ((GlobalStructureList)data).globalStructures!=null;
-                bool updateReply=p.Command==CmdId.Request_GlobalStructure_Update &&
-                    (updatedList || kind==CmdId.Event_Ok || (kind==CmdId.Request_GlobalStructure_Update && data is bool && (bool)data));
-                if(kind!=p.Expected && kind!=CmdId.Event_Error && !hostList && !updateReply) {
+                if(kind!=p.Expected && kind!=CmdId.Event_Error && !hostList) {
                     Log("API IGNORED seq="+seq+" command="+p.Command+" received="+kind+" type="+(data==null?"null":data.GetType().Name));
                     return;
                 }
-                if(hostList) hostStructureResponses=true;
                 if(p.Command==CmdId.Request_GlobalStructure_List && kind!=CmdId.Event_Error && !(data is GlobalStructureList)) return;
-                if(p.Command==CmdId.Request_GlobalStructure_Update && kind!=CmdId.Event_Error && !updateReply) return;
                 Log("API RECEIVE seq="+seq+" command="+p.Command+" received="+kind);
                 pending.Remove(seq);
             }
@@ -347,27 +340,33 @@ namespace QuantumHangarQc
         async Task<GlobalStructureList> Structures(int player) {
             await structureGate.WaitAsync();
             try {
-                bool knownHost=hostStructureResponses;
-                // Native Update can return the refreshed list itself. Use it directly;
-                // a separate List request can return an older ModHost cache.
-                var list=knownHost?await RefreshStructures(player):null;
-                if(list==null) list=await ReadStructures(player);
-                if(!knownHost && hostStructureResponses) {
-                    list=await RefreshStructures(player);
-                    if(list==null) list=await ReadStructures(player);
-                }
-                return list;
+                // Keep the cached other sectors conservatively; replace ONLY the player's
+                // current sector with a complete native snapshot. Never call the blocking Update.
+                var list=await ReadStructures(player);
+                var current=await Player(player);string steam=current.steamId,field=current.playfield;int client=current.clientId;
+                var r=new Live.SectorRequest{Token=Guid.NewGuid().ToString("N"),Player=player,Client=client,Steam=steam,Playfield=field,CreatedUtc=DateTime.UtcNow};
+                var snapshot=await ReadSector(r);
+                current=await Player(player);
+                if(current.steamId!=steam||current.clientId!=client||current.playfield!=field)throw Texts.Tag(new InvalidOperationException("Session changee pendant lecture du secteur"),"error.session");
+                try{Live.SectorRules.Validate(r,snapshot,DateTime.UtcNow);}catch(Exception ex){throw Texts.Tag(ex,"error.live_state");}
+                var merged=new Dictionary<string,List<GlobalStructureInfo>>(list.globalStructures);
+                merged[field]=snapshot.Entities.Select(e=>new GlobalStructureInfo{id=e.Id,type=(byte)e.Type,name=e.Name,factionGroup=(byte)e.OwnerGroup,factionId=e.OwnerId,cntBlocks=e.Blocks,cntDevices=e.Devices,powered=e.Powered,pilotId=e.Pilot,dockedShips=e.Docked,pos=new PVector3{x=e.X,y=e.Y,z=e.Z},rot=new PVector3{x=e.RX,y=e.RY,z=e.RZ}}).ToList();
+                Log("SECTOR_NATIVE count="+snapshot.Entities.Count+" sector="+field+"; blocking global update disabled");
+                return new GlobalStructureList{globalStructures=merged};
             } finally { structureGate.Release(); }
         }
-        async Task<GlobalStructureList> RefreshStructures(int player) {
-            // Observed on this server: PString playfield -> Event_GlobalStructure_List.
-            // Also support Event_Ok and ModHost request/true acknowledgements.
-            var current=await Player(player);
-            if(string.IsNullOrWhiteSpace(current.playfield)) throw Texts.Tag(new InvalidDataException("Secteur joueur absent pour rafraichir les structures"),"error.playfield");
-            var result=await Request(CmdId.Request_GlobalStructure_Update,new PString(current.playfield),CmdId.Event_Ok,player);
-            var refreshed=result as GlobalStructureList;
-            if(refreshed!=null) Log("STRUCTURES_REFRESHED count="+refreshed.globalStructures.Values.Sum(v=>v==null?0:v.Count));
-            return refreshed;
+        async Task<Live.SectorReply> ReadSector(Live.SectorRequest r) {
+            string dir=Path.Combine(logDir,"SectorState");Directory.CreateDirectory(dir);
+            string request=Path.Combine(dir,r.Token+".request.xml"),reply=Path.Combine(dir,r.Token+".reply.xml");
+            try {
+                Live.Transfer.Write(request,r);var until=DateTime.UtcNow.AddMilliseconds(StateTimeout);
+                while(DateTime.UtcNow<until) {
+                    if(stopped)throw Texts.Tag(new InvalidOperationException("Module arrete"),"error.stopped");
+                    if(File.Exists(reply))return Live.Transfer.Read<Live.SectorReply>(reply,4*1024*1024);
+                    await Task.Delay(StatePoll);
+                }
+                throw Texts.Tag(new TimeoutException("QH_STATE 0.2.8.2 sector unavailable; install both modules and restart playfields. No global refresh fallback."),"error.live_state");
+            }finally{foreach(var path in new[]{request,reply})try{if(File.Exists(path))File.Delete(path);}catch(IOException){}}
         }
         async Task<GlobalStructureList> ReadStructures(int player) {
             var list=(GlobalStructureList)await Request(CmdId.Request_GlobalStructure_List,null,CmdId.Event_GlobalStructure_List,player);
@@ -386,6 +385,15 @@ namespace QuantumHangarQc
         }
         static string PositionText(PVector3 p) { return string.Format(CultureInfo.InvariantCulture,"({0:0.0}, {1:0.0}, {2:0.0})",p.x,p.y,p.z); }
         static bool Finite(PVector3 p) { return !float.IsNaN(p.x)&&!float.IsNaN(p.y)&&!float.IsNaN(p.z)&&!float.IsInfinity(p.x)&&!float.IsInfinity(p.y)&&!float.IsInfinity(p.z); }
+        // PlayerInfo rotation is Euler degrees. Use horizontal heading so looking
+        // up/down cannot place the marker underground or above the terrain.
+        internal static PVector3 ForwardMark(PlayerInfo player) {
+            if(player==null||!Finite(player.pos)||!Finite(player.rot))throw Texts.Tag(new InvalidDataException("Position/orientation joueur invalide pour le repere"),"error.mark_direction");
+            double yaw=(player.rot.y%360)*Math.PI/180;
+            var point=new PVector3{x=(float)(player.pos.x+30*Math.Sin(yaw)),y=player.pos.y,z=(float)(player.pos.z+30*Math.Cos(yaw))};
+            if(!Finite(point)||Math.Abs(Distance(player.pos,point)-30)>0.01)throw Texts.Tag(new InvalidDataException("Precision du repere insuffisante"),"error.mark_direction");
+            return point;
+        }
         async Task<Live.StateReply> ReadLiveState(PlayerInfo player,int shipId) {
             var r=new Live.StateRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Steam=player.steamId,Entity=shipId,Playfield=player.playfield,CreatedUtc=DateTime.UtcNow};
             string root=Path.Combine(logDir,"LiveState");Directory.CreateDirectory(root);
@@ -432,7 +440,8 @@ namespace QuantumHangarQc
             } finally {try{if(File.Exists(request))File.Delete(request);if(File.Exists(reply))File.Delete(reply);}catch(Exception e){Log("TERRAIN_CLEANUP "+e.Message);}}
         }
         void ValidateDestination(PlayerInfo player,GlobalStructureList list,string field,PVector3 position){
-            if(!Finite(position)||player.playfield!=field||Distance(player.pos,position)<30||Distance(player.pos,position)>1000)throw Texts.Tag(new InvalidOperationException("Adjusted spawn too close or too far"),"error.mark_distance");
+            Log("DESTINATION_CHECK player="+player.entityId+" playerSector="+player.playfield+" destinationSector="+field+" playerPos="+PositionText(player.pos)+" spawn="+PositionText(position)+" distanceM="+Distance(player.pos,position).ToString("0.0",CultureInfo.InvariantCulture)+" minM=30 maxM=1000");
+            if(!Finite(position)||player.playfield!=field||!(Distance(player.pos,position)>=30-0.01)||Distance(player.pos,position)>1000)throw Texts.Tag(new InvalidOperationException("Adjusted spawn too close or too far"),"error.mark_distance");
             foreach(var pair in list.globalStructures.Where(k=>k.Key==field))foreach(var ship in pair.Value??new List<GlobalStructureInfo>())
                 if(Distance(ship.pos,position)<100)throw Texts.Tag(new InvalidOperationException("Obstacle at adjusted spawn"),"error.obstacle");
         }
@@ -489,10 +498,19 @@ namespace QuantumHangarQc
         async Task<bool> Dialog(PlayerInfo identity,string message,string positive) {
             int player=identity.entityId;
             var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,
-                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.7.2\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
+                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.8.2\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;
+        async Task<bool> Confirm(PlayerInfo player,string message,string positive) {
+            var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Purpose="confirm",Protocol=4,Message=message,Positive=positive,CreatedUtc=DateTime.UtcNow};
+            Log("CONFIRM_REQUEST player="+player.entityId+" token="+r.Token);
+            Live.HangarUiReply answer;
+            try { answer=await ChooseUi(r); }
+            catch(Exception ex) {throw Texts.Tag(new InvalidOperationException("Confirmation native indisponible : "+ex.Message,ex),"error.confirmation");}
+            Log("CONFIRM_RESULT player="+player.entityId+" token="+r.Token+" confirmed="+(!answer.Cancelled&&answer.Confirmed));
+            return !answer.Cancelled&&answer.Confirmed;
+        }
         async Task<Live.HangarUiReply> ChooseShip(PlayerInfo player,List<Entry> entries) {
             var r=new Live.HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=player.entityId,Client=player.clientId,Steam=player.steamId,Playfield=player.playfield,Language=Language(player),Capacity=store.Capacity,Protocol=2,CreatedUtc=DateTime.UtcNow};
             for(int slot=1;slot<=Math.Max(store.Capacity,entries.Count==0?0:entries.Max(e=>e.PersonalSlot));slot++) {
@@ -511,6 +529,10 @@ namespace QuantumHangarQc
                         var a=Live.Transfer.Read<Live.HangarUiReply>(reply);
                         if(a.Token!=r.Token||a.Player!=r.Player||a.Client!=r.Client||a.Steam!=r.Steam||a.CapturedUtc<r.CreatedUtc.AddSeconds(-1)||a.CapturedUtc>DateTime.UtcNow.AddSeconds(1))throw Texts.Tag(new InvalidDataException("Reponse de selection non correspondante"),"error.ui");
                         if(!string.IsNullOrEmpty(a.Error))throw Texts.Tag(new InvalidOperationException(a.Error),"error.ui");
+                        if(r.Purpose=="confirm") {
+                            if(!a.Cancelled&&!a.Confirmed)throw Texts.Tag(new InvalidDataException("Confirmation explicite absente"),"error.ui");
+                            return a;
+                        }
                         if(!a.Cancelled&&r.Purpose=="language"&&r.Protocol==2) {
                             var row=r.Rows.SingleOrDefault(x=>x.Slot==a.Slot&&x.ArchiveId==a.ArchiveId&&x.Status=="STORED");
                             if(row==null)throw Texts.Tag(new InvalidDataException("Language row mismatch"),"error.ui");
@@ -524,6 +546,7 @@ namespace QuantumHangarQc
                     if(!File.Exists(opened)&&(DateTime.UtcNow-start).TotalMilliseconds>UiOpenTimeout)throw Texts.Tag(new TimeoutException("Composant de liste cliquable sans reponse"),"error.ui");
                     await Task.Delay(50);
                 }
+                if(!stopped&&r.Purpose=="confirm")throw Texts.Tag(new TimeoutException("Delai de confirmation native depasse; aucune action"),"error.confirmation");
                 return new Live.HangarUiReply{Cancelled=true};
             } finally {foreach(string f in new[]{request,reply,opened})try{if(File.Exists(f))File.Delete(f);}catch(IOException){}}
         }
@@ -643,7 +666,7 @@ namespace QuantumHangarQc
                 var entries=store.List(sessionSteam);
                 string selectedArchive=null;
                 if(cmd=="qh:mark") {
-                    var markNew=new Placement {Playfield=p.playfield,Position=p.pos,SteamId=sessionSteam,ClientId=sessionClient,PlayerId=id,Created=DateTime.UtcNow,MarkerName="QH_SORTIE_"+Guid.NewGuid().ToString("N")};
+                    var markNew=new Placement {Playfield=p.playfield,Position=ForwardMark(p),SteamId=sessionSteam,ClientId=sessionClient,PlayerId=id,Created=DateTime.UtcNow,MarkerName="QH_SORTIE_"+Guid.NewGuid().ToString("N")};
                     Placement previous;lock(gate)placements.TryGetValue(sessionSteam,out previous);
                     if(previous!=null) await ClearMarker(previous);
                     bool gpsSent=true;
@@ -651,11 +674,13 @@ namespace QuantumHangarQc
                     var markSession=await Player(id);
                     if(markSession.steamId!=sessionSteam||markSession.clientId!=sessionClient||markSession.playfield!=markNew.Playfield)throw Texts.Tag(new InvalidOperationException("Session ou secteur change : refaire qh:mark"),"error.session");
                     lock(gate)placements[sessionSteam]=markNew;
+                    Log("MARK_SET player="+id+" sector="+markNew.Playfield+" position="+PositionText(markNew.Position)+" headingDegrees="+p.rot.y.ToString(CultureInfo.InvariantCulture)+" forwardMeters=30 lifetimeSeconds=300 gps="+gpsSent);
                     Notify(id,T(p,"mark.success")+" "+T(p,gpsSent?"mark.gps_sent":"mark.gps_unavailable"));return;
                 }
                 if(cmd=="qh:list") {
                     int retired=store.RetireRestoredQuarantines(sessionSteam,Log);
                     if(retired>0) entries=store.List(sessionSteam);
+                    if(await ReconcileSpawnedQuarantine(p,entries)) entries=store.List(sessionSteam);
                     Live.HangarUiReply choice;
                     try {choice=await ChooseShip(p,entries);}
                     catch(Exception ex) {
@@ -691,7 +716,7 @@ namespace QuantumHangarQc
                     if(entries.Any(existing=>existing.ShipId==value)) throw Texts.Tag(new InvalidOperationException("Ce vaisseau possede deja une transaction dans ton hangar"),"error.duplicate");
                     if(requestedSlot>0&&entries.Any(existing=>existing.PersonalSlot==requestedSlot)) throw Texts.Tag(new InvalidOperationException("Place "+requestedSlot+" occupee : choisis une place libre"),"error.slot_occupied");
                     int selectedSlot=requestedSlot>0?requestedSlot:Enumerable.Range(1,store.Capacity).First(x=>!entries.Any(existing=>existing.PersonalSlot==x));
-                    if(!await Dialog(p,(retry==null?"":T(p,"store.retry")+"\n\n")+T(p,"store.confirm.body",ship.name,ship.id,selectedSlot,store.Capacity),T(p,"button.store"))) { Log("CANCEL store player="+id); return; }
+                    if(!await Confirm(p,(retry==null?"":T(p,"store.retry")+"\n\n")+T(p,"store.confirm.body",ship.name,ship.id,selectedSlot,store.Capacity),T(p,"button.store"))) { Log("CANCEL store player="+id); return; }
                     var fresh=await Player(id); if(fresh.steamId!=sessionSteam||fresh.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee"),"error.session");
                     l=await Structures(id); fresh=await LiveStorePosition(fresh,l,value,"CONFIRM");Validate(fresh,l,value);
                     if(fresh.playfield!=storeSector)throw Texts.Tag(new InvalidOperationException("Secteur change pendant la confirmation; relance le depot dans le secteur actuel"),"error.session");
@@ -744,7 +769,7 @@ namespace QuantumHangarQc
                 await Task.Run(()=>store.Verify(entry));
                 var spawn=await TerrainPosition(p,mark,entry);
                 string destination=PositionText(spawn);
-                if(!await Dialog(p,T(p,"load.confirm.body",entry.Ship.name,value,mark.Playfield,destination)+"\n\n"+T(p,"load.terrain_note"),T(p,"button.load"))) return;
+                if(!await Confirm(p,T(p,"load.confirm.body",entry.Ship.name,value,mark.Playfield,destination)+"\n\n"+T(p,"load.terrain_note"),T(p,"button.load"))) return;
                 var again=await Player(id); if(again.steamId!=sessionSteam||again.clientId!=sessionClient) throw Texts.Tag(new InvalidOperationException("Session changee"),"error.session");
                 var now=await Structures(id); ValidateMark(again,now,mark);
                 // Re-sample after confirmation: never trust a terrain preview held in an open dialog.
@@ -752,7 +777,7 @@ namespace QuantumHangarQc
                 again=await Player(id);
                 now=await Structures(id);ValidateMark(again,now,mark);
                 ValidateDestination(again,now,mark.Playfield,spawn);
-                await CheckPlayersClear(id,mark.Playfield,spawn,30);
+                await CheckPlayersClear(id,mark.Playfield,spawn,30,0.01);
                 entry=store.At(value,sessionSteam); if(entry.ArchiveId!=archive || entry.Status!="STORED") throw Texts.Tag(new InvalidOperationException("L archive a change"),"error.archive");
                 if(Contains(now,entry.ShipId)) throw Texts.Tag(new InvalidOperationException("Original encore present dans le monde : restitution refusee"),"error.original_present");
                 await Task.Run(()=>store.Verify(entry));
@@ -773,9 +798,9 @@ namespace QuantumHangarQc
                     var observed=await WaitPresence(id,newId.id,true);
                     await ClearMarker(mark,8);
                     lock(gate) placements.Remove(sessionSteam);
-                    var restored=Find(observed,newId.id); ValidateOwner(again,restored);
-                    if(restored.type!=entry.Ship.type || restored.cntBlocks!=entry.Ship.cntBlocks || restored.cntDevices!=entry.Ship.cntDevices || Playfield(observed,newId.id)!=mark.Playfield)
-                        throw Texts.Tag(new InvalidDataException("Structure restituee differente : conserver l archive pour analyse"),"error.spawn");
+                    ValidateSpawnPresence(observed,entry);
+                    await VerifySpawnedState(again,entry);
+                    ValidateSpawnPresence(await Structures(id),entry);
                     entry.Status="RESTORED_CARGO_UNVERIFIED";entry.Detail="Entite, proprietaire, blocs et appareils verifies. Coffres NON verifies par le module; comparaison manuelle requise.";store.Save(entry);
                     store.Forget(entry);
                     Log("RESTORED archive="+archive+" newId="+newId.id+" CARGO_UNVERIFIED; archived recovery retained");
@@ -784,17 +809,74 @@ namespace QuantumHangarQc
 
             } finally { lock(gate) { owners.Remove(sessionSteam); if(shipLock>0) entities.Remove(shipLock); } }
         }
+        static void ValidateSpawnPresence(GlobalStructureList list,Entry e) {
+            if(Contains(list,e.ShipId)||!Contains(list,e.SpawnedId)||Playfield(list,e.SpawnedId)!=e.DestinationPlayfield)
+                throw Texts.Tag(new InvalidDataException("Presence ou secteur de la restitution non confirme; conserver l archive"),"error.spawn");
+        }
+        async Task VerifySpawnedState(PlayerInfo player,Entry e) {
+            // Compare the SAME native counters used at deposit, never global-list counters.
+            string steam=player.steamId,sector=player.playfield;int client=player.clientId,id=player.entityId;
+            if(sector!=e.DestinationPlayfield||steam!=e.SteamId)
+                throw Texts.Tag(new InvalidDataException("Identite ou secteur de la restitution non confirme"),"error.session");
+            int stable=0;
+            for(int attempt=1;attempt<=6;attempt++) {
+                var current=await Player(id);
+                if(current.steamId!=steam||current.clientId!=client||current.playfield!=sector)
+                    throw Texts.Tag(new InvalidDataException("Session changee pendant verification de la restitution"),"error.session");
+                var state=await ReadLiveState(current,e.SpawnedId);
+                bool match=state.Ready&&state.OwnerGroup==1&&state.OwnerId==id&&state.Type==e.Ship.type&&state.BlockCount==e.Ship.cntBlocks&&state.DeviceCount==e.Ship.cntDevices;
+                Log("RESTORE_CHECK archive="+e.ArchiveId+" spawnedId="+e.SpawnedId+" attempt="+attempt+" ready="+state.Ready+
+                    " expectedType="+e.Ship.type+" actualType="+state.Type+" expectedBlocks="+e.Ship.cntBlocks+" actualBlocks="+state.BlockCount+
+                    " expectedDevices="+e.Ship.cntDevices+" actualDevices="+state.DeviceCount+" expectedOwner=1:"+id+" actualOwner="+state.OwnerGroup+":"+state.OwnerId+" match="+match);
+                current=await Player(id);
+                if(current.steamId!=steam||current.clientId!=client||current.playfield!=sector)
+                    throw Texts.Tag(new InvalidDataException("Session changee pendant verification de la restitution"),"error.session");
+                stable=match?stable+1:0;
+                if(stable>=2)return;
+                if(attempt<6)await Task.Delay(RestorePoll);
+            }
+            throw Texts.Tag(new InvalidDataException("Structure restituee non prete ou differente apres verification native; conserver l archive pour analyse"),"error.spawn");
+        }
+        async Task<bool> ReconcileSpawnedQuarantine(PlayerInfo player,List<Entry> entries) {
+            // At most one candidate per list; no spawn, destroy, export or live-file writes.
+            var candidate=entries.FirstOrDefault(e=>e.Status=="QUARANTINE"&&e.StoreStage=="REMOVING"&&
+                e.SpawnedId>0&&e.SpawnedId!=e.ShipId&&e.Ship.id==e.ShipId&&e.DestinationPlayfield==player.playfield&&
+                !entries.Any(other=>other.ArchiveId!=e.ArchiveId&&(other.SpawnedId==e.SpawnedId||other.ShipId==e.SpawnedId)));
+            if(candidate==null)return false;
+            string steam=player.steamId;int client=player.clientId,id=player.entityId;
+            try {
+                string manifest=Path.Combine(store.DirectoryFor(candidate),"Manifest.xml"),before=Disk.Hash(manifest);
+                ValidateSpawnPresence(await Structures(id),candidate);
+                store.VerifyFiles(candidate);
+                await VerifySpawnedState(player,candidate);
+                ValidateSpawnPresence(await Structures(id),candidate);
+                var current=await Player(id);
+                if(current.steamId!=steam||current.clientId!=client||current.playfield!=candidate.DestinationPlayfield)
+                    throw new InvalidDataException("Session changee pendant reconciliation");
+                var latest=store.List(steam);
+                if(Disk.Hash(manifest)!=before||latest.Any(e=>e.ArchiveId!=candidate.ArchiveId&&(e.SpawnedId==candidate.SpawnedId||e.ShipId==candidate.SpawnedId)))
+                    throw new InvalidDataException("Archive ou filiation modifiee pendant reconciliation");
+                store.VerifyFiles(candidate);
+                // Move the unchanged manifest and ALL recovery bytes; never make the archive loadable.
+                store.Forget(candidate);
+                Log("RESTORED_QUARANTINE_RECONCILED archive="+candidate.ArchiveId+" spawnedId="+candidate.SpawnedId+" slot="+candidate.PersonalSlot+" CARGO_UNVERIFIED; recovery retained in Retired; no respawn");
+                return true;
+            } catch(Exception ex) {
+                Log("RESTORED_QUARANTINE_RETAINED archive="+candidate.ArchiveId+" reason="+ex.Message);
+                return false;
+            }
+        }
         static bool Contains(GlobalStructureList list,int id) { return list.globalStructures.Values.Any(v=>v!=null&&v.Any(s=>s.id==id)); }
         async Task<GlobalStructureList> WaitPresence(int player,int entity,bool present) {
             for(int i=0;i<10;i++) { await Task.Delay(ExportPoll); var l=await Structures(player); if(Contains(l,entity)==present) return l; }
             throw Texts.Tag(new TimeoutException("Presence/absence non confirmee pour "+entity+"; transaction en quarantaine"),"error.quarantine");
         }
-        async Task CheckPlayersClear(int player,string playfield,PVector3 pos,double radius) {
+        async Task CheckPlayersClear(int player,string playfield,PVector3 pos,double radius,double tolerance=0) {
             var ids=(IdList)await Request(CmdId.Request_Player_List,null,CmdId.Event_Player_List,player);
             if(ids==null||ids.list==null) throw Texts.Tag(new InvalidDataException("Liste joueurs indisponible"),"error.live_state");
             foreach(int id in ids.list) {
                 var person=(PlayerInfo)await Request(CmdId.Request_Player_Info,new Id(id),CmdId.Event_Player_Info,id);
-                if(person.playfield==playfield && !(Distance(person.pos,pos)>=radius)) throw Texts.Tag(new InvalidOperationException("Eloigner tous les joueurs a "+radius+" m du centre du vaisseau/point avant l operation (y compris toi)"),"error.players_near",radius);
+                if(person.playfield==playfield && !(Distance(person.pos,pos)>=radius-tolerance)) throw Texts.Tag(new InvalidOperationException("Eloigner tous les joueurs a "+radius+" m du centre du vaisseau/point avant l operation (y compris toi)"),"error.players_near",radius);
             }
         }
         internal static string GpsCommand(int client,PlacementData point) {
@@ -869,9 +951,10 @@ namespace QuantumHangarQc
             }
         }
         void ValidateMark(PlayerInfo p,GlobalStructureList l,Placement mark) {
+            Log("MARK_CHECK player="+p.entityId+" playerSector="+p.playfield+" markSector="+mark.Playfield+" playerPos="+PositionText(p.pos)+" markPos="+PositionText(mark.Position)+" distanceM="+Distance(p.pos,mark.Position).ToString("0.0",CultureInfo.InvariantCulture)+" minM=30 maxM=50 ageSeconds="+(DateTime.UtcNow-mark.Created).TotalSeconds.ToString("0.0",CultureInfo.InvariantCulture)+" sameSession="+(mark.SteamId==p.steamId&&mark.ClientId==p.clientId&&mark.PlayerId==p.entityId));
             if(mark.SteamId!=p.steamId||mark.ClientId!=p.clientId||mark.PlayerId!=p.entityId||mark.Playfield!=p.playfield||DateTime.UtcNow-mark.Created>TimeSpan.FromMinutes(5))
                 throw Texts.Tag(new InvalidOperationException("Point expire ou session/secteur change : refaire qh:mark"),"error.mark_expired");
-            if(!(Distance(p.pos,mark.Position)>=30) || !(Distance(p.pos,mark.Position)<=50)) throw Texts.Tag(new InvalidOperationException("Reste entre 30 et 50 m du point de sortie"),"error.mark_distance");
+            if(!(Distance(p.pos,mark.Position)>=30-0.01) || !(Distance(p.pos,mark.Position)<=50+0.01)) throw Texts.Tag(new InvalidOperationException("Reste entre 30 et 50 m du point de sortie"),"error.mark_distance");
             foreach(var pair in l.globalStructures.Where(k=>k.Key==mark.Playfield)) foreach(var ship in pair.Value??new List<GlobalStructureInfo>())
                 if(!(Distance(ship.pos,mark.Position)>=100)) throw Texts.Tag(new InvalidOperationException("Une structure est a moins de 100 m du point : choisir un autre point"),"error.obstacle");
             // Centre distances remain coarse obstacle checks; terrain is sampled separately by QH_STATE.
@@ -880,8 +963,21 @@ namespace QuantumHangarQc
             string source=Path.Combine(saveDir,"Shared",e.ShipId.ToString(CultureInfo.InvariantCulture));
             var files=new List<string>();Collect(source,files);
             var expected=e.Files.Where(f=>f.Path.StartsWith("Shared"+Path.DirectorySeparatorChar,StringComparison.Ordinal)).ToArray();
-            if(files.Count!=expected.Length) throw Texts.Tag(new InvalidDataException("Liste Shared modifiee avant retrait"),"error.source_changed");
-            foreach(var f in expected) { string p=Path.Combine(source,f.Path.Substring(7)); if(!File.Exists(p)||Disk.HashShared(p)!=f.Sha256) throw Texts.Tag(new InvalidDataException("Shared modifie avant retrait; depot refuse"),"error.source_changed"); }
+            if(files.Count!=expected.Length) {
+                Log("SOURCE_CHANGED archive="+e.ArchiveId+" ship="+e.ShipId+" reason=file_count expected="+expected.Length+" actual="+files.Count);
+                var names=new HashSet<string>(expected.Select(f=>f.Path.Substring(7)),StringComparer.Ordinal);
+                foreach(var file in files.Where(p=>!names.Contains(p.Substring(source.Length+1))))Log("SOURCE_CHANGED reason=added file="+file.Substring(source.Length+1));
+                foreach(var f in expected.Where(f=>!File.Exists(Path.Combine(source,f.Path.Substring(7)))))Log("SOURCE_CHANGED reason=missing file="+f.Path.Substring(7));
+                throw Texts.Tag(new InvalidDataException("Liste Shared modifiee avant retrait"),"error.source_changed");
+            }
+            foreach(var f in expected) {
+                string rel=f.Path.Substring(7),p=Path.Combine(source,rel);
+                bool exists=File.Exists(p);string current=exists?Disk.HashShared(p):null;
+                if(!exists||current!=f.Sha256) {
+                    Log("SOURCE_CHANGED archive="+e.ArchiveId+" ship="+e.ShipId+" reason="+(exists?"content":"missing")+" file="+rel+" expectedSha256="+f.Sha256+" actualSha256="+(current??"missing"));
+                    throw Texts.Tag(new InvalidDataException("Shared modifie avant retrait; depot refuse : "+rel),"error.source_changed");
+                }
+            }
             // Does not lock in-memory cargo or other mods; experimental test world only.
         }
         void RestoreFiles(Entry e,string dest) {

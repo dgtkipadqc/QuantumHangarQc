@@ -32,8 +32,8 @@ $dist = Join-Path $PSScriptRoot 'dist\Content\Mods'
 $hostOutput = Join-Path $dist 'ModLoader\MODs\QuantumHangarQc'
 $stateOutput = Join-Path $dist 'QuantumHangarQcState'
 New-Item -ItemType Directory -Path $hostOutput,$stateOutput -Force | Out-Null
-$hostSources = @('QuantumHangarQc.cs','ActiveSavePath.cs','LiveState.cs','Markers.cs','HangarUi.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQc\' + $_) }
-$stateSources = @('LiveState.cs','StateMod.cs','Markers.cs','GpsBridge.cs','HangarUi.cs','UiBridge.cs','TerrainBridge.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQcState\' + $_) }
+$hostSources = @('QuantumHangarQc.cs','ActiveSavePath.cs','SectorState.cs','LiveState.cs','Markers.cs','HangarUi.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQc\' + $_) }
+$stateSources = @('LiveState.cs','SectorState.cs','SectorBridge.cs','StateMod.cs','Markers.cs','GpsBridge.cs','HangarUi.cs','UiBridge.cs','TerrainBridge.cs') | ForEach-Object { Join-Path $PSScriptRoot ('src\QuantumHangarQcState\' + $_) }
 $sharedSource = Join-Path $PSScriptRoot 'src\Shared\Localization.cs'
 $hostSources += $sharedSource
 $stateSources += $sharedSource
@@ -51,6 +51,6 @@ foreach ($output in @($hostOutput,$stateOutput)) {
     New-Item -ItemType Directory -Path $languages -Force | Out-Null
     Copy-Item -Path (Join-Path $PSScriptRoot 'localization\*.xml') -Destination $languages -Force
 }
-Write-Host "QH BETA 0.2.7.2 built / compile: $dist"
+Write-Host "QH BETA 0.2.8.2 built / compile: $dist"
 Write-Host 'Build only. Read docs/INSTALLATION_FR_EN.md before installation.'
 Write-Host 'Compilation uniquement. Lire la documentation avant installation.'

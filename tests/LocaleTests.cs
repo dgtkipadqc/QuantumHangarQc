@@ -92,9 +92,9 @@ class LocaleTests {
    Check(!HangarMod.TryParseCommand(invalid,out parsed),"invalid language command rejected: "+invalid);
   var during=New();during.HoldDialogs=true;var task=Start(during,"qh:store:200");DateTime until=DateTime.UtcNow.AddSeconds(2);
   while(during.HeldDialog==null&&DateTime.UtcNow<until){during.ReplyState();during.Mod.Game_Update();Thread.Sleep(1);}
-  Check(during.HeldDialog!=null,"store confirmation opened");ushort token=during.HeldSeq;
-  Run(during,"qh:lang:de");Check(during.HeldSeq==token&&during.Calls.Count(c=>c==CmdId.Request_ShowDialog_SinglePlayer)==1,"language change cannot replace confirmation");
-  during.Mod.Game_Event(CmdId.Event_DialogButtonIndex,token,new IdAndIntValue{Id=during.P.entityId,Value=0});Pump(during,task);
+  Check(during.HeldDialog!=null,"store confirmation opened");string token=during.HeldConfirmation.Token;
+  Run(during,"qh:lang:de");Check(during.HeldConfirmation.Token==token&&during.Confirmations==1&&during.Calls.Count(c=>c==CmdId.Request_ShowDialog_SinglePlayer)==0,"language change cannot replace confirmation");
+  during.AnswerConfirmation(true);Pump(during,task);
   Check(during.Calls.Count(c=>c==CmdId.Request_Entity_Export)==1&&during.Store().List(steam).Single().Status=="STORED","old click completes exactly one transaction");
   during.HoldDialogs=false;Run(during,"qh:help");Check(during.HeldDialog.MsgText.Contains("Persönlicher Hangar"),"new dialog takes new language");during.Mod.Game_Exit();
   Console.WriteLine("PASS "+checks+" localization assertions; simulated APIs / local files. No game-language source or game rendering tested.");

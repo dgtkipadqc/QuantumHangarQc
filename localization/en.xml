@@ -33,19 +33,19 @@ qh:load:SLOT
 qh:lang
 qh:lang:auto
 
-All players can use QH. Private CV/SV/HV owned by your character only. Power OFF, leave the cockpit, remove passengers and undock all ships. Stay within 250 m of the ship's API center. For retrieval: qh:mark, move between 30 and 50 meters away, then qh:load:SLOT. Marker valid for 5 minutes. No F2 preview.</Text>
+All players can use QH. Private CV/SV/HV owned by your character only. Power OFF, leave the cockpit, remove passengers and undock all ships. Stay within 250 m of the ship's API center. For retrieval: face a clear area and use qh:mark to place the point 30 meters ahead. Stay where you are, then use qh:list to select your ship. Marker valid for 5 minutes. No F2 preview.</Text>
   <Text Key="store.confirm.body" Args="4">Store {0} (ID {1}) in slot {2}/{3}?
 
 The ship and save files will be archived, then the ship will be removed from the world. Close logistics access and stop scripts changing cargo. Nobody may remain aboard.</Text>
   <Text Key="store.retry" Args="0">Retry the failed copy. The previous attempt will be retained.</Text>
-  <Text Key="store.success" Args="1">Ship stored in slot {0}. Use qh:mark, move between 30 and 50 meters away, then qh:load:{0}.</Text>
+  <Text Key="store.success" Args="1">Ship stored in slot {0}. Face a clear area, use qh:mark (30 meters ahead), then select the ship with qh:list.</Text>
   <Text Key="load.confirm.body" Args="4">Retrieve {0} from slot {1}?
 Playfield: {2}
 Position: {3}
 
 The ship will appear at the marker with its saved orientation. Check clearance from terrain and obstacles. No F2 preview. Compare cargo after retrieval.</Text>
   <Text Key="load.success" Args="1">Ship retrieved, ID {0}. Compare ALL cargo, tanks and devices with the original. Recovery archive retained.</Text>
-  <Text Key="mark.success" Args="0">Return point saved for 5 minutes. Move between 30 and 50 meters away, then qh:load:SLOT (1–15).</Text>
+  <Text Key="mark.success" Args="0">Return point placed 30 meters ahead for 5 minutes. Stay where you are and select your ship with qh:list.</Text>
   <Text Key="mark.gps_sent" Args="0">GPS marker sent.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS unavailable; the return point still works.</Text>
   <Text Key="info.body" Args="12">Ship {0}: {1}
@@ -85,6 +85,7 @@ Diagnostic only. No export or removal.</Text>
   <Text Key="error.distance" Args="0">Stay within 250 m of the ship's API center. Use qh:info:ID to check positions.</Text>
   <Text Key="error.ship_powered" Args="0">Power is still ON. Turn the ship OFF, then retry.</Text>
   <Text Key="error.pilot" Args="0">Cockpit still occupied. Leave the cockpit, then retry.</Text>
+  <Text Key="error.confirmation" Args="0">Confirmation unavailable or expired. Nothing was started. Ask the administrator to check both QH modules, then retry your command.</Text>
   <Text Key="error.ui" Args="0">Ship selection unavailable or no longer valid. Use qh:list again or qh:load:SLOT.</Text>
   <Text Key="error.syntax" Args="0">Invalid command. Use qh:help for commands and qh:lang for languages.</Text>
   <Text Key="error.busy" Args="0">A transaction on your hangar or this ship is already open.</Text>
@@ -95,14 +96,15 @@ Diagnostic only. No export or removal.</Text>
   <Text Key="error.players_near" Args="1">Move every player, including yourself, at least {0} m from the ship or return point.</Text>
   <Text Key="error.gps" Args="0">GPS bridge unavailable or invalid. Check the State module.</Text>
   <Text Key="error.mark_expired" Args="0">Marker expired or session/playfield changed. Use qh:mark again.</Text>
+  <Text Key="error.mark_direction" Args="0">Your position or direction is unavailable. Stand still, face a clear area and retry qh:mark.</Text>
   <Text Key="error.mark_distance" Args="0">Stay between 30 and 50 meters from the return point.</Text>
   <Text Key="error.obstacle" Args="0">A structure is within 100 m of the return point. Choose another point.</Text>
   <Text Key="error.source_changed" Args="0">Ship save files changed during copying or before removal. Storage refused; preserve the log.</Text>
   <Text Key="error.copy" Args="0">Save-file copy unavailable or invalid. Preserve the archive for review.</Text>
   <Text Key="error.size_limit" Args="0">Archive exceeds limits: 512 MiB or 20,000 files.</Text>
   <Text Key="error.preference_write" Args="0">Language preference could not be saved. Your active choice is unchanged.</Text>
-  <Text Key="error.terrain_unavailable" Args="0">Terrain check unavailable. Update BOTH QH modules to 0.2.7.2 and retry. No ship was spawned.</Text>
-  <Text Key="error.terrain_legacy" Args="0">This old archive has no hull dimensions. Retrieve it in space, then store it again with QH 0.2.7.2 before retrieving it on a planet.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Terrain check unavailable. Update BOTH QH modules to 0.2.8 and retry. No ship was spawned.</Text>
+  <Text Key="error.terrain_legacy" Args="0">This old archive has no hull dimensions. Retrieve it in space, then store it again with QH 0.2.8 before retrieving it on a planet.</Text>
   <Text Key="error.terrain_size" Args="0">Ship footprint exceeds the terrain scan limit. Retrieve it in space.</Text>
   <Text Key="load.terrain_note" Args="0">Height adjusted above sampled terrain; checked again after confirmation.</Text>
 </Catalog>

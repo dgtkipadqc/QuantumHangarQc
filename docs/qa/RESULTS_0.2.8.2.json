@@ -1,0 +1,150 @@
+{
+  "version": "0.2.8.2",
+  "source_baseline": "5010506796c858b671723fa7ab92125fd02cb0d4",
+  "production_dlls": {
+    "QuantumHangarQc": {
+      "version": "0.2.8.2",
+      "sha256": "5daba870416c7e9a06f813bfb12dcc852718a95e188dc7cd45eca67a3664dd67",
+      "references": [
+        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "Mif, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      ],
+      "framework": ".NETFramework,Version=v4.7.2"
+    },
+    "QuantumHangarQcState": {
+      "version": "0.2.8.2",
+      "sha256": "feb7dc99bb400ff825cae736e83005bc22de0a418e12726715471efcb77dd6c4",
+      "references": [
+        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "ModApi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      ],
+      "framework": ".NETFramework,Version=v4.7.2"
+    }
+  },
+  "simulated_assertions": {
+    "HostTests": 724,
+    "LocaleTests": 1348,
+    "LanguageMenuTests": 175,
+    "ConfirmationTests": 124,
+    "TerrainTests": 27,
+    "ConfigTests": 56,
+    "MarkerTests": 69,
+    "RestoreTests": 154,
+    "SectorTests": 89,
+    "NativeSectorTests": 15
+  },
+  "total_simulated_assertions": 2781,
+  "tests": [
+    {
+      "name": "compile_QuantumHangarQc",
+      "passed": true
+    },
+    {
+      "name": "compile_QuantumHangarQcState",
+      "passed": true
+    },
+    {
+      "name": "compile_HostTests",
+      "passed": true
+    },
+    {
+      "name": "HostTests",
+      "passed": true
+    },
+    {
+      "name": "compile_LocaleTests",
+      "passed": true
+    },
+    {
+      "name": "LocaleTests",
+      "passed": true
+    },
+    {
+      "name": "compile_LanguageMenuTests",
+      "passed": true
+    },
+    {
+      "name": "LanguageMenuTests",
+      "passed": true
+    },
+    {
+      "name": "compile_ConfirmationTests",
+      "passed": true
+    },
+    {
+      "name": "ConfirmationTests",
+      "passed": true
+    },
+    {
+      "name": "compile_TerrainTests",
+      "passed": true
+    },
+    {
+      "name": "TerrainTests",
+      "passed": true
+    },
+    {
+      "name": "compile_ConfigTests",
+      "passed": true
+    },
+    {
+      "name": "ConfigTests",
+      "passed": true
+    },
+    {
+      "name": "compile_MarkerTests",
+      "passed": true
+    },
+    {
+      "name": "MarkerTests",
+      "passed": true
+    },
+    {
+      "name": "compile_RestoreTests",
+      "passed": true
+    },
+    {
+      "name": "RestoreTests",
+      "passed": true
+    },
+    {
+      "name": "compile_SectorTests",
+      "passed": true
+    },
+    {
+      "name": "SectorTests",
+      "passed": true
+    },
+    {
+      "name": "compile_NativeSectorTests",
+      "passed": true
+    },
+    {
+      "name": "NativeSectorTests",
+      "passed": true
+    }
+  ],
+  "windows_startup": "NOT_RUN",
+  "real_game": "NOT_RUN",
+  "cargo_engine_roundtrip": "NOT_RUN",
+  "validation_notes": [
+    "Legacy refresh tests now require native sector snapshots and zero global Update calls. The missing-helper regression checks the stable error code rather than its previous message.",
+    "Fake GPS/state responders now answer each token once, preventing a simulated cleanup race.",
+    "A repeated native UI cleanup failure exposed a real answered-request reopening race. Fixed with bounded answered-token retention and a regression that consumes the reply before removing the request."
+  ],
+  "blocking_global_update_sends": "NONE_IN_PRODUCTION_SOURCE",
+  "native_sector_limits": {
+    "structures": 2048,
+    "entities_visited": 16384,
+    "observed_budget_ms": 50,
+    "preempts_native_call": false
+  },
+  "archive_reconciliation": "Exact spawned entity; original absent; native readiness/type/counts/current owner; stable session; intact hashes; unchanged manifest; no ambiguous lineage. Retain recovery bytes without live world mutations.",
+  "cooldown_added": false
+}

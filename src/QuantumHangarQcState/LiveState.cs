@@ -56,7 +56,7 @@ namespace QuantumHangarQc.Live {
   void Finish(){Done=true;Reply.CapturedUtc=DateTime.UtcNow;}
  }
  public static class Transfer {
-  public static T Read<T>(string path){using(var f=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read|FileShare.Delete))using(var r=XmlReader.Create(f,new XmlReaderSettings{DtdProcessing=DtdProcessing.Prohibit,XmlResolver=null,MaxCharactersInDocument=65536}))return (T)new XmlSerializer(typeof(T)).Deserialize(r);}
+  public static T Read<T>(string path,long maxCharacters=65536){using(var f=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read|FileShare.Delete))using(var r=XmlReader.Create(f,new XmlReaderSettings{DtdProcessing=DtdProcessing.Prohibit,XmlResolver=null,MaxCharactersInDocument=maxCharacters}))return (T)new XmlSerializer(typeof(T)).Deserialize(r);}
   public static void Write<T>(string path,T value){
    Directory.CreateDirectory(Path.GetDirectoryName(path));string temp=path+"."+Guid.NewGuid().ToString("N")+".tmp";
    try{using(var f=new FileStream(temp,FileMode.CreateNew,FileAccess.Write,FileShare.None)){new XmlSerializer(typeof(T)).Serialize(f,value);f.Flush(true);}if(File.Exists(path))File.Replace(temp,path,null);else File.Move(temp,path);}finally{if(File.Exists(temp))File.Delete(temp);}

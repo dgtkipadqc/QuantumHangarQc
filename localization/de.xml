@@ -33,19 +33,19 @@ qh:load:SLOT
 qh:lang
 qh:lang:auto
 
-Für alle Spieler. Nur private CV/SV/HV deines Charakters. Strom AUS, Cockpit verlassen, keine Passagiere oder angedockten Schiffe. Höchstens 250 m vom API-Mittelpunkt entfernt. Abruf: qh:mark, 30 bis 50 m entfernen, dann qh:load:SLOT. Markierung gilt 5 Minuten. Keine F2-Vorschau.</Text>
+Für alle Spieler. Nur private CV/SV/HV deines Charakters. Strom AUS, Cockpit verlassen, keine Passagiere oder angedockten Schiffe. Höchstens 250 m vom API-Mittelpunkt entfernt. Abruf: Schaue in einen freien Bereich und setze mit qh:mark den Punkt 30 Meter vor dir. Bleibe stehen und wähle dein Schiff mit qh:list. Markierung gilt 5 Minuten. Keine F2-Vorschau.</Text>
   <Text Key="store.confirm.body" Args="4">{0} (ID {1}) auf Platz {2}/{3} einlagern?
 
 Schiff und Dateien werden archiviert, danach wird das Schiff aus der Welt entfernt. Logistikzugriffe schließen und Frachtskripte stoppen. Niemand darf an Bord bleiben.</Text>
   <Text Key="store.retry" Args="0">Fehlgeschlagene Kopie wiederholen. Der vorherige Versuch bleibt erhalten.</Text>
-  <Text Key="store.success" Args="1">Schiff auf Platz {0} eingelagert. qh:mark verwenden, 30 bis 50 m entfernen, dann qh:load:{0}.</Text>
+  <Text Key="store.success" Args="1">Schiff auf Platz {0} eingelagert. Schaue in einen freien Bereich, nutze qh:mark (30 Meter vor dir) und wähle das Schiff mit qh:list.</Text>
   <Text Key="load.confirm.body" Args="4">{0} von Platz {1} abrufen?
 Sektor: {2}
 Position: {3}
 
 Das Schiff erscheint an der Markierung mit gespeicherter Ausrichtung. Abstand zu Gelände und Hindernissen prüfen. Keine F2-Vorschau. Fracht nach Abruf vergleichen.</Text>
   <Text Key="load.success" Args="1">Schiff abgerufen, ID {0}. ALLE Fracht, Tanks und Geräte mit dem Original vergleichen. Wiederherstellungsarchiv bleibt erhalten.</Text>
-  <Text Key="mark.success" Args="0">Rückkehrpunkt für 5 Minuten gespeichert. 30 bis 50 m entfernen, dann qh:load:SLOT (1–15).</Text>
+  <Text Key="mark.success" Args="0">Rückkehrpunkt für 5 Minuten 30 Meter vor dir gesetzt. Bleibe stehen und wähle dein Schiff mit qh:list.</Text>
   <Text Key="mark.gps_sent" Args="0">GPS-Markierung gesendet.</Text>
   <Text Key="mark.gps_unavailable" Args="0">GPS nicht verfügbar; Rückkehrpunkt funktioniert weiterhin.</Text>
   <Text Key="info.body" Args="12">Schiff {0}: {1}
@@ -85,6 +85,7 @@ Nur Diagnose. Kein Export oder Entfernen.</Text>
   <Text Key="error.distance" Args="0">Höchstens 250 m vom API-Mittelpunkt des Schiffs entfernt bleiben. Positionen mit qh:info:ID prüfen.</Text>
   <Text Key="error.ship_powered" Args="0">Strom ist noch AN. Schiff ausschalten und erneut versuchen.</Text>
   <Text Key="error.pilot" Args="0">Cockpit noch besetzt. Cockpit verlassen und erneut versuchen.</Text>
+  <Text Key="error.confirmation" Args="0">Bestätigung nicht verfügbar oder abgelaufen. Es wurde kein Vorgang gestartet. Bitte den Administrator, beide QH-Module zu prüfen, und wiederhole dann den Befehl.</Text>
   <Text Key="error.ui" Args="0">Schiffsauswahl fehlt oder ist ungültig. qh:list erneut oder qh:load:SLOT verwenden.</Text>
   <Text Key="error.syntax" Args="0">Ungültiger Befehl. qh:help für Befehle und qh:lang für Sprachen verwenden.</Text>
   <Text Key="error.busy" Args="0">Ein Vorgang für deinen Hangar oder dieses Schiff ist bereits offen.</Text>
@@ -95,14 +96,15 @@ Nur Diagnose. Kein Export oder Entfernen.</Text>
   <Text Key="error.players_near" Args="1">Alle Spieler, auch dich selbst, mindestens {0} m vom Schiff oder Rückkehrpunkt entfernen.</Text>
   <Text Key="error.gps" Args="0">GPS-Brücke fehlt oder ist ungültig. State-Modul prüfen.</Text>
   <Text Key="error.mark_expired" Args="0">Markierung abgelaufen oder Sitzung/Sektor geändert. qh:mark erneut verwenden.</Text>
+  <Text Key="error.mark_direction" Args="0">Position oder Blickrichtung nicht verfügbar. Bleibe stehen, schaue in einen freien Bereich und wiederhole qh:mark.</Text>
   <Text Key="error.mark_distance" Args="0">30 bis 50 m vom Rückkehrpunkt entfernt bleiben.</Text>
   <Text Key="error.obstacle" Args="0">Eine Struktur ist innerhalb von 100 m. Anderen Punkt wählen.</Text>
   <Text Key="error.source_changed" Args="0">Schiffsdateien während Kopie oder vor Entfernung verändert. Einlagern verweigert; Protokoll aufbewahren.</Text>
   <Text Key="error.copy" Args="0">Dateikopie fehlt oder ist ungültig. Archiv zur Prüfung aufbewahren.</Text>
   <Text Key="error.size_limit" Args="0">Archiv überschreitet Grenzen: 512 MiB oder 20.000 Dateien.</Text>
   <Text Key="error.preference_write" Args="0">Sprachauswahl konnte nicht gespeichert werden. Aktive Auswahl bleibt unverändert.</Text>
-  <Text Key="error.terrain_unavailable" Args="0">Geländeprüfung nicht verfügbar. BEIDE QH-Module auf 0.2.7.2 aktualisieren und erneut versuchen. Kein Schiff erzeugt.</Text>
-  <Text Key="error.terrain_legacy" Args="0">Dieses alte Archiv enthält keine Rumpfabmessungen. Schiff im Weltraum abrufen und mit QH 0.2.7.2 erneut einlagern, bevor es auf einem Planeten abgerufen wird.</Text>
+  <Text Key="error.terrain_unavailable" Args="0">Geländeprüfung nicht verfügbar. BEIDE QH-Module auf 0.2.8 aktualisieren und erneut versuchen. Kein Schiff erzeugt.</Text>
+  <Text Key="error.terrain_legacy" Args="0">Dieses alte Archiv enthält keine Rumpfabmessungen. Schiff im Weltraum abrufen und mit QH 0.2.8 erneut einlagern, bevor es auf einem Planeten abgerufen wird.</Text>
   <Text Key="error.terrain_size" Args="0">Schiffsfläche überschreitet das Limit der Geländeprüfung. Im Weltraum abrufen.</Text>
   <Text Key="load.terrain_note" Args="0">Höhe über dem gemessenen Gelände angepasst; erneute Prüfung nach Bestätigung.</Text>
 </Catalog>

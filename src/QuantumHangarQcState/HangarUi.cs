@@ -5,8 +5,8 @@ using System.Text;
 using QuantumHangarQc.Localization;
 namespace QuantumHangarQc.Live {
  public class HangarRow { public int Slot; public string ArchiveId,Name,Status; }
- public class HangarUiRequest { public string Token,Steam,Playfield,Language,Purpose; public int Player,Client,Protocol; public int Capacity=10; public DateTime CreatedUtc; public List<HangarRow> Rows=new List<HangarRow>(); }
- public class HangarUiReply { public string Token,Steam,ArchiveId,Error,SelectedLanguage; public int Player,Client,Slot; public bool Cancelled; public DateTime CapturedUtc; }
+ public class HangarUiRequest { public string Token,Steam,Playfield,Language,Purpose,Message,Positive; public int Player,Client,Protocol; public int Capacity=10; public DateTime CreatedUtc; public List<HangarRow> Rows=new List<HangarRow>(); }
+ public class HangarUiReply { public string Token,Steam,ArchiveId,Error,SelectedLanguage; public int Player,Client,Slot; public bool Cancelled,Confirmed; public DateTime CapturedUtc; }
  public static class HangarUiRules {
   public static string Escape(string text) { return Texts.Escape(text??""); }
   public static string Link(HangarUiRequest r,HangarRow row) { return "qh:"+r.Token+":"+row.Slot+":"+row.ArchiveId; }
@@ -23,6 +23,7 @@ namespace QuantumHangarQc.Live {
    return Languages.Codes.Concat(new[]{"auto"}).SingleOrDefault(code=>LanguageLink(r,code)==link);
   }
   public static string Body(HangarUiRequest r) {
+   if(r.Purpose=="confirm")return r.Message;
    if(r.Purpose=="language") {
     var menu=new StringBuilder(Texts.Render(r.Language,"language.title")+"\n\n");
     foreach(var code in Languages.Codes.Concat(new[]{"auto"})) {

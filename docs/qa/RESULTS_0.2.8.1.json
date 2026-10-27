@@ -1,0 +1,124 @@
+{
+  "version": "0.2.8.1",
+  "source_baseline": "d9dc2f7dd5b306eb9d44f384559dc43129caf641",
+  "production_dlls": {
+    "QuantumHangarQc": {
+      "version": "0.2.8.1",
+      "sha256": "4a9475f3785f48d2c4077bde830163b747d883d3e9dbb075a6b5bc93437ead69",
+      "references": [
+        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "Mif, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      ],
+      "framework": ".NETFramework,Version=v4.7.2"
+    },
+    "QuantumHangarQcState": {
+      "version": "0.2.8.1",
+      "sha256": "08a949ac61acfa883b99b196201a7af2172ae6497e08eb8124b0660380b27652",
+      "references": [
+        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "ModApi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      ],
+      "framework": ".NETFramework,Version=v4.7.2"
+    }
+  },
+  "simulated_assertions": {
+    "HostTests": 725,
+    "LocaleTests": 1348,
+    "LanguageMenuTests": 175,
+    "ConfirmationTests": 123,
+    "TerrainTests": 27,
+    "ConfigTests": 56,
+    "MarkerTests": 69,
+    "RestoreTests": 154
+  },
+  "total_simulated_assertions": 2677,
+  "tests": [
+    {
+      "name": "compile_QuantumHangarQc",
+      "passed": true
+    },
+    {
+      "name": "compile_QuantumHangarQcState",
+      "passed": true
+    },
+    {
+      "name": "compile_HostTests",
+      "passed": true
+    },
+    {
+      "name": "HostTests",
+      "passed": true
+    },
+    {
+      "name": "compile_LocaleTests",
+      "passed": true
+    },
+    {
+      "name": "LocaleTests",
+      "passed": true
+    },
+    {
+      "name": "compile_LanguageMenuTests",
+      "passed": true
+    },
+    {
+      "name": "LanguageMenuTests",
+      "passed": true
+    },
+    {
+      "name": "compile_ConfirmationTests",
+      "passed": true
+    },
+    {
+      "name": "ConfirmationTests",
+      "passed": true
+    },
+    {
+      "name": "compile_TerrainTests",
+      "passed": true
+    },
+    {
+      "name": "TerrainTests",
+      "passed": true
+    },
+    {
+      "name": "compile_ConfigTests",
+      "passed": true
+    },
+    {
+      "name": "ConfigTests",
+      "passed": true
+    },
+    {
+      "name": "compile_MarkerTests",
+      "passed": true
+    },
+    {
+      "name": "MarkerTests",
+      "passed": true
+    },
+    {
+      "name": "compile_RestoreTests",
+      "passed": true
+    },
+    {
+      "name": "RestoreTests",
+      "passed": true
+    }
+  ],
+  "windows_startup": "NOT_RUN",
+  "real_game": "NOT_RUN",
+  "cargo_engine_roundtrip": "NOT_RUN",
+  "prior_run_notes": [
+    "Initial regression caught a new overly restrictive original-character owner check. Removed it; current spawned owner and Steam/session remain verified. Existing same-Steam/new-character test passes.",
+    "One intermediate run failed the existing UI temporary-file cleanup assertion; unchanged confirmation flow passed on rerun. Possible pre-existing timing race; not claimed fixed by this release."
+  ],
+  "archive_reconciliation": "Exact spawned entity; original absent; native readiness/type/counts/current owner; stable session; intact hashes; unchanged manifest; no ambiguous lineage. Retain recovery bytes without live world mutations.",
+  "cooldown_added": false
+}

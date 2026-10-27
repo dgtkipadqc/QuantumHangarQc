@@ -1,11 +1,8 @@
-# Current state — 0.2.7.2 validate candidate — 2026-10-18
+# Current state — 0.2.8.2 validate candidate — 2026-10-27
 
-- Both components and State YAML: 0.2.7.2. Publish to validate; wait for real placement test before main.
-- Distance messages use words between 30 and 50; English first message is "move between 30 and 50 meters away".
-- Planet Y uses highest sampled terrain minus signed hull MinY plus configured clearance. Marker altitude is no longer a lower bound. Space unchanged.
-- Planet replies require placement protocol 2 and matching ground/hull/clearance geometry. Update both DLLs.
-- Existing clearance 2 remains effective; default stays 0.5. Existing hull bounds remain unchanged. Logs expose each height input.
-- Player reports container items reappeared. Cause/timing unconfirmed; no cargo logic changed. Tank contents were also reported preserved.
-- Ship ID still changes; original-ID reuse remains unimplemented and unvalidated.
-- Clickable menus and saved language choices retained; automatic game-language detection not implemented.
-- [Update and targeted test](docs/TERRAIN_0.2.7.2.md). Simulated results are recorded separately; no actual server run here.
+- Baseline: validate 5010506796c858b671723fa7ab92125fd02cb0d4.
+- All QH global structure Update calls removed. Fresh native sector inventory now replaces current sector in the cached global list, with no fallback if native observation fails.
+- Both modules 0.2.8.2 required; State directly under Content/Mods.
+- Same storage/cargo-copy/terrain/owner safeguards, language persistence and quarantine handling. No new operation cooldown or archive format.
+- [Installation and private-server test](docs/COMPLETE_0.2.8.2.md); [automated evidence](docs/qa/RESULTS_0.2.8.2.json).
+- Windows/server execution and actual cargo serialization NOT_RUN. The suspect call is removed; engine root cause and real heartbeat stability remain unconfirmed. Main unchanged.

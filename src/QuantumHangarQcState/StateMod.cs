@@ -6,15 +6,15 @@ using System.Reflection;
 using Eleon.Modding;
 using QuantumHangarQc.Live;
 using QuantumHangarQc.Localization;
-[assembly: AssemblyVersion("0.2.7.2")]
+[assembly: AssemblyVersion("0.2.8.2")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc - Live State")]
 namespace QuantumHangarQc.State {
  // Live structure observer plus targeted GPS removal. No ship or inventory mutations.
  public sealed class StateMod:IMod {
   IModApi api;readonly Dictionary<string,IPlayfield> fields=new Dictionary<string,IPlayfield>();
-  UiBridge ui;GpsBridge gps;TerrainBridge terrain;DateTime gpsNext;DateTime next;string directory;readonly object gate=new object();
-  public void Init(IModApi value){api=value;if(api.Application.Mode!=ApplicationMode.PlayfieldServer){api.LogError("QH_STATE: PfServer requis");return;}Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(StateMod).Assembly.Location),"Languages"),api.Log);gps=new GpsBridge(api.Log);terrain=new TerrainBridge(api.Log);ui=new UiBridge(api.Application,api.Log);api.Application.OnPlayfieldLoaded+=Loaded;api.Application.OnPlayfieldUnloading+=Unloaded;api.Application.Update+=Update;api.Log("QH_STATE START 0.2.7.2; observation + retrait GPS cible");}
+  UiBridge ui;SectorBridge sector;GpsBridge gps;TerrainBridge terrain;DateTime gpsNext;DateTime next;string directory;readonly object gate=new object();
+  public void Init(IModApi value){api=value;if(api.Application.Mode!=ApplicationMode.PlayfieldServer){api.LogError("QH_STATE: PfServer requis");return;}Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(StateMod).Assembly.Location),"Languages"),api.Log);sector=new SectorBridge(api.Log);gps=new GpsBridge(api.Log);terrain=new TerrainBridge(api.Log);ui=new UiBridge(api.Application,api.Log);api.Application.OnPlayfieldLoaded+=Loaded;api.Application.OnPlayfieldUnloading+=Unloaded;api.Application.Update+=Update;api.Log("QH_STATE START 0.2.8.2; observation + retrait GPS cible");}
   public void Shutdown(){if(api==null)return;if(ui!=null)ui.Clear();api.Application.OnPlayfieldLoaded-=Loaded;api.Application.OnPlayfieldUnloading-=Unloaded;api.Application.Update-=Update;lock(gate)fields.Clear();}
   void Loaded(IPlayfield pf){lock(gate)fields[pf.Name]=pf;api.Log("QH_STATE PLAYFIELD "+pf.Name);}
   void Unloaded(IPlayfield pf){lock(gate)fields.Remove(pf.Name);}
@@ -24,6 +24,7 @@ namespace QuantumHangarQc.State {
     if(directory==null){string save=api.Application.GetPathFor(AppFolder.SaveGame);if(string.IsNullOrWhiteSpace(save)||!Directory.Exists(save))return;directory=Path.Combine(save,"Mods","QuantumHangarQc","LiveState");Directory.CreateDirectory(directory);}
     if(DateTime.UtcNow>=gpsNext){gpsNext=DateTime.UtcNow.AddMilliseconds(500);IPlayfield[] snapshot;lock(gate)snapshot=fields.Values.ToArray();gps.Tick(Path.Combine(Path.GetDirectoryName(directory),"MapMarkers"),snapshot,DateTime.UtcNow);}
     IPlayfield[] uiFields;lock(gate)uiFields=fields.Values.ToArray();ui.Tick(Path.Combine(Path.GetDirectoryName(directory),"HangarUI"),uiFields,DateTime.UtcNow);
+    sector.Tick(Path.Combine(Path.GetDirectoryName(directory),"SectorState"),uiFields,DateTime.UtcNow);
     terrain.Tick(Path.Combine(Path.GetDirectoryName(directory),"Terrain"),uiFields,DateTime.UtcNow);
     foreach(string path in Directory.GetFiles(directory,"*.request.xml").OrderByDescending(File.GetLastWriteTimeUtc).Take(64)){
      StateRequest r;try{r=Transfer.Read<StateRequest>(path);}catch(Exception e){api.LogWarning("QH_STATE requete illisible: "+e.Message);continue;}
@@ -46,7 +47,7 @@ namespace QuantumHangarQc.State {
     // the reply are correlation data only, NOT native identity verification.
     // Native requester presence/SteamId must not gate a structure observation.
     var players=pf.Players.Values.ToList();
-    answer.ObserverVersion="0.2.7.2";answer.PlayersSeen=players.Count;
+    answer.ObserverVersion="0.2.8.2";answer.PlayersSeen=players.Count;
     answer.RequesterSeen=players.Any(p=>p.Id==r.Player);
     IEntity e;if(!pf.Entities.TryGetValue(r.Entity,out e)||e.Structure==null)throw new Exception("Vaisseau absent du playfield charge");
     var s=e.Structure;

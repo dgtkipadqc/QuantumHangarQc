@@ -1,3 +1,38 @@
+# 0.2.8.2 — validate candidate
+
+- Remove QH Request_GlobalStructure_Update sends. Merge a fresh complete native sector snapshot into the cached global list for safety checks and presence polling.
+- Correlate protocol, token, player, Steam, client, sector and timestamp; reject partial/invalid/expired snapshots with no blocking fallback.
+- Bound native capture and process one sector request per State update. Both modules must be updated.
+- Preserve storage/restore protections and 0.2.8.1 quarantine handling. No new cooldown.
+- Prevent an answered UI request from reopening while the Host consumes its reply and cleans exchange files.
+- Add Host and native-sector simulated regressions; actual server heartbeat/cargo validation pending.
+
+# 0.2.8.1 — validate candidate
+
+- Compare native structure counts at both storage and restore; require two consecutive ready snapshots with bounded polling.
+- Reconcile one already-spawned quarantine per qh:list in the current sector after identity, lineage, archive hash and native checks. Preserve the entire archive in Retired; never replay spawn or alter the live ship.
+- Log expected/actual restore counters. No cooldown added. Cargo contents remain outside automated verification.
+- Complete QH package and regression coverage; actual server testing pending.
+
+# 0.2.8 VALIDATE candidate — 2026-10-26
+
+- Rebuilt from the 0.2.7.2 production baseline; native store/retrieve confirmation selectively carried over from 0.2.7.3.
+- Restores the 0.2.7.2 fresh preview and subsequent structure-refresh order; no cache-only preview optimization.
+- Source-change refusals identify affected files in local logs without weakening hash checks or changing recovery/copy behavior.
+- qh:mark now creates a fixed point 30 meters ahead on the horizontal player heading. Player can retrieve while stationary. Terrain/obstacle checks retained; retrieval-only 1 cm coordinate-rounding tolerance. Eight catalogs updated.
+- Marker diagnostics record point, current distance, age and session match; reported real-game marker error remains unidentified.
+- Clickable ship/language lists, language persistence, settings, terrain placement and archive format retained.
+- Compiled against real game and net472 references; simulated regression results in docs/qa/RESULTS_0.2.8.json. Windows/game testing still pending on validate.
+
+# 0.2.7.3 VALIDATE candidate — 2026-10-26
+
+- Storage/retrieval confirmations use the native dialog bridge already used by clickable lists, avoiding the legacy dialog request that timed out in the inspected attempts.
+- Explicit buttons only: Escape cancels; Enter, links, stale/foreign callbacks and replayed replies cannot confirm.
+- Skip the usual pre-confirmation structure refresh for a known ship in the same sector; live position/state checks remain. Mandatory post-confirmation, pre-removal and absence refreshes remain.
+- Add a translated confirmation-specific failure message and correlation logs. Update both QH components together.
+- Local regressions pass; real-server validation is still required. Cargo, terrain and ship-ID behavior unchanged.
+- [Update instructions and evidence](docs/CONFIRMATION_0.2.7.3.md).
+
 # 0.2.7.2 VALIDATE candidate — 2026-10-18
 
 - English marker/store/help messages spell out "between 30 and 50 meters"; other catalogs replace the compact dash range with words.
