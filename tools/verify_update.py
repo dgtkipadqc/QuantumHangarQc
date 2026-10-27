@@ -44,3 +44,5 @@ test("ConfigTests",host+[tests,repo/"tests/ConfigTests.cs"],"ConfigTests",[],ext
 test("MarkerTests",host+[tests,repo/"tests/MarkerTests.cs"],"MarkerTests",[])
 
 test("RestoreTests",host+[tests,repo/"tests/RestoreTests.cs"],"RestoreTests",[])
+test("SectorTests",host+[tests,repo/"tests/SectorTests.cs"],"SectorTests",[])
+test("NativeSectorTests",[repo/"src/QuantumHangarQc/LiveState.cs",repo/"src/QuantumHangarQc/SectorState.cs",repo/"src/QuantumHangarQcState/SectorBridge.cs",repo/"tests/NativeSectorTests.cs"],"NativeSectorTests",[],extra=())

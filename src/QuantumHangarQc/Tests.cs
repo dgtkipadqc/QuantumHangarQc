@@ -24,11 +24,13 @@ class FakeApi : ModGameAPI {
 
     public List<string> ConsoleCommands=new List<string>();
     public List<QuantumHangarQc.Live.MarkerRequest> GpsRequests=new List<QuantumHangarQc.Live.MarkerRequest>();
+    readonly HashSet<string> gpsReplied=new HashSet<string>(),stateReplied=new HashSet<string>();
     public void ReplyGps() {
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","MapMarkers");if(!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")){
             QuantumHangarQc.Live.MarkerRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.MarkerRequest>(file);}catch(FileNotFoundException){continue;}
             string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
+            if(!gpsReplied.Add(r.Token))continue;
             GpsRequests.Add(r);
             QuantumHangarQc.Live.Transfer.Write(reply,new QuantumHangarQc.Live.MarkerReply{Token=r.Token,Name=r.Name,Steam=r.Steam,Player=r.Player,Activate=r.Activate,Success=!NoMarker,Error=NoMarker?"Pont indisponible":null});
         }
@@ -78,11 +80,26 @@ class FakeApi : ModGameAPI {
             QuantumHangarQc.Live.Transfer.Write(reply,answer);
         }
     }
+    public bool NoSector,SectorWrongToken,SectorIncomplete,SectorInvalid;public int SectorReplies;public Action<QuantumHangarQc.Live.SectorReply> AfterSector;
+    readonly HashSet<string> sectorReplied=new HashSet<string>();
+    public void ReplySector(){
+        string dir=Path.Combine(Root,"Mods","QuantumHangarQc","SectorState");if(NoSector||NoState||!Directory.Exists(dir))return;
+        foreach(var file in Directory.GetFiles(dir,"*.request.xml")){
+            QuantumHangarQc.Live.SectorRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.SectorRequest>(file);}catch(FileNotFoundException){continue;}
+            if(!sectorReplied.Add(r.Token))continue;
+            int idx=Ships.FindIndex(x=>x.id==Ship.id);if(idx>=0)Ships[idx]=Ship;
+            var a=new QuantumHangarQc.Live.SectorReply{Token=SectorWrongToken?"wrong":r.Token,Steam=r.Steam,Player=r.Player,Client=r.Client,Playfield=r.Playfield,Protocol=1,Complete=!SectorIncomplete,CapturedUtc=DateTime.UtcNow};
+            if(ListSector==null||ListSector==r.Playfield)a.Entities=Ships.Select(e=>new QuantumHangarQc.Live.SectorEntity{Id=e.id,Name=e.name??"",Type=e.type,OwnerGroup=e.factionGroup,OwnerId=e.factionId,Blocks=e.cntBlocks,Devices=e.cntDevices,Powered=e.powered,Pilot=e.pilotId,X=e.pos.x,Y=e.pos.y,Z=e.pos.z,RX=e.rot.x,RY=e.rot.y,RZ=e.rot.z,Docked=e.dockedShips??new List<int>()}).ToList();
+            if(SectorInvalid)a.Entities=null;SectorReplies++;if(AfterSector!=null)AfterSector(a);
+            QuantumHangarQc.Live.Transfer.Write(Path.Combine(dir,r.Token+".reply.xml"),a);
+        }
+    }
     public void ReplyState() {
-        ReplyGps();ReplyUi();ReplyTerrain();
+        ReplyGps();ReplyUi();ReplyTerrain();ReplySector();
         string dir=Path.Combine(Root,"Mods","QuantumHangarQc","LiveState");if(NoState||!Directory.Exists(dir))return;
         foreach(var file in Directory.GetFiles(dir,"*.request.xml")) {
             QuantumHangarQc.Live.StateRequest r;try{r=QuantumHangarQc.Live.Transfer.Read<QuantumHangarQc.Live.StateRequest>(file);}catch(FileNotFoundException){continue;}string reply=Path.Combine(dir,r.Token+".reply.xml");if(File.Exists(reply))continue;
+            if(!stateReplied.Add(r.Token))continue;
             var native=r.Entity==Ship.id?Ship:Ships.SingleOrDefault(x=>x.id==r.Entity);
             bool restored=r.Entity!=Ship.id;
             if(restored)RestoreStateReplies++;
@@ -434,7 +451,7 @@ class Tests {
         Mark(legacy);Run(legacy,"qh:load:3");Assert.That(!legacy.Calls.Contains(CmdId.Request_Entity_Spawn),"legacy quarantine cannot spawn");legacy.Mod.Game_Exit();
         var bridge=New();bridge.HostResponses=true;bridge.NoNoticeAck=true;Run(bridge,"qh:store:200:4");
         Assert.That(bridge.Store().At(4,bridge.P.steamId).Status=="STORED","host echoed request response permits deposit");
-        Assert.That(bridge.Calls.Contains(CmdId.Request_GlobalStructure_Update),"host cache refresh requested");
+        Assert.That(!bridge.Calls.Contains(CmdId.Request_GlobalStructure_Update)&&bridge.SectorReplies>=4,"native sector replaces blocking refresh");
         Mark(bridge);Run(bridge,"qh:load:4");
         Assert.That(bridge.Ships.Any(s=>s.id==900)&&bridge.Store().List(bridge.P.steamId).Count==0,"host echoed responses permit restore");
         Thread.Sleep(220);bridge.Mod.Game_Update();
@@ -445,24 +462,24 @@ class Tests {
         Assert.That(!badPayload.Calls.Contains(CmdId.Request_Entity_Export),"wrong payload cannot authorize export");badPayload.Mod.Game_Exit();
         var nativeUpdate=New();nativeUpdate.HostResponses=true;nativeUpdate.StandardUpdateAck=true;
         Run(nativeUpdate,"qh:store:200:5");
-        Assert.That(nativeUpdate.MissingUpdateParameters==0,"refresh contains PString current playfield");
-        Assert.That(nativeUpdate.Store().At(5,nativeUpdate.P.steamId).Status=="STORED","standard Event_Ok refresh permits deposit");
+        Assert.That(nativeUpdate.MissingUpdateParameters==0,"no blocking refresh parameters used");
+        Assert.That(nativeUpdate.Store().At(5,nativeUpdate.P.steamId).Status=="STORED","native sector permits deposit");
         Mark(nativeUpdate);Run(nativeUpdate,"qh:load:5");
-        Assert.That(nativeUpdate.Ships.Any(s=>s.id==900),"standard Event_Ok refresh permits restore");nativeUpdate.Mod.Game_Exit();
-        var refusal=New();refusal.HostResponses=true;refusal.RejectUpdate=true;Run(refusal,"qh:store:200");
-        Assert.That(!refusal.Calls.Contains(CmdId.Request_Entity_Export)&&refusal.Store().List(refusal.P.steamId).Count==0,"API refresh error stops before archive/export");refusal.Mod.Game_Exit();
-        var falseAck=New();falseAck.HostResponses=true;falseAck.InvalidUpdateAck=true;Run(falseAck,"qh:store:200");
-        Assert.That(!falseAck.Calls.Contains(CmdId.Request_Entity_Export),"false refresh response cannot authorize deposit");falseAck.Mod.Game_Exit();
+        Assert.That(nativeUpdate.Ships.Any(s=>s.id==900),"native sector permits restore");nativeUpdate.Mod.Game_Exit();
+        var refusal=New();refusal.HostResponses=true;refusal.SectorIncomplete=true;Run(refusal,"qh:store:200");
+        Assert.That(!refusal.Calls.Contains(CmdId.Request_Entity_Export)&&refusal.Store().List(refusal.P.steamId).Count==0,"incomplete sector stops before archive/export");refusal.Mod.Game_Exit();
+        var falseAck=New();falseAck.HostResponses=true;falseAck.SectorInvalid=true;Run(falseAck,"qh:store:200");
+        Assert.That(!falseAck.Calls.Contains(CmdId.Request_Entity_Export),"invalid sector cannot authorize deposit");falseAck.Mod.Game_Exit();
         var observed=New();observed.HostResponses=true;observed.ListUpdateReply=true;observed.KeepListCache=true;
         Run(observed,"qh:store:200:6");
-        Assert.That(observed.Store().At(6,observed.P.steamId).Status=="STORED","server log protocol Update -> Event_GlobalStructure_List permits deposit");
-        Assert.That(observed.Calls.Count(c=>c==CmdId.Request_GlobalStructure_List)==1,"fresh update list used directly, stale host cache never re-read");
+        Assert.That(observed.Store().At(6,observed.P.steamId).Status=="STORED","native sector permits deposit with stale global cache");
+        Assert.That(observed.SectorReplies>=4&&!observed.Calls.Contains(CmdId.Request_GlobalStructure_Update),"fresh sector overrides stale host cache without blocking update");
         Mark(observed);Run(observed,"qh:load:6");
         Assert.That(observed.Ships.Any(s=>s.id==900)&&observed.Store().List(observed.P.steamId).Count==0,"observed protocol restores with stale initial cache");observed.Mod.Game_Exit();
-        var badUpdateSeq=New();badUpdateSeq.HostResponses=true;badUpdateSeq.ListUpdateReply=true;badUpdateSeq.WrongUpdateSequence=true;
-        Run(badUpdateSeq,"qh:store:200");Assert.That(!badUpdateSeq.Calls.Contains(CmdId.Request_Entity_Export),"unrelated update list cannot authorize export");badUpdateSeq.Mod.Game_Exit();
-        var badUpdateList=New();badUpdateList.HostResponses=true;badUpdateList.ListUpdateReply=true;badUpdateList.MalformedUpdateList=true;
-        Run(badUpdateList,"qh:store:200");Assert.That(!badUpdateList.Calls.Contains(CmdId.Request_Entity_Export),"missing structure dictionary cannot authorize export");badUpdateList.Mod.Game_Exit();
+        var badUpdateSeq=New();badUpdateSeq.HostResponses=true;badUpdateSeq.ListUpdateReply=true;badUpdateSeq.SectorWrongToken=true;
+        Run(badUpdateSeq,"qh:store:200");Assert.That(!badUpdateSeq.Calls.Contains(CmdId.Request_Entity_Export),"unrelated sector response cannot authorize export");badUpdateSeq.Mod.Game_Exit();
+        var badUpdateList=New();badUpdateList.HostResponses=true;badUpdateList.ListUpdateReply=true;badUpdateList.SectorInvalid=true;
+        Run(badUpdateList,"qh:store:200");Assert.That(!badUpdateList.Calls.Contains(CmdId.Request_Entity_Export),"missing sector entities cannot authorize export");badUpdateList.Mod.Game_Exit();
         var shared=New();
         using(var writer=new FileStream(Path.Combine(shared.Root,"Shared","200","0.area"),FileMode.Open,FileAccess.ReadWrite,FileShare.Read)) {
             Run(shared,"qh:store:200:7");
@@ -517,7 +534,7 @@ class Tests {
         var realPower=New();realPower.LivePower=true;Run(realPower,"qh:store:200");Assert.That(!realPower.Calls.Contains(CmdId.Request_Entity_Export)&&realPower.Logs.Any(x=>x.Contains("ALLUMEE")),"live powered ship refused despite cached off state");realPower.Mod.Game_Exit();
         var realPilot=New();realPilot.LivePilot=88;Run(realPilot,"qh:store:200");Assert.That(!realPilot.Calls.Contains(CmdId.Request_Entity_Export)&&realPilot.Logs.Any(x=>x.Contains("pilote ID 88")),"live pilot refused despite cached empty cockpit");realPilot.Mod.Game_Exit();
         var occupiedLive=New();occupiedLive.LiveOccupants.Add(99);Run(occupiedLive,"qh:store:200");Assert.That(!occupiedLive.Calls.Contains(CmdId.Request_Entity_Export),"live occupant blocks export");occupiedLive.Mod.Game_Exit();
-        var missingState=New();missingState.NoState=true;Run(missingState,"qh:store:200");Assert.That(!missingState.Calls.Contains(CmdId.Request_Entity_Export)&&missingState.Logs.Any(x=>x.Contains("Etat en direct indisponible")),"missing helper fails closed");missingState.Mod.Game_Exit();
+        var missingState=New();missingState.NoState=true;Run(missingState,"qh:store:200");Assert.That(!missingState.Calls.Contains(CmdId.Request_Entity_Export)&&missingState.Logs.Any(x=>x.Contains("code=error.live_state")),"missing helper fails closed");missingState.Mod.Game_Exit();
         var mismatchedState=New();mismatchedState.WrongStateToken=true;Run(mismatchedState,"qh:store:200");Assert.That(!mismatchedState.Calls.Contains(CmdId.Request_Entity_Export),"wrong state token cannot authorize export");mismatchedState.Mod.Game_Exit();
         var oldState=New();oldState.OldState=true;Run(oldState,"qh:store:200");Assert.That(!oldState.Calls.Contains(CmdId.Request_Entity_Export),"expired state cannot authorize export");oldState.Mod.Game_Exit();
         var stateChanged=New();stateChanged.BeforeDialog=()=>stateChanged.LivePower=true;Run(stateChanged,"qh:store:200");Assert.That(!stateChanged.Calls.Contains(CmdId.Request_Entity_Export),"power switched on while dialog open blocks export");stateChanged.Mod.Game_Exit();

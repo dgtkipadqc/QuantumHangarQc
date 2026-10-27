@@ -2,11 +2,12 @@ using System;using System.IO;using System.Linq;using System.Collections.Generic;
 namespace QuantumHangarQc.State {
  public sealed class UiBridge {
   sealed class Pending {public string File,Reply;public HangarUiRequest Request;}
-  readonly IApplication app;readonly Action<string> log;readonly Dictionary<int,Pending> pending=new Dictionary<int,Pending>();readonly object gate=new object();int serial;
+  readonly IApplication app;readonly Action<string> log;readonly Dictionary<int,Pending> pending=new Dictionary<int,Pending>();readonly object gate=new object();readonly Dictionary<string,DateTime> answered=new Dictionary<string,DateTime>();int serial;
   public UiBridge(IApplication value,Action<string> logger){app=value;log=logger;}
-  public void Clear(){lock(gate)pending.Clear();}
+  public void Clear(){lock(gate){pending.Clear();answered.Clear();}}
   public void Tick(string directory,IPlayfield[] fields,DateTime now) {
    Directory.CreateDirectory(directory);
+   lock(gate)foreach(var token in answered.Where(x=>x.Value<now).Select(x=>x.Key).ToArray())answered.Remove(token);
    lock(gate)foreach(var id in pending.Keys.ToArray()) {
     var p=pending[id];if(!File.Exists(p.File)||(now-p.Request.CreatedUtc).TotalSeconds>95)pending.Remove(id);
    }
@@ -16,7 +17,7 @@ namespace QuantumHangarQc.State {
     if((now-r.CreatedUtc).TotalSeconds>95||(r.CreatedUtc-now).TotalSeconds>1)continue;
     var pf=fields.FirstOrDefault(x=>x.Name==r.Playfield);if(pf==null)continue;
     string reply=Path.Combine(directory,r.Token+".reply.xml");if(File.Exists(reply))continue;
-    lock(gate)if(pending.Values.Any(x=>x.Request.Token==r.Token))continue;
+    lock(gate)if(answered.ContainsKey(r.Token)||pending.Values.Any(x=>x.Request.Token==r.Token))continue;
     var item=new Pending{File=file,Reply=reply,Request=r};
     var player=pf.Players.Values.FirstOrDefault(x=>x.Id==r.Player);
     // Some playfield APIs omit SteamId. Host authenticates Steam/client before
@@ -31,7 +32,7 @@ namespace QuantumHangarQc.State {
     int key;lock(gate){key=++serial;if(key<=0){serial=1;key=1;}while(pending.ContainsKey(key))key=++serial;pending.Add(key,item);}
     try {
      // One shared callback dispatches by customValue; simultaneous players cannot overwrite each other's handler.
-     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.8.1",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=!confirmation,ButtonTexts=confirmation?new[]{r.Positive,Texts.Render(r.Language,"button.cancel")}:new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=confirmation?1:0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
+     bool shown=app.ShowDialogBox(r.Player,new DialogConfig{TitleText=r.Purpose=="language"?Texts.Render(r.Language,"language.title"):"Quantum Hangar Qc — BETA 0.2.8.2",BodyText=HangarUiRules.Body(r),CloseOnLinkClick=!confirmation,ButtonTexts=confirmation?new[]{r.Positive,Texts.Render(r.Language,"button.cancel")}:new[]{Texts.Render(r.Language,"button.close")},ButtonIdxForEsc=confirmation?1:0,ButtonIdxForEnter=-1,MaxChars=0},Action,key);
      if(!shown){lock(gate)pending.Remove(key);log("QH_UI SHOW_REJECTED player="+r.Player+" purpose="+r.Purpose);Reply(item,null,true,"ui.unavailable");}
      else {Transfer.Write(Path.Combine(directory,r.Token+".opened.xml"),new HangarUiReply{Token=r.Token,Player=r.Player,Steam=r.Steam,Client=r.Client,CapturedUtc=now});log("QH_UI OPEN player="+r.Player+" token="+r.Token);}
     } catch(Exception e){lock(gate)pending.Remove(key);log("QH_UI SHOW_EXCEPTION "+e.GetType().Name+": "+e.Message);Reply(item,null,true,"ui.unavailable");}
@@ -42,7 +43,7 @@ namespace QuantumHangarQc.State {
    return row!=null&&row.Slot>=1&&row.Slot<=15&&(row.Name==null||row.Name.Length<=256)&&(row.Status==null||row.Status.Length<=64)&&(string.IsNullOrEmpty(row.ArchiveId)||Guid.TryParseExact(row.ArchiveId,"N",out archive));
   }
   void Action(int button,string link,string input,int player,int custom) {
-   Pending p;lock(gate){if(!pending.TryGetValue(custom,out p)||p.Request.Player!=player)return;pending.Remove(custom);}
+   Pending p;lock(gate){if(!pending.TryGetValue(custom,out p)||p.Request.Player!=player)return;pending.Remove(custom);answered[p.Request.Token]=p.Request.CreatedUtc.AddSeconds(95);}
    if(!File.Exists(p.File)||(DateTime.UtcNow-p.Request.CreatedUtc).TotalSeconds>95)return;
    try {
     if(p.Request.Purpose=="confirm"&&p.Request.Protocol==4) {

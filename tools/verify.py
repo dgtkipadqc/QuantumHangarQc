@@ -37,8 +37,8 @@ for f in host_refs+state_refs:
     if not f.is_file():
         raise SystemExit('Missing real reference: '+str(f))
 shared = repo/'src/Shared/Localization.cs'
-host = [repo/'src/QuantumHangarQc'/n for n in ('QuantumHangarQc.cs','ActiveSavePath.cs','LiveState.cs','Markers.cs','HangarUi.cs')]+[shared]
-state = [repo/'src/QuantumHangarQcState'/n for n in ('LiveState.cs','StateMod.cs','Markers.cs','GpsBridge.cs','HangarUi.cs','UiBridge.cs','TerrainBridge.cs')]+[shared]
+host = [repo/'src/QuantumHangarQc'/n for n in ('QuantumHangarQc.cs','ActiveSavePath.cs','SectorState.cs','LiveState.cs','Markers.cs','HangarUi.cs')]+[shared]
+state = [repo/'src/QuantumHangarQcState'/n for n in ('LiveState.cs','SectorState.cs','SectorBridge.cs','StateMod.cs','Markers.cs','GpsBridge.cs','HangarUi.cs','UiBridge.cs','TerrainBridge.cs')]+[shared]
 records = []
 def run(name, cmd):
     r = subprocess.run(cmd, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

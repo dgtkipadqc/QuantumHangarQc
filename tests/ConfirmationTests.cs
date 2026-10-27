@@ -31,7 +31,7 @@ class ConfirmationTests {
  static void Main(string[] args){
   root=args[0];Directory.CreateDirectory(root);
   var normal=New();normal.Open("qh:store:200");
-  Check(normal.Api.Calls.Count(x=>x==CmdId.Request_GlobalStructure_Update)==1,"0.2.7.2 fresh preview retained");
+  Check(normal.Api.SectorReplies==1&&!normal.Api.Calls.Contains(CmdId.Request_GlobalStructure_Update),"fresh native preview without blocking update");
   Check(!normal.Api.Calls.Contains(CmdId.Request_ShowDialog_SinglePlayer),"store does not use broken legacy dialog API");
   Check(normal.App.Dialog.ButtonTexts.Length==2&&normal.App.Dialog.ButtonTexts[0]=="Confirm storage"&&normal.App.Dialog.ButtonTexts[1]=="Cancel","translated explicit confirmation buttons");
   Check(normal.App.Dialog.ButtonIdxForEsc==1&&normal.App.Dialog.ButtonIdxForEnter==-1&&!normal.App.Dialog.CloseOnLinkClick,"escape cancels and enter/link cannot confirm");
@@ -40,7 +40,7 @@ class ConfirmationTests {
   normal.App.Click(0);normal.App.Click(0);normal.Finish();
   Check(normal.Api.Store().At(1,normal.Api.P.steamId).Status=="STORED","native click completes store");
   Check(normal.Api.Calls.Count(x=>x==CmdId.Request_Entity_Export)==1&&normal.Api.Calls.Count(x=>x==CmdId.Request_Entity_Destroy)==1,"duplicate click cannot duplicate transaction");
-  Check(normal.Api.Calls.Count(x=>x==CmdId.Request_GlobalStructure_Update)==4,"0.2.7.2 preview, confirmation, before-removal and absence refreshes retained");
+  Check(normal.Api.SectorReplies==4&&!normal.Api.Calls.Contains(CmdId.Request_GlobalStructure_Update),"native preview, confirmation, before-removal and absence checks retained");
   Check(Directory.GetFiles(normal.Dir).Length==0,"UI files cleaned");
   normal.Api.P.pos=new PVector3{x=200};normal.Start("qh:mark");normal.Finish();normal.Api.P.pos=new PVector3{x=160};normal.Open("qh:load:1");Check(normal.App.Dialog.ButtonTexts[0]=="Confirm retrieval","retrieval uses native confirmation too");normal.App.Click(0);normal.Finish();
   Check(normal.Api.Ships.Count(x=>x.id==900)==1&&!normal.Api.Calls.Contains(CmdId.Request_ShowDialog_SinglePlayer),"store and retrieve succeed with legacy dialogs unavailable");normal.Api.Mod.Game_Exit();
@@ -89,7 +89,7 @@ class ConfirmationTests {
   Transfer.Write(Path.Combine(multi.Dir,r1.Token+".request.xml"),r1);multi.Bridge.Tick(multi.Dir,new IPlayfield[]{multi.Field},DateTime.UtcNow);var cb1=multi.App.Callback;int key1=multi.App.Custom;
   var r2=new HangarUiRequest{Token=Guid.NewGuid().ToString("N"),Player=51,Client=8,Steam="76561198000000002",Playfield=multi.Field.Name,Language="en",Purpose="confirm",Protocol=4,Message="Second ship",Positive="Store",CreatedUtc=DateTime.UtcNow};multi.Field.Players.Add(51,new Player{Id=51,SteamId=r2.Steam});
   Transfer.Write(Path.Combine(multi.Dir,r2.Token+".request.xml"),r2);multi.Bridge.Tick(multi.Dir,new IPlayfield[]{multi.Field},DateTime.UtcNow);multi.App.Click(1);cb1(0,null,null,50,key1);
-  Check(Transfer.Read<HangarUiReply>(Path.Combine(multi.Dir,r1.Token+".reply.xml")).Confirmed,"first player confirmation survives second dialog");Check(Transfer.Read<HangarUiReply>(Path.Combine(multi.Dir,r2.Token+".reply.xml")).Cancelled,"second player cancellation is independent");multi.Api.Mod.Game_Exit();
+  Check(Transfer.Read<HangarUiReply>(Path.Combine(multi.Dir,r1.Token+".reply.xml")).Confirmed,"first player confirmation survives second dialog");Check(Transfer.Read<HangarUiReply>(Path.Combine(multi.Dir,r2.Token+".reply.xml")).Cancelled,"second player cancellation is independent");int opens=multi.App.Opens;File.Delete(Path.Combine(multi.Dir,r1.Token+".reply.xml"));multi.Bridge.Tick(multi.Dir,new IPlayfield[]{multi.Field},DateTime.UtcNow);Check(multi.App.Opens==opens&&!File.Exists(Path.Combine(multi.Dir,r1.Token+".reply.xml")),"consumed reply cannot reopen an already answered request");multi.Api.Mod.Game_Exit();
   Console.WriteLine("PASS "+checks+" native confirmation assertions; simulated API, real Host/UiBridge and files. No game test.");
  }
 }

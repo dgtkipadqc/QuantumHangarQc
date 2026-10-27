@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.8.1")]
+[assembly: AssemblyVersion("0.2.8.2")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -218,7 +218,6 @@ namespace QuantumHangarQc
         readonly Dictionary<ushort,DateTime> gpsReuseAfter=new Dictionary<ushort,DateTime>();
         ushort gpsSequence=1000;
         readonly SemaphoreSlim structureGate=new SemaphoreSlim(1,1);
-        bool hostStructureResponses;
         ushort sequence=43000; bool stopped; FileStream instanceLock;
         internal int RequestTimeout=20000, DialogTimeout=60000, ExportPoll=1000, StateTimeout=8000, StatePoll=100;
         internal int RestorePoll=500;
@@ -234,7 +233,7 @@ namespace QuantumHangarQc
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.8.1 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.8.2 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -301,18 +300,11 @@ namespace QuantumHangarQc
                 // ModHost's DB bridge echoes Request_GlobalStructure_List, not Event_GlobalStructure_List.
                 // Match ONLY this read response, with the exact outstanding sequence and payload type.
                 bool hostList=p.Command==CmdId.Request_GlobalStructure_List && kind==CmdId.Request_GlobalStructure_List && data is GlobalStructureList;
-                bool updatedList=p.Command==CmdId.Request_GlobalStructure_Update &&
-                    kind==CmdId.Event_GlobalStructure_List && data is GlobalStructureList &&
-                    ((GlobalStructureList)data).globalStructures!=null;
-                bool updateReply=p.Command==CmdId.Request_GlobalStructure_Update &&
-                    (updatedList || kind==CmdId.Event_Ok || (kind==CmdId.Request_GlobalStructure_Update && data is bool && (bool)data));
-                if(kind!=p.Expected && kind!=CmdId.Event_Error && !hostList && !updateReply) {
+                if(kind!=p.Expected && kind!=CmdId.Event_Error && !hostList) {
                     Log("API IGNORED seq="+seq+" command="+p.Command+" received="+kind+" type="+(data==null?"null":data.GetType().Name));
                     return;
                 }
-                if(hostList) hostStructureResponses=true;
                 if(p.Command==CmdId.Request_GlobalStructure_List && kind!=CmdId.Event_Error && !(data is GlobalStructureList)) return;
-                if(p.Command==CmdId.Request_GlobalStructure_Update && kind!=CmdId.Event_Error && !updateReply) return;
                 Log("API RECEIVE seq="+seq+" command="+p.Command+" received="+kind);
                 pending.Remove(seq);
             }
@@ -348,27 +340,33 @@ namespace QuantumHangarQc
         async Task<GlobalStructureList> Structures(int player) {
             await structureGate.WaitAsync();
             try {
-                bool knownHost=hostStructureResponses;
-                // Native Update can return the refreshed list itself. Use it directly;
-                // a separate List request can return an older ModHost cache.
-                var list=knownHost?await RefreshStructures(player):null;
-                if(list==null) list=await ReadStructures(player);
-                if(!knownHost && hostStructureResponses) {
-                    list=await RefreshStructures(player);
-                    if(list==null) list=await ReadStructures(player);
-                }
-                return list;
+                // Keep the cached other sectors conservatively; replace ONLY the player's
+                // current sector with a complete native snapshot. Never call the blocking Update.
+                var list=await ReadStructures(player);
+                var current=await Player(player);string steam=current.steamId,field=current.playfield;int client=current.clientId;
+                var r=new Live.SectorRequest{Token=Guid.NewGuid().ToString("N"),Player=player,Client=client,Steam=steam,Playfield=field,CreatedUtc=DateTime.UtcNow};
+                var snapshot=await ReadSector(r);
+                current=await Player(player);
+                if(current.steamId!=steam||current.clientId!=client||current.playfield!=field)throw Texts.Tag(new InvalidOperationException("Session changee pendant lecture du secteur"),"error.session");
+                try{Live.SectorRules.Validate(r,snapshot,DateTime.UtcNow);}catch(Exception ex){throw Texts.Tag(ex,"error.live_state");}
+                var merged=new Dictionary<string,List<GlobalStructureInfo>>(list.globalStructures);
+                merged[field]=snapshot.Entities.Select(e=>new GlobalStructureInfo{id=e.Id,type=(byte)e.Type,name=e.Name,factionGroup=(byte)e.OwnerGroup,factionId=e.OwnerId,cntBlocks=e.Blocks,cntDevices=e.Devices,powered=e.Powered,pilotId=e.Pilot,dockedShips=e.Docked,pos=new PVector3{x=e.X,y=e.Y,z=e.Z},rot=new PVector3{x=e.RX,y=e.RY,z=e.RZ}}).ToList();
+                Log("SECTOR_NATIVE count="+snapshot.Entities.Count+" sector="+field+"; blocking global update disabled");
+                return new GlobalStructureList{globalStructures=merged};
             } finally { structureGate.Release(); }
         }
-        async Task<GlobalStructureList> RefreshStructures(int player) {
-            // Observed on this server: PString playfield -> Event_GlobalStructure_List.
-            // Also support Event_Ok and ModHost request/true acknowledgements.
-            var current=await Player(player);
-            if(string.IsNullOrWhiteSpace(current.playfield)) throw Texts.Tag(new InvalidDataException("Secteur joueur absent pour rafraichir les structures"),"error.playfield");
-            var result=await Request(CmdId.Request_GlobalStructure_Update,new PString(current.playfield),CmdId.Event_Ok,player);
-            var refreshed=result as GlobalStructureList;
-            if(refreshed!=null) Log("STRUCTURES_REFRESHED count="+refreshed.globalStructures.Values.Sum(v=>v==null?0:v.Count));
-            return refreshed;
+        async Task<Live.SectorReply> ReadSector(Live.SectorRequest r) {
+            string dir=Path.Combine(logDir,"SectorState");Directory.CreateDirectory(dir);
+            string request=Path.Combine(dir,r.Token+".request.xml"),reply=Path.Combine(dir,r.Token+".reply.xml");
+            try {
+                Live.Transfer.Write(request,r);var until=DateTime.UtcNow.AddMilliseconds(StateTimeout);
+                while(DateTime.UtcNow<until) {
+                    if(stopped)throw Texts.Tag(new InvalidOperationException("Module arrete"),"error.stopped");
+                    if(File.Exists(reply))return Live.Transfer.Read<Live.SectorReply>(reply,4*1024*1024);
+                    await Task.Delay(StatePoll);
+                }
+                throw Texts.Tag(new TimeoutException("QH_STATE 0.2.8.2 sector unavailable; install both modules and restart playfields. No global refresh fallback."),"error.live_state");
+            }finally{foreach(var path in new[]{request,reply})try{if(File.Exists(path))File.Delete(path);}catch(IOException){}}
         }
         async Task<GlobalStructureList> ReadStructures(int player) {
             var list=(GlobalStructureList)await Request(CmdId.Request_GlobalStructure_List,null,CmdId.Event_GlobalStructure_List,player);
@@ -500,7 +498,7 @@ namespace QuantumHangarQc
         async Task<bool> Dialog(PlayerInfo identity,string message,string positive) {
             int player=identity.entityId;
             var answer=(IdAndIntValue)await Request(CmdId.Request_ShowDialog_SinglePlayer,
-                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.8.1\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
+                new DialogBoxData { Id=player,MsgText="Quantum Hangar Qc — BETA 0.2.8.2\n\n"+message,PosButtonText=positive,NegButtonText=T(identity,"button.cancel") },CmdId.Event_DialogButtonIndex,player,DialogTimeout);
             return answer.Id==player && answer.Value==0;
         }
         internal int UiOpenTimeout=6000,UiTimeout=90000;

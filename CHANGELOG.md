@@ -1,3 +1,12 @@
+# 0.2.8.2 — validate candidate
+
+- Remove QH Request_GlobalStructure_Update sends. Merge a fresh complete native sector snapshot into the cached global list for safety checks and presence polling.
+- Correlate protocol, token, player, Steam, client, sector and timestamp; reject partial/invalid/expired snapshots with no blocking fallback.
+- Bound native capture and process one sector request per State update. Both modules must be updated.
+- Preserve storage/restore protections and 0.2.8.1 quarantine handling. No new cooldown.
+- Prevent an answered UI request from reopening while the Host consumes its reply and cleans exchange files.
+- Add Host and native-sector simulated regressions; actual server heartbeat/cargo validation pending.
+
 # 0.2.8.1 — validate candidate
 
 - Compare native structure counts at both storage and restore; require two consecutive ready snapshots with bounded polling.

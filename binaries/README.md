@@ -1,3 +1,9 @@
+# QH 0.2.8.2 — observation native du secteur
+
+[ZIP complet](./QuantumHangarQc_0.2.8.2_COMPLET.zip) · [SHA-256](./QuantumHangarQc_0.2.8.2_COMPLET.zip.sha256) · [Installation FR/EN](../docs/COMPLETE_0.2.8.2.md)
+
+Retire les appels QH au rafraîchissement global bloquant. Les deux modules 0.2.8.2 sont requis ; State directement dans Content/Mods. Candidat à tester sur serveur privé. Aucun nouveau délai entre opérations.
+
 # QH 0.2.8.1 — correctif de quarantaine
 
 [ZIP complet](./QuantumHangarQc_0.2.8.1_COMPLET.zip) · [SHA-256](./QuantumHangarQc_0.2.8.1_COMPLET.zip.sha256) · [Installation FR/EN](../docs/COMPLETE_0.2.8.1.md)
