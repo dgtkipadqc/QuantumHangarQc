@@ -174,7 +174,7 @@ class FakeApi : ModGameAPI {
         }
         else if(command==CmdId.Request_NewEntityId) Mod.Game_Event(CmdId.Event_NewEntityId,seq,new Id(NextId));
         else if(command==CmdId.Request_Entity_Spawn) {
-            var e=Store().List("76561198000000001").Single(); var spawn=(EntitySpawnInfo)data;
+            var e=Store().List(P.steamId).Single(); var spawn=(EntitySpawnInfo)data;
             Assert.That(e.Status=="RESTORING"&&e.SpawnedId==spawn.forceEntityId,"durable intent BEFORE spawn");
             Assert.That(spawn.exportedEntityDat.EndsWith("Export.dat")&&string.IsNullOrEmpty(spawn.prefabName),"native archive, no factory/blueprint fallback");
             Assert.That(spawn.factionGroup==1&&spawn.factionId==P.entityId,"restored private owner");

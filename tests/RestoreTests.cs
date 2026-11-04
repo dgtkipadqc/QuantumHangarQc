@@ -37,6 +37,8 @@ class RestoreTests {
    if(fault=="unready")a.RestoreUnreadyReplies=100;if(fault=="state_missing")a.NoState=true;
    var bytes=Snapshot(Path.Combine(a.Root,"Shared"));ListReadOnly(a);Check(a.Store().At(1,entry.SteamId).Status=="QUARANTINE","retains quarantine for "+fault);Check(Directory.Exists(a.Store().DirectoryFor(entry)),"recovery archive retained for "+fault);Same(bytes,Path.Combine(a.Root,"Shared"));a.Mod.Game_Exit();
   }
+  var gift=New();Run(gift,"qh:store:200");var stored=gift.Store().List(gift.P.steamId).Single();var engine=new GiftEngine(gift.Store(),Path.Combine(gift.Root,"Mods","QuantumHangarQc","QuantumWebGift","journal"));string donor=gift.P.steamId,recipient="76561198000000002";engine.Apply(new GiftIntent{Id=Guid.NewGuid().ToString("N"),RequestHash=new string('a',64),Donor=donor,Recipient=recipient,ArchiveId=stored.ArchiveId,ManifestHash=Disk.Hash(Path.Combine(gift.Store().DirectoryFor(stored),"Manifest.xml")),Expires=DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()+120000});
+  Run(gift,"qh:load:1");Check(!gift.Calls.Contains(CmdId.Request_Entity_Spawn),"donor cannot load gifted archive");gift.P.steamId=recipient;gift.P.entityId=51;gift.P.clientId=8;Run(gift,"qh:mark");gift.P.pos=new PVector3{x=40};Run(gift,"qh:load:1");Check(gift.Ships.Any(x=>x.id==900&&x.factionId==51),"gift restores under recipient ownership");Check(gift.Store().List(recipient).Count==0,"gift recipient slot freed after restoration");Check(gift.Calls.Count(x=>x==CmdId.Request_Entity_Spawn)==1,"gift restored once");gift.Mod.Game_Exit();
   Console.WriteLine("RESTORE PASS "+checks+"; simulated API and archive bytes; real engine cargo NOT_RUN.");
  }
 }

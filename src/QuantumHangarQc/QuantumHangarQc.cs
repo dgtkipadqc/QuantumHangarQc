@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Eleon.Modding;
 using QuantumHangarQc.Localization;
 
-[assembly: AssemblyVersion("0.2.8.2")]
+[assembly: AssemblyVersion("0.2.8.3")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2")]
 [assembly: AssemblyTitle("Quantum Hangar Qc — BETA")]
 [assembly: AssemblyCopyright("Copyright 2026 Le Spot Studio")]
@@ -209,6 +209,7 @@ namespace QuantumHangarQc
         readonly HashSet<int> busy=new HashSet<int>(), entities=new HashSet<int>();
         readonly Dictionary<int,DateTime> lastCommand=new Dictionary<int,DateTime>();
         ModGameAPI api; ArchiveStore store; string saveDir, logDir;
+        GiftMailbox webGifts;int webGiftBusy;DateTime webGiftNext;
         Preferences preferences; string defaultLanguage="en"; Settings settings=new Settings(); volatile bool ready;
         string Language(PlayerInfo p) { return preferences.Resolve(p.steamId,defaultLanguage).Code; }
         string T(PlayerInfo p,string key,params object[] values) { return Texts.Render(Language(p),key,values); }
@@ -231,9 +232,15 @@ namespace QuantumHangarQc
             settings.Validate();defaultLanguage=settings.DefaultLanguage;
             if(!File.Exists(settingsPath)) Disk.Write(settingsPath,settings);
             store=new ArchiveStore(Path.Combine(logDir,"Archives"),settings.MaxShipsPerPlayer);
+            new GiftEngine(store,Path.Combine(logDir,"QuantumWebGift","journal")).RecoverAll();
+            var pairing=Path.Combine(logDir,"QuantumWebGift.xml");
+            if(File.Exists(pairing))try {webGifts=new GiftMailbox(logDir,store,
+                (donor,recipient)=>{lock(gate){if(stopped||owners.Contains(donor)||owners.Contains(recipient))return false;owners.Add(donor);owners.Add(recipient);return true;}},
+                (donor,recipient)=>{lock(gate){owners.Remove(donor);owners.Remove(recipient);}},Log);
+            }catch(Exception ex){Log("WEB_GIFT DISABLED "+ex.Message);}
             preferences=new Preferences(Path.Combine(logDir,"Preferences"),Log);
             Texts.Initialize(Path.Combine(Path.GetDirectoryName(typeof(HangarMod).Assembly.Location),"Languages"),Log);
-            ready=true;Log("START 0.2.8.2 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
+            ready=true;Log("START 0.2.8.3 CONFIG VALIDATE slots="+store.Capacity+"; save="+saveDir);
         }
         public void Game_Start(ModGameAPI gameApi) {
             api=gameApi;
@@ -248,6 +255,9 @@ namespace QuantumHangarQc
         public void Game_Update() {
             if(!ready) return;
             ScheduleGps();
+            bool startGifts=false;
+            lock(gate){if(webGifts!=null&&!stopped&&webGiftBusy==0&&DateTime.UtcNow>=webGiftNext){webGiftBusy=1;webGiftNext=DateTime.UtcNow.AddSeconds(2);startGifts=true;}}
+            if(startGifts)Task.Run(()=>{try{if(!stopped)webGifts.Pump();}catch(Exception ex){ready=false;Log("WEB_GIFT RECOVERY_REQUIRED "+ex.Message);}finally{lock(gate){webGiftBusy=0;if(stopped&&busy.Count==0&&instanceLock!=null){instanceLock.Dispose();instanceLock=null;}}}});
             for(int i=0;i<32;i++) {
                 Pending p; ushort seq;
                 lock(gate) {
@@ -274,7 +284,7 @@ namespace QuantumHangarQc
             lock(gate) { stopped=true; jobs=pending.Values.ToArray(); pending.Clear(); outbox.Clear(); }
             foreach(var p in jobs) p.Result.TrySetCanceled();
             // Export worker checks stopped before finishing; process lock is released on process exit.
-            Log("STOP"); lock(gate) { if(busy.Count==0 && instanceLock!=null) { instanceLock.Dispose(); instanceLock=null; } }
+            Log("STOP"); lock(gate) { if(busy.Count==0 && webGiftBusy==0 && instanceLock!=null) { instanceLock.Dispose(); instanceLock=null; } }
         }
         public void Game_Event(CmdId kind,ushort seq,object data) {
             if(stopped||!ready) return;
@@ -579,7 +589,7 @@ namespace QuantumHangarQc
         async void Run(int id,string[] args) {
             try { ActiveTask=Execute(id,args); await ActiveTask; }
             catch(Exception ex) { Log("ERROR player="+id+" "+ex.Message);  }
-            finally { lock(gate) { busy.Remove(id); if(stopped && busy.Count==0 && instanceLock!=null) { instanceLock.Dispose();instanceLock=null; } } }
+            finally { lock(gate) { busy.Remove(id); if(stopped && busy.Count==0 && webGiftBusy==0 && instanceLock!=null) { instanceLock.Dispose();instanceLock=null; } } }
         }
         async Task Execute(int id,string[] args) {
             var initial=await Player(id);string steam=initial.steamId;int client=initial.clientId;
